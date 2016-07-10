@@ -1,0 +1,377 @@
+fileFormatVersion: 2
+guid: 628a43890a9cf40c4818bf802398f3d8
+timeCreated: 1459092815
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: Paralax3_0
+    21300002: Paralax3_1
+    21300004: Paralax3_2
+    21300006: Paralax3_3
+    21300008: Paralax3_4
+    21300010: Paralax3_5
+    21300012: Paralax3_6
+    21300014: Paralax3_7
+    21300016: Paralax3_8
+    21300018: Paralax3_9
+    21300020: Paralax3_10
+    21300022: Paralax3_11
+    21300024: Paralax3_12
+    21300026: Paralax3_13
+    21300028: Paralax3_14
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 1
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  cubemapConvolution: 0
+  cubemapConvolutionSteps: 8
+  cubemapConvolutionExponent: 1.5
+  seamlessCubemap: 0
+  textureFormat: -1
+  maxTextureSize: 2048
+  textureSettings:
+    filterMode: -1
+    aniso: 16
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  rGBM: 0
+  compressionQuality: 50
+  allowsAlphaSplitting: 0
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 100
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    sprites:
+    - name: Paralax3_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 64
+        height: 474
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -30, y: 237}
+        - {x: -30, y: -216}
+        - {x: -23, y: -237}
+        - {x: 27, y: -237}
+        - {x: 27, y: 237}
+    - name: Paralax3_1
+      rect:
+        serializedVersion: 2
+        x: 65
+        y: 0
+        width: 80
+        height: 474
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -16, y: 237}
+        - {x: -40, y: 138}
+        - {x: -40, y: 107}
+        - {x: -39, y: 105}
+        - {x: -33, y: 106}
+        - {x: -34, y: -5}
+        - {x: -40, y: -54}
+        - {x: -40, y: -196}
+        - {x: -16, y: -237}
+        - {x: 30, y: -237}
+        - {x: 40, y: -219}
+        - {x: 40, y: 222}
+        - {x: 39, y: 237}
+    - name: Paralax3_2
+      rect:
+        serializedVersion: 2
+        x: 153
+        y: 0
+        width: 85
+        height: 474
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 42.5, y: 118}
+        - {x: 40.5, y: 132}
+        - {x: 19.5, y: 237}
+        - {x: -28.5, y: 237}
+        - {x: -42.5, y: 198}
+        - {x: -42.5, y: -237}
+        - {x: 21.5, y: -237}
+        - {x: 23.5, y: -228}
+        - {x: 23.5, y: -150}
+        - {x: 42.5, y: -3}
+      - - {x: 24.5, y: -196}
+        - {x: 27.5, y: -195}
+        - {x: 27.5, y: -192}
+        - {x: 24.5, y: -191}
+        - {x: 22.5, y: -193}
+      - - {x: 30.5, y: -158}
+        - {x: 28.5, y: -160}
+        - {x: 28.5, y: -166}
+        - {x: 31.5, y: -169}
+        - {x: 34.5, y: -167}
+        - {x: 34.5, y: -158}
+      - - {x: 34.5, y: -152}
+        - {x: 37.5, y: -151}
+        - {x: 37.5, y: -148}
+        - {x: 34.5, y: -147}
+        - {x: 32.5, y: -149}
+      - - {x: 35.5, y: -146}
+        - {x: 38.5, y: -145}
+        - {x: 38.5, y: -142}
+        - {x: 35.5, y: -141}
+        - {x: 33.5, y: -143}
+      - - {x: 36.5, y: -129}
+        - {x: 35.5, y: -136}
+        - {x: 35.5, y: -139}
+        - {x: 37.5, y: -141}
+        - {x: 40.5, y: -140}
+        - {x: 41.5, y: -135}
+        - {x: 41.5, y: -130}
+        - {x: 39.5, y: -128}
+      - - {x: 39.5, y: -120}
+        - {x: 41.5, y: -122}
+        - {x: 42.5, y: -122}
+        - {x: 42.5, y: -116}
+        - {x: 39.5, y: -117}
+    - name: Paralax3_3
+      rect:
+        serializedVersion: 2
+        x: 251
+        y: 0
+        width: 48
+        height: 474
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -6, y: 237}
+        - {x: -13, y: 128}
+        - {x: -24, y: 1}
+        - {x: -24, y: -71}
+        - {x: -21, y: -68}
+        - {x: -16, y: -48}
+        - {x: -22, y: -144}
+        - {x: -22, y: -158}
+        - {x: -12, y: -161}
+        - {x: -7, y: -237}
+        - {x: 11, y: -237}
+        - {x: 23, y: -102}
+        - {x: 23, y: 123}
+        - {x: 10, y: 237}
+      - - {x: 16, y: 234}
+        - {x: 20, y: 231}
+        - {x: 22, y: 231}
+        - {x: 24, y: 232}
+        - {x: 24, y: 237}
+        - {x: 16, y: 237}
+    - name: Paralax3_4
+      rect:
+        serializedVersion: 2
+        x: 300
+        y: 0
+        width: 63
+        height: 474
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -18.5, y: 237}
+        - {x: -31.5, y: 206}
+        - {x: -31.5, y: -214}
+        - {x: -28.5, y: -237}
+        - {x: 28.5, y: -237}
+        - {x: 31.5, y: -199}
+        - {x: 31.5, y: 180}
+        - {x: 25.5, y: 237}
+    - name: Paralax3_5
+      rect:
+        serializedVersion: 2
+        x: 376
+        y: 0
+        width: 70
+        height: 474
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 28, y: 53}
+        - {x: 21, y: -14}
+        - {x: 28, y: 149}
+        - {x: 16, y: 237}
+        - {x: -21, y: 237}
+        - {x: -33, y: 231}
+        - {x: -33, y: -237}
+        - {x: 35, y: -237}
+        - {x: 35, y: 61}
+        - {x: 34, y: 62}
+    - name: Paralax3_6
+      rect:
+        serializedVersion: 2
+        x: 450
+        y: 0
+        width: 26
+        height: 474
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: Paralax3_7
+      rect:
+        serializedVersion: 2
+        x: 478
+        y: 0
+        width: 131
+        height: 474
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 65.5, y: -1}
+        - {x: 46.5, y: 23}
+        - {x: 65.5, y: 130}
+        - {x: 65.5, y: 143}
+        - {x: 39.5, y: 237}
+        - {x: -49.5, y: 237}
+        - {x: -61.5, y: 115}
+        - {x: -65.5, y: 99}
+        - {x: -65.5, y: -29}
+        - {x: -50.5, y: -76}
+        - {x: -51.5, y: -233}
+        - {x: -49.5, y: -237}
+        - {x: 42.5, y: -237}
+        - {x: 43.5, y: -229}
+        - {x: 46.5, y: -101}
+        - {x: 65.5, y: -98}
+      - - {x: -65.5, y: 23}
+        - {x: -65.5, y: 13}
+        - {x: -61.5, y: 13}
+        - {x: -59.5, y: 21}
+        - {x: -59.5, y: 26}
+        - {x: -62.5, y: 26}
+      - - {x: -61.5, y: 189}
+        - {x: -62.5, y: 183}
+        - {x: -61.5, y: 181}
+        - {x: -58.5, y: 181}
+        - {x: -55.5, y: 182}
+        - {x: -55.5, y: 191}
+        - {x: -58.5, y: 192}
+    - name: Paralax3_8
+      rect:
+        serializedVersion: 2
+        x: 612
+        y: 0
+        width: 67
+        height: 474
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -25.5, y: 237}
+        - {x: -33.5, y: 191}
+        - {x: -33.5, y: -199}
+        - {x: -28.5, y: -237}
+        - {x: 33.5, y: -237}
+        - {x: 33.5, y: 218}
+        - {x: 20.5, y: 237}
+    - name: Paralax3_9
+      rect:
+        serializedVersion: 2
+        x: 697
+        y: 0
+        width: 152
+        height: 474
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 72, y: -43}
+        - {x: 65, y: 237}
+        - {x: 46, y: 237}
+        - {x: 40, y: 95}
+        - {x: 32, y: 184}
+        - {x: 30, y: 201}
+        - {x: 29, y: 202}
+        - {x: 29, y: 205}
+        - {x: 29, y: 203}
+        - {x: 33, y: 200}
+        - {x: 36, y: 199}
+        - {x: 38, y: 205}
+        - {x: 36, y: 214}
+        - {x: 29, y: 237}
+        - {x: -34, y: 237}
+        - {x: -52, y: 174}
+        - {x: -76, y: 48}
+        - {x: -76, y: -20}
+        - {x: -69, y: -32}
+        - {x: -76, y: -36}
+        - {x: -76, y: -190}
+        - {x: -41, y: -236}
+        - {x: -39, y: -237}
+        - {x: 67, y: -237}
+        - {x: 69, y: -235}
+        - {x: 72, y: -214}
+      - - {x: 35, y: -168}
+        - {x: 38, y: -167}
+        - {x: 38, y: -164}
+        - {x: 35, y: -163}
+        - {x: 33, y: -165}
+    - name: Paralax3_10
+      rect:
+        serializedVersion: 2
+        x: 865
+        y: 3
+        width: 131
+        height: 471
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 56.5, y: 79.5}
+        - {x: 45.5, y: 69.5}
+        - {x: 45.5, y: 68.5}
+        - {x: 42.5, y: 235.5}
+        - {x: -44.5, y: 235.5}
+        - {x: -65.5, y: 206.5}
+        - {x: -65.5, y: -180.5}
+        - {x: -41.5, y: -235.5}
+        - {x: 46.5, y: -235.5}
+        - {x: 64.5, y: -187.5}
+        - {x: 64.5, y: 81.5}
+        - {x: 63.5, y: 82.5}
+      - - {x: -47.5, y: -228.5}
+        - {x: -44.5, y: -227.5}
+        - {x: -44.5, y: -224.5}
+        - {x: -47.5, y: -223.5}
+        - {x: -49.5, y: -225.5}
+    outline: []
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

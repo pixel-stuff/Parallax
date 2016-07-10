@@ -1,0 +1,60 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 2
+  tags:
+  - SpawnArea
+  - Trunk
+  - SmashTree
+  - WeaponTree
+  - Beaver
+  - CameraManager
+  - ParallaxManager
+  - AudioManager
+  - BeaversManager
+  - TreeManager
+  - GripTree
+  - Tree
+  - MenuMnager
+  - CanChopTree
+  - TreeAnimation
+  - PivotPoint
+  - TreeBrotherPosition
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - 
+  - Water
+  - UI
+  - 
+  - 
+  - Lightnin
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  m_SortingLayers:
+  - name: Default
+    uniqueID: 0
+    locked: 0

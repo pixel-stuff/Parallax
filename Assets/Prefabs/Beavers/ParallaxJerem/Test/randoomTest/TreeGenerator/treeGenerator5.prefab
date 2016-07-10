@@ -1,0 +1,78 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &139762
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 417442}
+  - 114: {fileID: 11471282}
+  m_Layer: 0
+  m_Name: treeGenerator5
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &417442
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 139762}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -4.782746, y: -0.0325354, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+--- !u!114 &11471282
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 139762}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df1bffe23a4862b499d310993ef63b9d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AssetConfiguation:
+  - prefabAsset: {fileID: 120860, guid: 7d67e168c6202ed44a7ef75861ad1df5, type: 2}
+    probabilityOfApparition: 1
+  - prefabAsset: {fileID: 195774, guid: f2106d50c545e014080522e20052d1de, type: 2}
+    probabilityOfApparition: 1
+  - prefabAsset: {fileID: 175436, guid: 1ec6e774c8616674784a329243e61af3, type: 2}
+    probabilityOfApparition: 1
+  - prefabAsset: {fileID: 105454, guid: 318e5f7b00c715a4ca99173729dcc64c, type: 2}
+    probabilityOfApparition: 1
+  - prefabAsset: {fileID: 110248, guid: 83b2434168204e64f8f426317eaeb7e0, type: 2}
+    probabilityOfApparition: 1
+  - prefabAsset: {fileID: 120306, guid: 854344824db300046a0b05c99a578756, type: 2}
+    probabilityOfApparition: 1
+  - prefabAsset: {fileID: 197046, guid: 32af1deb08b7f6a4f96831e023cf0f64, type: 2}
+    probabilityOfApparition: 1
+  - prefabAsset: {fileID: 182428, guid: 2a7b176f8705e754781af11c44ad6900, type: 2}
+    probabilityOfApparition: 1
+  - prefabAsset: {fileID: 130918, guid: 319aa7c4f7f56e145a8f177650a9c25c, type: 2}
+    probabilityOfApparition: 1
+  - prefabAsset: {fileID: 191616, guid: 3ca96101722a1ff439b8869d83b572e1, type: 2}
+    probabilityOfApparition: 1
+  - prefabAsset: {fileID: 165464, guid: b6e4bfd92dcddee45ac8a5d42a4d2eb6, type: 2}
+    probabilityOfApparition: 1
+  additionalPrefabAsset: {fileID: 182352, guid: 241638e917a131f40b9faace8bc570fe,
+    type: 2}
+  additionalPrefabPosition: {x: 0, y: 3.76, z: 0}
+--- !u!1001 &100100000
+Prefab:
+  m_ObjectHideFlags: 1
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications: []
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 0}
+  m_RootGameObject: {fileID: 139762}
+  m_IsPrefabParent: 1
