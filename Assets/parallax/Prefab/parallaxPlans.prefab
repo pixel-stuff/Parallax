@@ -44,6 +44,8 @@ MonoBehaviour:
   depopLimitation: {fileID: 0}
   hightSpaceBetweenAsset: 0
   lowSpaceBetweenAsset: 0
+  relativeSpeed: 0
+  colorTeint: {r: 0, g: 0, b: 0, a: 0}
   generator: {fileID: 11487986, guid: ba32a5ce9a431464b9ffe7fa1e82805e, type: 2}
   visibleGameObjectTab: []
   space: 0
