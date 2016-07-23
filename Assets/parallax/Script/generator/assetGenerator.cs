@@ -21,9 +21,9 @@ public class assetGenerator : parralaxAssetGenerator {
 
 	public override  GenerateAssetStruct generateGameObjectAtPosition() {
 		GameObject asset = availableGameobject (GameObjectTabOfTypePrefab);
-		asset.GetComponent<SpriteRenderer> ().flipX = randomFlip ();
 		if (asset == null){
 			asset = Instantiate (prefab);
+			asset.GetComponent<SpriteRenderer> ().flipX = randomFlip ();
 			GameObjectTabOfTypePrefab.Add (asset);
 		}
 		GenerateAssetStruct assetStruct = new GenerateAssetStruct();
