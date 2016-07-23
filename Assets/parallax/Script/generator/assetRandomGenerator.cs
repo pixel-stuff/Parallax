@@ -13,7 +13,7 @@ public class randomSpawnAssetConfiguration : System.Object
 public class assetRandomGenerator : parralaxAssetGenerator {
 	
 	public randomSpawnAssetConfiguration[] AssetConfiguation;
-
+	public bool authoriseRandomFlip = false;
 	public List<GameObject>[] GameObjectTabOfTypePrefabs = null;
 
 	public GameObject additionalPrefabAsset;
@@ -58,6 +58,7 @@ public class assetRandomGenerator : parralaxAssetGenerator {
 		GameObject asset = availableGameobject (GameObjectTabOfTypePrefabs[id]);
 		if (asset == null) {
 			asset = Instantiate (AssetConfiguation[id].prefabAsset);
+			asset.GetComponent<SpriteRenderer> ().flipX = randomFlip ();
 			if (additionalPrefabAsset != null) {
 				GameObject additional = Instantiate (additionalPrefabAsset);
 				additional.transform.SetParent (asset.transform);
@@ -98,5 +99,13 @@ public class assetRandomGenerator : parralaxAssetGenerator {
 			}
 		}
 		return null;
+	}
+
+	private bool randomFlip(){
+		if (authoriseRandomFlip) {
+			int random = Random.Range (0, 2);
+			return (random == 0) ? true : false; 
+		}
+		return false;
 	}
 }

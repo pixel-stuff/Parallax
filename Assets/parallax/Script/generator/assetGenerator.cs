@@ -5,6 +5,7 @@ using System.Collections.Generic;
 public class assetGenerator : parralaxAssetGenerator {
 
 	public GameObject prefab;
+	public bool authoriseRandomFlip = false;
 
 	public List<GameObject> GameObjectTabOfTypePrefab = new List<GameObject>();
 
@@ -20,6 +21,7 @@ public class assetGenerator : parralaxAssetGenerator {
 
 	public override  GenerateAssetStruct generateGameObjectAtPosition() {
 		GameObject asset = availableGameobject (GameObjectTabOfTypePrefab);
+		asset.GetComponent<SpriteRenderer> ().flipX = randomFlip ();
 		if (asset == null){
 			asset = Instantiate (prefab);
 			GameObjectTabOfTypePrefab.Add (asset);
@@ -39,4 +41,13 @@ public class assetGenerator : parralaxAssetGenerator {
 		}
 		return null;
 	}
+
+	private bool randomFlip(){
+		if (authoriseRandomFlip) {
+			int random = Random.Range (0, 2);
+			return (random == 0) ? true : false; 
+		}
+		return false;
+	}
+
 }

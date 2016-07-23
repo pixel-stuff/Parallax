@@ -62,6 +62,7 @@ MonoBehaviour:
     probabilityOfApparition: 1
   - prefabAsset: {fileID: 165464, guid: b6e4bfd92dcddee45ac8a5d42a4d2eb6, type: 2}
     probabilityOfApparition: 1
+  authoriseRandomFlip: 1
   additionalPrefabAsset: {fileID: 141614, guid: 0e6db592f62c1284181e5c08408b0468,
     type: 2}
   additionalPrefabPosition: {x: 0, y: 3.76, z: 0}

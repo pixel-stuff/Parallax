@@ -81,11 +81,12 @@ public class parallaxPlanSave : parallaxPlan {
 	void generateNewAsset(){
 		GenerateAssetStruct assetStruct = generator.generateGameObjectAtPosition();
 		GameObject asset = assetStruct.generateAsset;
+		Vector3 position = asset.transform.position;
 		asset.transform.parent = this.transform;
 		if (speedSign > 0) {
-			asset.transform.position = new Vector3 (popLimitation.transform.position.x + (asset.GetComponent<SpriteRenderer> ().sprite.bounds.max.x) - (space - spaceBetweenAsset), popLimitation.transform.position.y, this.transform.position.z);
+			asset.transform.position = new Vector3 (popLimitation.transform.position.x + (asset.GetComponent<SpriteRenderer> ().sprite.bounds.max.x) - (space - spaceBetweenAsset),position.y + popLimitation.transform.position.y, this.transform.position.z);
 		} else {
-			asset.transform.position = new Vector3 (popLimitation.transform.position.x + (asset.GetComponent<SpriteRenderer> ().sprite.bounds.min.x) + (space - spaceBetweenAsset), popLimitation.transform.position.y, this.transform.position.z);
+			asset.transform.position = new Vector3 (popLimitation.transform.position.x + (asset.GetComponent<SpriteRenderer> ().sprite.bounds.min.x) + (space - spaceBetweenAsset),position.y + popLimitation.transform.position.y, this.transform.position.z);
 		}
 		visibleGameObjectTab.Add(asset);
 		StockAssetStruct stockAssetStruct = new StockAssetStruct();

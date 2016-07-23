@@ -65,16 +65,16 @@ public class parallaxPlanBasic : parallaxPlan {
 			}
 		}
 	}
-
-	bool TOTO=true;
+		
 	void generateAssetIfNeeded(){
 		if(((spaceBetweenLastAndPopLimitation() < (-spaceBetweenAsset + actualSpeed * speedMultiplicator)) && (speedSign > 0)) ||
 		   ((spaceBetweenLastAndPopLimitation() > (spaceBetweenAsset + actualSpeed * speedMultiplicator)) && (speedSign < 0))){
 			GenerateAssetStruct assetStruct = generator.generateGameObjectAtPosition();
 			GameObject asset = assetStruct.generateAsset;
+			Vector3 position = asset.transform.position;
 			asset.transform.parent = this.transform;
 			asset.GetComponent<SpriteRenderer> ().color = colorTeint;
-			asset.transform.position = new Vector3((popLimitation.transform.position.x + (speedSign * asset.GetComponent<SpriteRenderer> ().sprite.bounds.max.x)) + (space-spaceBetweenAsset),popLimitation.transform.position.y,this.transform.position.z);
+			asset.transform.position = new Vector3((popLimitation.transform.position.x + (speedSign * asset.GetComponent<SpriteRenderer> ().sprite.bounds.max.x)) + (space-spaceBetweenAsset),position.y + popLimitation.transform.position.y,this.transform.position.z);
 			visibleGameObjectTab.Add(asset);
 			generateNewSpaceBetweenAssetValue();
 		}
