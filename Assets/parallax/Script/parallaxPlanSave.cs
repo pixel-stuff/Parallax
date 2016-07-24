@@ -224,9 +224,11 @@ public class parallaxPlanSave : parallaxPlan {
 
     public override void refreshOnZoom()
     {
-        swapPopAndDepop();
-        moveAsset(0);
-        generateAssetIfNeeded();
-        swapPopAndDepop();
+    	if (m_isInit) {
+        	swapPopAndDepop();
+        	moveAsset(0);
+        	generateAssetIfNeeded();
+        	swapPopAndDepop();
+    	}
     }
 }
