@@ -35,6 +35,12 @@ public class assetRandomGenerator : parralaxAssetGenerator {
 		for (int i = 0; i < AssetConfiguation.Length; i++) {
 			random -= AssetConfiguation[i].probabilityOfApparition;
 			if (random < 0){
+				if (authoriseRandomFlip) {
+					i = i*10;
+					if (randomFlip ()) { 
+						i += 1;
+					}
+				}
 				return i;
 			}
 		}
@@ -55,10 +61,16 @@ public class assetRandomGenerator : parralaxAssetGenerator {
 
 
 	public GenerateAssetStruct generateAssetStructForId (int id){
+		int initialId = id;
+		bool isFlipped = false;
+		if (authoriseRandomFlip) {
+			isFlipped = (id % 2 ==0)? false : true;
+			id = id / 10;
+		}
 		GameObject asset = availableGameobject (GameObjectTabOfTypePrefabs[id]);
 		if (asset == null) {
 			asset = Instantiate (AssetConfiguation[id].prefabAsset);
-			asset.GetComponent<SpriteRenderer> ().flipX = randomFlip ();
+			asset.GetComponent<SpriteRenderer> ().flipX = isFlipped;
 			if (additionalPrefabAsset != null) {
 				GameObject additional = Instantiate (additionalPrefabAsset);
 				additional.transform.SetParent (asset.transform);
@@ -68,7 +80,7 @@ public class assetRandomGenerator : parralaxAssetGenerator {
 		}
 		GenerateAssetStruct assetStruct = new GenerateAssetStruct();
 		assetStruct.generateAsset = asset;
-		assetStruct.code = id;
+		assetStruct.code = initialId;
 		return assetStruct;
 	}
 
@@ -88,8 +100,7 @@ public class assetRandomGenerator : parralaxAssetGenerator {
 			}
 		return null;
 	}
-
-
+		
 
 	private GameObject availableGameobject(List<GameObject> list){
 		foreach(GameObject gameobject in list){
