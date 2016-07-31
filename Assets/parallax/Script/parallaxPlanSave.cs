@@ -92,6 +92,7 @@ public class parallaxPlanSave : parallaxPlan {
 		StockAssetStruct stockAssetStruct = new StockAssetStruct();
 		stockAssetStruct.code = assetStruct.code;
 		stockAssetStruct.dist = spaceBetweenAsset;
+		asset.GetComponent<SpriteRenderer> ().color = colorTeint;
 		m_stockAsset.Add(stockAssetStruct);
 		hightId ++;
 		generateNewSpaceBetweenAssetValue();
@@ -108,7 +109,7 @@ public class parallaxPlanSave : parallaxPlan {
 		} else {
 			asset.transform.position = new Vector3(popLimitation.transform.position.x + (asset.GetComponent<SpriteRenderer> ().sprite.bounds.min.x) + (space-dist),popLimitation.transform.position.y,this.transform.position.z);
 		}
-
+		asset.GetComponent<SpriteRenderer> ().color = colorTeint;
 		visibleGameObjectTab.Add(asset);
 		if (speedSign > 0) {
 			hightId ++;

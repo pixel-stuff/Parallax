@@ -18,7 +18,7 @@ abstract public class parallaxPlan : MonoBehaviour {
 	public float lowSpaceBetweenAsset = 0;
     public float relativeSpeed;
 
-	public Color colorTeint;
+	public Color colorTeint = Color.clear;
 
 	public parralaxAssetGenerator generator;
 
