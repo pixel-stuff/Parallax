@@ -119,7 +119,7 @@ MonoBehaviour:
     lowSpaceBetweenAsset: 1
     hightSpaceBetweenAsset: 2
     relativeSpeed: 0
-    colorTeinte: {r: 0.19999981, g: 0, b: 1, a: 0.384}
+    colorTeinte: {r: 0.19999981, g: 0, b: 1, a: 1}
     nameParalaxPlan: 1erTree
   cameraToFollow: {fileID: 1477489526}
   constantSpeed: 0

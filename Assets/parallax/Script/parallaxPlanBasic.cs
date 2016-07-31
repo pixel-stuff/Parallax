@@ -117,14 +117,9 @@ public class parallaxPlanBasic : parallaxPlan {
 			if (speedSign > 0){
 				space = getMaxValue();
 			}else {
-				space = getMinValue();/*Mathf.Min( 
-				                 (visibleGameObjectTab[visibleGameObjectTab.Count - 1].transform.position.x -(visibleGameObjectTab[visibleGameObjectTab.Count - 1].GetComponent<SpriteRenderer> ().sprite.bounds.max.x)) - popLimitation.transform.position.x,
-				                 (visibleGameObjectTab[0].transform.position.x -(visibleGameObjectTab[0].GetComponent<SpriteRenderer> ().sprite.bounds.max.x)) - popLimitation.transform.position.x
-				                 );*/
-				//Debug.Log("space speed < 0 : " + space);
+				space = getMinValue();
 			}
 			return space;
-			
 		} else {
 			return - float.MaxValue;
 		}
