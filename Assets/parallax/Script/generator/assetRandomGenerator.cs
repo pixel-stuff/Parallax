@@ -15,6 +15,7 @@ public class assetRandomGenerator : parralaxAssetGenerator {
 	public randomSpawnAssetConfiguration[] AssetConfiguation;
 	public bool authoriseRandomFlip = false;
 	public bool removeDirectDuplicata = true;
+	public bool removeFlipDuplicata = true;
 	public List<GameObject>[] GameObjectTabOfTypePrefabs = null;
 
 	public GameObject additionalPrefabAsset;
@@ -22,6 +23,7 @@ public class assetRandomGenerator : parralaxAssetGenerator {
 
 	private int probabilitySomme;
 	private int previousId = -1;
+	private int previousAssetId = -1;
 
 	// Use this for initialization
 	public override void clear(){
@@ -33,10 +35,12 @@ public class assetRandomGenerator : parralaxAssetGenerator {
 	}
 
 	private int getIdOfNextAsset() {
+		int selectedAsset;
 		int random = Random.Range(0,probabilitySomme);
 		for (int i = 0; i < AssetConfiguation.Length; i++) {
 			random -= AssetConfiguation[i].probabilityOfApparition;
 			if (random < 0){
+				selectedAsset = i;
 				if (authoriseRandomFlip) {
 					i = i*10;
 					if (randomFlip ()) { 
@@ -46,7 +50,11 @@ public class assetRandomGenerator : parralaxAssetGenerator {
 				if (removeDirectDuplicata && i == previousId && AssetConfiguation.Length > 1) {
 					return getIdOfNextAsset ();
 				}
+				if (removeFlipDuplicata && selectedAsset == previousAssetId && AssetConfiguation.Length > 1) {
+					return getIdOfNextAsset ();
+				}
 				previousId = i;
+				previousAssetId = selectedAsset;
 				return i;
 			}
 		}
