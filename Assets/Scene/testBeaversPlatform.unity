@@ -116,8 +116,8 @@ MonoBehaviour:
   - prefabParralaxPlan: {fileID: 127212, guid: 549e15a83fa65439aa493ab51046c433, type: 2}
     distance: -10
     generatorScript: {fileID: 11469598, guid: c1a26580680da024db2019953d2e24fa, type: 2}
-    lowSpaceBetweenAsset: 1
-    hightSpaceBetweenAsset: 2
+    lowSpaceBetweenAsset: 0.5
+    hightSpaceBetweenAsset: 3
     relativeSpeed: 0
     colorTeinte: {r: 0.19999981, g: 0, b: 1, a: 1}
     nameParalaxPlan: 1erTree
