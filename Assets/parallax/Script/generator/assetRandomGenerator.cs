@@ -14,12 +14,14 @@ public class assetRandomGenerator : parralaxAssetGenerator {
 	
 	public randomSpawnAssetConfiguration[] AssetConfiguation;
 	public bool authoriseRandomFlip = false;
+	public bool removeDirectDuplicata = true;
 	public List<GameObject>[] GameObjectTabOfTypePrefabs = null;
 
 	public GameObject additionalPrefabAsset;
 	public Vector3 additionalPrefabPosition;
 
 	private int probabilitySomme;
+	private int previousId = -1;
 
 	// Use this for initialization
 	public override void clear(){
@@ -41,6 +43,10 @@ public class assetRandomGenerator : parralaxAssetGenerator {
 						i += 1;
 					}
 				}
+				if (removeDirectDuplicata && i == previousId && AssetConfiguation.Length > 1) {
+					return getIdOfNextAsset ();
+				}
+				previousId = i;
 				return i;
 			}
 		}
