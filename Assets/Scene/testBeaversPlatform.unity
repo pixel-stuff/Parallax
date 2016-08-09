@@ -95,12 +95,12 @@ GameObject:
   - 4: {fileID: 297441833}
   - 114: {fileID: 297441832}
   m_Layer: 0
-  m_Name: parallax
+  m_Name: Testparallax
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &297441832
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -136,6 +136,56 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
+--- !u!1001 &356653666
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 422486, guid: 2579ff322e499e84dbf7c7c9de812e92, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 422486, guid: 2579ff322e499e84dbf7c7c9de812e92, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 422486, guid: 2579ff322e499e84dbf7c7c9de812e92, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 422486, guid: 2579ff322e499e84dbf7c7c9de812e92, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 422486, guid: 2579ff322e499e84dbf7c7c9de812e92, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 422486, guid: 2579ff322e499e84dbf7c7c9de812e92, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 422486, guid: 2579ff322e499e84dbf7c7c9de812e92, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 422486, guid: 2579ff322e499e84dbf7c7c9de812e92, type: 2}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11407312, guid: 2579ff322e499e84dbf7c7c9de812e92, type: 2}
+      propertyPath: constantSpeed
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11407312, guid: 2579ff322e499e84dbf7c7c9de812e92, type: 2}
+      propertyPath: cameraToFollow
+      value: 
+      objectReference: {fileID: 1477489526}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 2579ff322e499e84dbf7c7c9de812e92, type: 2}
+  m_IsPrefabParent: 0
 --- !u!1 &1477489522
 GameObject:
   m_ObjectHideFlags: 0
@@ -222,7 +272,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
 --- !u!114 &1477489528
 MonoBehaviour:
   m_ObjectHideFlags: 0
