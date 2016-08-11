@@ -88,6 +88,12 @@ public class assetRandomGenerator : parralaxAssetGenerator {
 		}
 	}
 
+	private GameObject generateAssetWithSprite(Sprite sprite) {
+		GameObject asset = new GameObject ();
+		SpriteRenderer spriteRenderer = asset.AddComponent<SpriteRenderer> ();
+		spriteRenderer.sprite = sprite;
+		asset.name = sprite.name;
+	}
 
 	public GenerateAssetStruct generateAssetStructForId (int id){
 		int initialId = id;
@@ -99,10 +105,7 @@ public class assetRandomGenerator : parralaxAssetGenerator {
 		GameObject asset = availableGameobject (GameObjectTabOfTypePrefabs[id]);
 		if (asset == null) {
 			if (AssetConfiguation [id].prefabAsset == null) {
-				asset = new GameObject ();
-				SpriteRenderer spriteRenderer = asset.AddComponent<SpriteRenderer> ();
-				spriteRenderer.sprite = AssetConfiguation [id].spriteAsset;
-				asset.name = AssetConfiguation [id].spriteAsset.name;
+				asset = generateAssetWithSprite (AssetConfiguation [id].spriteAsset);
 				AssetConfiguation [id].prefabAsset = asset;
 			} else {
 				asset = Instantiate (AssetConfiguation[id].prefabAsset);

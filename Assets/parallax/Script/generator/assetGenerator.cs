@@ -4,7 +4,8 @@ using System.Collections.Generic;
 
 public class assetGenerator : parralaxAssetGenerator {
 
-	public GameObject prefab;
+	public GameObject prefab = null;
+	public Sprite spriteForPrefab = null;
 	public bool authoriseRandomFlip = false;
 
 	public List<GameObject> GameObjectTabOfTypePrefab = new List<GameObject>();
@@ -19,9 +20,20 @@ public class assetGenerator : parralaxAssetGenerator {
 		return generateGameObjectAtPosition ();
 	}
 
+	private GameObject generateAssetWithSprite(Sprite sprite) {
+		GameObject asset = new GameObject ();
+		SpriteRenderer spriteRenderer = asset.AddComponent<SpriteRenderer> ();
+		spriteRenderer.sprite = sprite;
+		asset.name = sprite.name;
+	}
+
 	public override  GenerateAssetStruct generateGameObjectAtPosition() {
 		GameObject asset = availableGameobject (GameObjectTabOfTypePrefab);
 		if (asset == null){
+			if (prefab == null) {
+				asset = generateAssetWithSprite (spriteForPrefab);
+				prefab = asset;
+			}
 			asset = Instantiate (prefab);
 			asset.GetComponent<SpriteRenderer> ().flipX = randomFlip ();
 			GameObjectTabOfTypePrefab.Add (asset);
