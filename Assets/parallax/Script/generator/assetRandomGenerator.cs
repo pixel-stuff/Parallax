@@ -93,6 +93,7 @@ public class assetRandomGenerator : parralaxAssetGenerator {
 		SpriteRenderer spriteRenderer = asset.AddComponent<SpriteRenderer> ();
 		spriteRenderer.sprite = sprite;
 		asset.name = sprite.name;
+		return asset;
 	}
 
 	public GenerateAssetStruct generateAssetStructForId (int id){
