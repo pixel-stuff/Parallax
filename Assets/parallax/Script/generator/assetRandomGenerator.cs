@@ -2,11 +2,13 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 
 [System.Serializable]
 public class randomSpawnAssetConfiguration : System.Object
 {
-	public GameObject prefabAsset;
+	public GameObject prefabAsset = null;
+	public Sprite spriteAsset = null;
 	public int probabilityOfApparition;
 }
 
@@ -24,8 +26,21 @@ public class assetRandomGenerator : parralaxAssetGenerator {
 	private int probabilitySomme;
 	private int previousId = -1;
 	private int previousAssetId = -1;
+	/*
+	void CreatePrefabForAssetConfiguration(){
+		if (AssetConfiguation.Length > 0) {
+			for (int i = 0; i < AssetConfiguation.Length; i++) {
+				if (AssetConfiguation [i].prefabAsset == null) {
+					GameObject prefabWithSprite = (GameObject)PrefabUtility.CreateEmptyPrefab ("Assets/Temporary/"+AssetConfiguation [i].prefabAsset.name+".prefab");
+					//Object prefab = PrefabUtility.CreateEmptyPrefab ("");
+					SpriteRenderer spriteRenderer = prefabWithSprite.AddComponent<SpriteRenderer> ();
+					spriteRenderer.sprite = AssetConfiguation [i].spriteAsset;
+					AssetConfiguation [i].prefabAsset = prefabWithSprite;
+				}
+			}
+		}
+	}*/
 
-	// Use this for initialization
 	public override void clear(){
 		if(GameObjectTabOfTypePrefabs != null){
 			for (int i =0; i < GameObjectTabOfTypePrefabs.Length; i++) {
@@ -83,7 +98,15 @@ public class assetRandomGenerator : parralaxAssetGenerator {
 		}
 		GameObject asset = availableGameobject (GameObjectTabOfTypePrefabs[id]);
 		if (asset == null) {
-			asset = Instantiate (AssetConfiguation[id].prefabAsset);
+			if (AssetConfiguation [id].prefabAsset == null) {
+				asset = new GameObject ();
+				SpriteRenderer spriteRenderer = asset.AddComponent<SpriteRenderer> ();
+				spriteRenderer.sprite = AssetConfiguation [id].spriteAsset;
+				asset.name = AssetConfiguation [id].spriteAsset.name;
+				AssetConfiguation [id].prefabAsset = asset;
+			} else {
+				asset = Instantiate (AssetConfiguation[id].prefabAsset);
+			}
 			asset.GetComponent<SpriteRenderer> ().flipX = isFlipped;
 			if (additionalPrefabAsset != null) {
 				GameObject additional = Instantiate (additionalPrefabAsset);

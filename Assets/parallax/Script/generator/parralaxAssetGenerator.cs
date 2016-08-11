@@ -5,7 +5,6 @@ public class GenerateAssetStruct : System.Object
 {
 	public GameObject generateAsset;
 	public int code;
-	//public float 
 }
 
 
