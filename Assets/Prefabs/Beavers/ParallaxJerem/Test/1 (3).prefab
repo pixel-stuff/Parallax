@@ -39,7 +39,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3f6e944d3dce42958b4ecb8a7da8fdf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefab: {fileID: 139228, guid: 01fcdd5cf0655464391503c05f94fadf, type: 2}
+  prefab: {fileID: 0}
+  spriteForPrefab: {fileID: 21300000, guid: 7ea8e75a08b6e49e78f1dc352a0b7f30, type: 3}
   authoriseRandomFlip: 0
   GameObjectTabOfTypePrefab:
   - {fileID: 0}
