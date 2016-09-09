@@ -47,10 +47,14 @@ public class parralaxManager : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		speed = constantSpeed;
-		rightBorder = Instantiate (new GameObject ());
-		rightBorder.transform.parent = this.transform;
+		rightBorder = Instantiate ( new GameObject());
+		rightBorder.name = "rightBorder";
+		rightBorder.transform.position = new Vector3 (rightBorder.transform.position.x, cameraToFollow.transform.position.y - cameraToFollow.rect.height * cameraToFollow.orthographicSize, rightBorder.transform.position.z);
+		//rightBorder.transform.parent = this.transform;
 		leftBorder = Instantiate (new GameObject ());
-		leftBorder.transform.parent = this.transform;
+		leftBorder.name = "leftBorder";
+		leftBorder.transform.position = new Vector3 (leftBorder.transform.position.x, cameraToFollow.transform.position.y - cameraToFollow.rect.height * cameraToFollow.orthographicSize, leftBorder.transform.position.z);
+		//leftBorder.transform.parent = this.transform;
 		parralaxPlans = new List<GameObject> ();
 		foreach (ParralaxPlanConfiguration config in configurationParralax) {
 			GameObject tempParralaxPlan = Instantiate(config.prefabParralaxPlan);
@@ -109,18 +113,20 @@ public class parralaxManager : MonoBehaviour {
             CameraWidthSize = cameraOrthographiqueSize * CameraW;
             refreshZoom = true;
         }
-        rightBorder.transform .position = new Vector3 (cameraToFollow.transform.position.x + CameraW * cameraOrthographiqueSize, rightBorder.transform .position.y,rightBorder.transform .position.z);
-		leftBorder.transform .position = new Vector3 (cameraToFollow.transform.position.x - CameraW * cameraOrthographiqueSize, leftBorder.transform .position.y,leftBorder.transform .position.z);
+		rightBorder.transform .position = new Vector3 (cameraToFollow.transform.position.x + CameraW * cameraOrthographiqueSize, rightBorder.transform.position.y,rightBorder.transform .position.z);
+		leftBorder.transform .position = new Vector3 (cameraToFollow.transform.position.x - CameraW * cameraOrthographiqueSize, leftBorder.transform.position.y,leftBorder.transform .position.z);
 
 
 		float cameraSpeedX=0;
+		float cameraSpeedY = 0;
 		if (cameraToFollow != null){
-			cameraSpeedX = (cameraToFollow.transform.position.x - this.transform.position.x)*10;
-			this.transform.position = new Vector3(cameraToFollow.transform.position.x, this.transform.position.y, this.transform.position.z);
+			cameraSpeedX = (cameraToFollow.transform.position.x - this.transform.position.x);
+			cameraSpeedY = (cameraToFollow.transform.position.y - this.transform.position.y);
+			this.transform.position = new Vector3(cameraToFollow.transform.position.x, cameraToFollow.transform.position.y, this.transform.position.z);
 		}
 		
 		foreach (GameObject plan in parralaxPlans) {
-			plan.GetComponent<parallaxPlan> ().setSpeedOfPlan (speed+ cameraSpeedX);
+			plan.GetComponent<parallaxPlan> ().setSpeedOfPlan (speed+ cameraSpeedX,0); // TODO set speed Y
             if (refreshZoom)
             {
                 plan.GetComponent<parallaxPlan>().refreshOnZoom();

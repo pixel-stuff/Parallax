@@ -12,6 +12,7 @@ public class parallaxPlanSave : parallaxPlan {
 	private bool m_isInit = false;
 	
 	private float actualSpeed = 0.0f;
+	private float YActualSpeed = 0.0f;
 	
 	private float spaceBetweenAsset = 0.0f;
 	private float m_speedMultiplicator;
@@ -26,13 +27,13 @@ public class parallaxPlanSave : parallaxPlan {
 	// Use this for initialization
 	void Start () {
 		m_stockAsset = new List<StockAssetStruct>();
-		actualSpeed = 1;
+		actualSpeed = 0;
 		setTheDistanceMultiplicator ();
 		generator.clear ();
 		hightId=-1;
 		generateNewSpaceBetweenAssetValue();
 		while (!m_isInit) {
-			moveAsset (m_initSpeed);
+			moveAsset (m_initSpeed,0);
 			generateAssetIfNeeded ();
 		}
 	}
@@ -47,11 +48,11 @@ public class parallaxPlanSave : parallaxPlan {
 	
 	// Update is called once per frame
 	void Update () {
-		moveAsset (actualSpeed * m_speedMultiplicator);
+		moveAsset (actualSpeed * m_speedMultiplicator,YActualSpeed * m_speedMultiplicator);
 		generateAssetIfNeeded ();
 	}
 	
-	void moveAsset(float speed) {
+	void moveAsset(float speedX,float speedY) {
 		//clone for remove later 
 		List<GameObject> temp = new List<GameObject>();
 		foreach(GameObject g in visibleGameObjectTab) {
@@ -73,7 +74,8 @@ public class parallaxPlanSave : parallaxPlan {
 				visibleGameObjectTab.Remove(parrallaxAsset);
 				m_isInit =true;
 			} else {
-				positionAsset.x -= speed;
+				positionAsset.x -= speedX;
+				positionAsset.y -= speedY;
 				parrallaxAsset.transform.position = positionAsset;
 			}
 		}
@@ -92,7 +94,7 @@ public class parallaxPlanSave : parallaxPlan {
 		GameObject asset = assetStruct.generateAsset;
 		Vector3 position = asset.transform.position;
 		asset.transform.parent = this.transform;
-		asset.transform.position = new Vector3 (popLimitation.transform.position.x + calculateXOffsetForAsset(asset), position.y + popLimitation.transform.position.y, this.transform.position.z);
+		asset.transform.position = new Vector3 (popLimitation.transform.position.x + calculateXOffsetForAsset(asset), popLimitation.transform.position.y + position.y, this.transform.position.z);
 		visibleGameObjectTab.Add(asset);
 		StockAssetStruct stockAssetStruct = new StockAssetStruct();
 		stockAssetStruct.code = assetStruct.code;
@@ -109,7 +111,7 @@ public class parallaxPlanSave : parallaxPlan {
 		GameObject asset = assetStruct.generateAsset;
 		Vector3 position = asset.transform.position;
 		asset.transform.parent = this.transform;
-		asset.transform.position = new Vector3 (popLimitation.transform.position.x + calculateXOffsetForAsset(asset), position.y + popLimitation.transform.position.y, this.transform.position.z);
+		asset.transform.position = new Vector3 (popLimitation.transform.position.x + calculateXOffsetForAsset(asset), popLimitation.transform.position.y + position.y , this.transform.position.z);
 		visibleGameObjectTab.Add(asset);
 		StockAssetStruct stockAssetStruct = new StockAssetStruct();
 		stockAssetStruct.code = assetStruct.code;
@@ -177,13 +179,14 @@ public class parallaxPlanSave : parallaxPlan {
 	}
 	
 	
-	public override void setSpeedOfPlan(float newSpeed){
+	public override void setSpeedOfPlan(float newSpeed, float ySpeed){
         float speed = newSpeed + relativeSpeed;
 		if ((speed > 0 && speedSign < 0) || (speed < 0 && speedSign > 0)) {
 			swapPopAndDepop ();
 			print ("Swap");
 		}
 		actualSpeed = speed;
+		YActualSpeed = ySpeed;
 	}
 	
 	void swapPopAndDepop(){
@@ -246,7 +249,7 @@ public class parallaxPlanSave : parallaxPlan {
     {
     	if (m_isInit) {
         	swapPopAndDepop();
-        	moveAsset(0);
+        	moveAsset(0,0);
         	generateAssetIfNeeded();
         	swapPopAndDepop();
     	}

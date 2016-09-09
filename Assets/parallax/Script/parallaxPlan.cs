@@ -22,7 +22,7 @@ abstract public class parallaxPlan : MonoBehaviour {
 
 	public parralaxAssetGenerator generator;
 
-	abstract public void setSpeedOfPlan(float newSpeed);
+	abstract public void setSpeedOfPlan(float newSpeed, float ySpeed);
 
     abstract public void refreshOnZoom();
 
