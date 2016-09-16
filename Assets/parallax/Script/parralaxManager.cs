@@ -126,7 +126,7 @@ public class parralaxManager : MonoBehaviour {
 		}
 		
 		foreach (GameObject plan in parralaxPlans) {
-			plan.GetComponent<parallaxPlan> ().setSpeedOfPlan (speed+ cameraSpeedX,0); // TODO set speed Y
+			plan.GetComponent<parallaxPlan> ().setSpeedOfPlan (speed+ cameraSpeedX,cameraSpeedY); // TODO set speed Y
             if (refreshZoom)
             {
                 plan.GetComponent<parallaxPlan>().refreshOnZoom();

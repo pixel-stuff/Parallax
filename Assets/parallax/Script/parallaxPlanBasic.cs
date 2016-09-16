@@ -37,8 +37,8 @@ public class parallaxPlanBasic : parallaxPlan {
 	}
 	
 	// Update is called once per frame
-	void Update () {
-		moveAsset (actualSpeed * speedMultiplicator, YActualSpeed * speedMultiplicator);
+	void FixedUpdate () {
+		moveAsset (actualSpeed * speedMultiplicator, YActualSpeed);
 		generateAssetIfNeeded ();
 	}
 	
@@ -56,7 +56,6 @@ public class parallaxPlanBasic : parallaxPlan {
 			GameObject parrallaxAsset = temp[i];
 			Vector3 positionAsset = parrallaxAsset.transform.position;
 			if (!isStillVisible(parrallaxAsset)){
-				Debug.Log("DESTROY ONE ");
 				parrallaxAsset.SetActive(false);
 				visibleGameObjectTab.Remove(parrallaxAsset);
 				isInit =true;
@@ -76,7 +75,7 @@ public class parallaxPlanBasic : parallaxPlan {
 			Vector3 position = asset.transform.position;
 			asset.transform.parent = this.transform;
 			asset.GetComponent<SpriteRenderer> ().color = colorTeint;
-			asset.transform.position = new Vector3((popLimitation.transform.position.x + (speedSign * asset.GetComponent<SpriteRenderer> ().sprite.bounds.max.x)) + (space-spaceBetweenAsset),popLimitation.transform.position.y +position.y,this.transform.position.z);
+			asset.transform.position = new Vector3((popLimitation.transform.position.x + (speedSign * asset.GetComponent<SpriteRenderer> ().sprite.bounds.max.x)) + (space-spaceBetweenAsset),popLimitation.transform.position.y +asset.GetComponent<SpriteRenderer> ().sprite.bounds.extents.y,this.transform.position.z);
 			visibleGameObjectTab.Add(asset);
 			generateNewSpaceBetweenAssetValue();
 		}
@@ -91,8 +90,6 @@ public class parallaxPlanBasic : parallaxPlan {
 	public override void setSpeedOfPlan(float newSpeed, float ySpeed){
 		if ((actualSpeed > 0 && speedSign < 0) || (actualSpeed < 0 && speedSign > 0)) {
 			swapPopAndDepop ();
-			
-			print ("Swap");
 		}
 		actualSpeed = newSpeed;
 		YActualSpeed = ySpeed;
