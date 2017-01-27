@@ -16,6 +16,8 @@ public class parallaxPlanBasic : parallaxPlan {
 	
 	private float spaceBetweenAsset = 0.0f;
 	private float speedMultiplicator;
+	private float speedMultiplicatorY;
+	private float initialY;
 	
 	private int speedSign = 1;
 	
@@ -24,6 +26,7 @@ public class parallaxPlanBasic : parallaxPlan {
 		actualSpeed = 0;
 		if (distance < 0) {
 			speedMultiplicator = 1/ -distance;//1 - (1 / (1 -distance));
+			speedMultiplicatorY = 1+1/(distance/2);
 		} else {
 			speedMultiplicator = 1 +  distance/10;//1 - (1 / (1 + distance));
 		}
@@ -34,11 +37,12 @@ public class parallaxPlanBasic : parallaxPlan {
 			//			Debug.Log();
 			generateAssetIfNeeded ();
 		}
+		initialY = this.transform.position.y;
 	}
 	
 	// Update is called once per frame
-	void FixedUpdate () {
-		moveAsset (actualSpeed * speedMultiplicator, YActualSpeed);
+	void Update () {
+		moveAsset (actualSpeed * speedMultiplicator, YActualSpeed * -speedMultiplicatorY);
 		generateAssetIfNeeded ();
 	}
 	
@@ -75,7 +79,13 @@ public class parallaxPlanBasic : parallaxPlan {
 			Vector3 position = asset.transform.position;
 			asset.transform.parent = this.transform;
 			asset.GetComponent<SpriteRenderer> ().color = colorTeint;
-			asset.transform.position = new Vector3((popLimitation.transform.position.x + (speedSign * asset.GetComponent<SpriteRenderer> ().sprite.bounds.max.x)) + (space-spaceBetweenAsset),popLimitation.transform.position.y +asset.GetComponent<SpriteRenderer> ().sprite.bounds.extents.y,this.transform.position.z);
+			float yPosition = 0f;
+			if (visibleGameObjectTab.Count == 0) {
+				yPosition = initialY;
+			} else {
+				yPosition = visibleGameObjectTab [0].transform.position.y;
+			}
+			asset.transform.position = new Vector3((popLimitation.transform.position.x + (speedSign * asset.GetComponent<SpriteRenderer> ().sprite.bounds.max.x)) + (space-spaceBetweenAsset),yPosition,this.transform.position.z);
 			visibleGameObjectTab.Add(asset);
 			generateNewSpaceBetweenAssetValue();
 		}

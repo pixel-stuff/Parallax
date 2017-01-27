@@ -13,7 +13,7 @@ SceneSettings:
 --- !u!104 &2
 RenderSettings:
   m_ObjectHideFlags: 0
-  serializedVersion: 6
+  serializedVersion: 7
   m_Fog: 0
   m_FogColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
   m_FogMode: 3
@@ -37,12 +37,12 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
 --- !u!157 &4
 LightmapSettings:
   m_ObjectHideFlags: 0
-  serializedVersion: 6
+  serializedVersion: 7
   m_GIWorkflowMode: 0
-  m_LightmapsMode: 1
   m_GISettings:
     serializedVersion: 2
     m_BounceScale: 1
@@ -53,17 +53,22 @@ LightmapSettings:
     m_EnableBakedLightmaps: 0
     m_EnableRealtimeLightmaps: 0
   m_LightmapEditorSettings:
-    serializedVersion: 3
+    serializedVersion: 4
     m_Resolution: 2
     m_BakeResolution: 40
     m_TextureWidth: 1024
     m_TextureHeight: 1024
+    m_AO: 0
     m_AOMaxDistance: 1
-    m_Padding: 2
     m_CompAOExponent: 0
+    m_CompAOExponentDirect: 0
+    m_Padding: 2
     m_LightmapParameters: {fileID: 0}
+    m_LightmapsBakeMode: 1
     m_TextureCompression: 1
+    m_DirectLightInLightProbes: 1
     m_FinalGather: 0
+    m_FinalGatherFiltering: 1
     m_FinalGatherRayCount: 1024
     m_ReflectionCompression: 2
   m_LightingDataAsset: {fileID: 0}
@@ -85,6 +90,331 @@ NavMeshSettings:
     cellSize: 0.16666667
     manualCellSize: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1001 &954022436
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 11490086, guid: d44b2c66682dd7a44a7f445428d543c6, type: 2}
+      propertyPath: configurationParralax.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 422156, guid: d44b2c66682dd7a44a7f445428d543c6, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 422156, guid: d44b2c66682dd7a44a7f445428d543c6, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 422156, guid: d44b2c66682dd7a44a7f445428d543c6, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 422156, guid: d44b2c66682dd7a44a7f445428d543c6, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 422156, guid: d44b2c66682dd7a44a7f445428d543c6, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 422156, guid: d44b2c66682dd7a44a7f445428d543c6, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 422156, guid: d44b2c66682dd7a44a7f445428d543c6, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 422156, guid: d44b2c66682dd7a44a7f445428d543c6, type: 2}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 11490086, guid: d44b2c66682dd7a44a7f445428d543c6, type: 2}
+      propertyPath: cameraToFollow
+      value: 
+      objectReference: {fileID: 1444485449}
+    - target: {fileID: 11490086, guid: d44b2c66682dd7a44a7f445428d543c6, type: 2}
+      propertyPath: constantSpeed
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 189840, guid: d44b2c66682dd7a44a7f445428d543c6, type: 2}
+      propertyPath: m_Name
+      value: ParallaxManagerJeremSimple
+      objectReference: {fileID: 0}
+    - target: {fileID: 11490086, guid: d44b2c66682dd7a44a7f445428d543c6, type: 2}
+      propertyPath: configurationParralax.Array.data[5].prefabParralaxPlan
+      value: 
+      objectReference: {fileID: 132386, guid: d2dd1d07fce184209812f2e3d104b798, type: 2}
+    - target: {fileID: 11490086, guid: d44b2c66682dd7a44a7f445428d543c6, type: 2}
+      propertyPath: configurationParralax.Array.data[5].distance
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11490086, guid: d44b2c66682dd7a44a7f445428d543c6, type: 2}
+      propertyPath: configurationParralax.Array.data[5].generatorScript
+      value: 
+      objectReference: {fileID: 11434114, guid: 45e6e951137d6694784f951757886c5a,
+        type: 2}
+    - target: {fileID: 11490086, guid: d44b2c66682dd7a44a7f445428d543c6, type: 2}
+      propertyPath: configurationParralax.Array.data[5].colorTeinte.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11490086, guid: d44b2c66682dd7a44a7f445428d543c6, type: 2}
+      propertyPath: configurationParralax.Array.data[5].colorTeinte.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11490086, guid: d44b2c66682dd7a44a7f445428d543c6, type: 2}
+      propertyPath: configurationParralax.Array.data[5].colorTeinte.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11490086, guid: d44b2c66682dd7a44a7f445428d543c6, type: 2}
+      propertyPath: configurationParralax.Array.data[5].colorTeinte.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11490086, guid: d44b2c66682dd7a44a7f445428d543c6, type: 2}
+      propertyPath: configurationParralax.Array.data[5].nameParalaxPlan
+      value: foreground
+      objectReference: {fileID: 0}
+    - target: {fileID: 11490086, guid: d44b2c66682dd7a44a7f445428d543c6, type: 2}
+      propertyPath: configurationParralax.Array.data[6].prefabParralaxPlan
+      value: 
+      objectReference: {fileID: 132386, guid: d2dd1d07fce184209812f2e3d104b798, type: 2}
+    - target: {fileID: 11490086, guid: d44b2c66682dd7a44a7f445428d543c6, type: 2}
+      propertyPath: configurationParralax.Array.data[6].generatorScript
+      value: 
+      objectReference: {fileID: 11418782, guid: bdaec8e682001714d8f7fdd9d6dd1dfd,
+        type: 2}
+    - target: {fileID: 11490086, guid: d44b2c66682dd7a44a7f445428d543c6, type: 2}
+      propertyPath: configurationParralax.Array.data[6].colorTeinte.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11490086, guid: d44b2c66682dd7a44a7f445428d543c6, type: 2}
+      propertyPath: configurationParralax.Array.data[6].colorTeinte.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11490086, guid: d44b2c66682dd7a44a7f445428d543c6, type: 2}
+      propertyPath: configurationParralax.Array.data[6].colorTeinte.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11490086, guid: d44b2c66682dd7a44a7f445428d543c6, type: 2}
+      propertyPath: configurationParralax.Array.data[6].colorTeinte.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11490086, guid: d44b2c66682dd7a44a7f445428d543c6, type: 2}
+      propertyPath: configurationParralax.Array.data[6].nameParalaxPlan
+      value: Ground
+      objectReference: {fileID: 0}
+    - target: {fileID: 11490086, guid: d44b2c66682dd7a44a7f445428d543c6, type: 2}
+      propertyPath: configurationParralax.Array.data[7].prefabParralaxPlan
+      value: 
+      objectReference: {fileID: 132386, guid: d2dd1d07fce184209812f2e3d104b798, type: 2}
+    - target: {fileID: 11490086, guid: d44b2c66682dd7a44a7f445428d543c6, type: 2}
+      propertyPath: configurationParralax.Array.data[7].distance
+      value: -25
+      objectReference: {fileID: 0}
+    - target: {fileID: 11490086, guid: d44b2c66682dd7a44a7f445428d543c6, type: 2}
+      propertyPath: configurationParralax.Array.data[7].generatorScript
+      value: 
+      objectReference: {fileID: 11412024, guid: b67a643d0df168445ba3ecf6655098f9,
+        type: 2}
+    - target: {fileID: 11490086, guid: d44b2c66682dd7a44a7f445428d543c6, type: 2}
+      propertyPath: configurationParralax.Array.data[7].lowSpaceBetweenAsset
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 11490086, guid: d44b2c66682dd7a44a7f445428d543c6, type: 2}
+      propertyPath: configurationParralax.Array.data[7].hightSpaceBetweenAsset
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 11490086, guid: d44b2c66682dd7a44a7f445428d543c6, type: 2}
+      propertyPath: configurationParralax.Array.data[7].colorTeinte.r
+      value: 0.5294118
+      objectReference: {fileID: 0}
+    - target: {fileID: 11490086, guid: d44b2c66682dd7a44a7f445428d543c6, type: 2}
+      propertyPath: configurationParralax.Array.data[7].colorTeinte.g
+      value: 0.5294118
+      objectReference: {fileID: 0}
+    - target: {fileID: 11490086, guid: d44b2c66682dd7a44a7f445428d543c6, type: 2}
+      propertyPath: configurationParralax.Array.data[7].colorTeinte.b
+      value: 0.5294118
+      objectReference: {fileID: 0}
+    - target: {fileID: 11490086, guid: d44b2c66682dd7a44a7f445428d543c6, type: 2}
+      propertyPath: configurationParralax.Array.data[7].colorTeinte.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11490086, guid: d44b2c66682dd7a44a7f445428d543c6, type: 2}
+      propertyPath: configurationParralax.Array.data[7].nameParalaxPlan
+      value: 2emePlanArbre
+      objectReference: {fileID: 0}
+    - target: {fileID: 11490086, guid: d44b2c66682dd7a44a7f445428d543c6, type: 2}
+      propertyPath: configurationParralax.Array.data[8].prefabParralaxPlan
+      value: 
+      objectReference: {fileID: 132386, guid: d2dd1d07fce184209812f2e3d104b798, type: 2}
+    - target: {fileID: 11490086, guid: d44b2c66682dd7a44a7f445428d543c6, type: 2}
+      propertyPath: configurationParralax.Array.data[8].distance
+      value: -30
+      objectReference: {fileID: 0}
+    - target: {fileID: 11490086, guid: d44b2c66682dd7a44a7f445428d543c6, type: 2}
+      propertyPath: configurationParralax.Array.data[8].generatorScript
+      value: 
+      objectReference: {fileID: 11408842, guid: 7d0662eb0c8899047b85963e7c9c42ce,
+        type: 2}
+    - target: {fileID: 11490086, guid: d44b2c66682dd7a44a7f445428d543c6, type: 2}
+      propertyPath: configurationParralax.Array.data[8].lowSpaceBetweenAsset
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 11490086, guid: d44b2c66682dd7a44a7f445428d543c6, type: 2}
+      propertyPath: configurationParralax.Array.data[8].hightSpaceBetweenAsset
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 11490086, guid: d44b2c66682dd7a44a7f445428d543c6, type: 2}
+      propertyPath: configurationParralax.Array.data[8].colorTeinte.r
+      value: 0.5808823
+      objectReference: {fileID: 0}
+    - target: {fileID: 11490086, guid: d44b2c66682dd7a44a7f445428d543c6, type: 2}
+      propertyPath: configurationParralax.Array.data[8].colorTeinte.g
+      value: 0.5808823
+      objectReference: {fileID: 0}
+    - target: {fileID: 11490086, guid: d44b2c66682dd7a44a7f445428d543c6, type: 2}
+      propertyPath: configurationParralax.Array.data[8].colorTeinte.b
+      value: 0.5808823
+      objectReference: {fileID: 0}
+    - target: {fileID: 11490086, guid: d44b2c66682dd7a44a7f445428d543c6, type: 2}
+      propertyPath: configurationParralax.Array.data[8].colorTeinte.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11490086, guid: d44b2c66682dd7a44a7f445428d543c6, type: 2}
+      propertyPath: configurationParralax.Array.data[8].nameParalaxPlan
+      value: 3emePlanArbre
+      objectReference: {fileID: 0}
+    - target: {fileID: 11490086, guid: d44b2c66682dd7a44a7f445428d543c6, type: 2}
+      propertyPath: configurationParralax.Array.data[9].prefabParralaxPlan
+      value: 
+      objectReference: {fileID: 132386, guid: d2dd1d07fce184209812f2e3d104b798, type: 2}
+    - target: {fileID: 11490086, guid: d44b2c66682dd7a44a7f445428d543c6, type: 2}
+      propertyPath: configurationParralax.Array.data[9].distance
+      value: -35
+      objectReference: {fileID: 0}
+    - target: {fileID: 11490086, guid: d44b2c66682dd7a44a7f445428d543c6, type: 2}
+      propertyPath: configurationParralax.Array.data[9].generatorScript
+      value: 
+      objectReference: {fileID: 11417148, guid: 75f3c60c483b37e4c9cd62a4ddcf9fa5,
+        type: 2}
+    - target: {fileID: 11490086, guid: d44b2c66682dd7a44a7f445428d543c6, type: 2}
+      propertyPath: configurationParralax.Array.data[9].lowSpaceBetweenAsset
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 11490086, guid: d44b2c66682dd7a44a7f445428d543c6, type: 2}
+      propertyPath: configurationParralax.Array.data[9].hightSpaceBetweenAsset
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 11490086, guid: d44b2c66682dd7a44a7f445428d543c6, type: 2}
+      propertyPath: configurationParralax.Array.data[9].colorTeinte.r
+      value: 0.75735295
+      objectReference: {fileID: 0}
+    - target: {fileID: 11490086, guid: d44b2c66682dd7a44a7f445428d543c6, type: 2}
+      propertyPath: configurationParralax.Array.data[9].colorTeinte.g
+      value: 0.75735295
+      objectReference: {fileID: 0}
+    - target: {fileID: 11490086, guid: d44b2c66682dd7a44a7f445428d543c6, type: 2}
+      propertyPath: configurationParralax.Array.data[9].colorTeinte.b
+      value: 0.75735295
+      objectReference: {fileID: 0}
+    - target: {fileID: 11490086, guid: d44b2c66682dd7a44a7f445428d543c6, type: 2}
+      propertyPath: configurationParralax.Array.data[9].colorTeinte.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11490086, guid: d44b2c66682dd7a44a7f445428d543c6, type: 2}
+      propertyPath: configurationParralax.Array.data[9].nameParalaxPlan
+      value: 4emePlanArbre
+      objectReference: {fileID: 0}
+    - target: {fileID: 11490086, guid: d44b2c66682dd7a44a7f445428d543c6, type: 2}
+      propertyPath: configurationParralax.Array.data[10].prefabParralaxPlan
+      value: 
+      objectReference: {fileID: 132386, guid: d2dd1d07fce184209812f2e3d104b798, type: 2}
+    - target: {fileID: 11490086, guid: d44b2c66682dd7a44a7f445428d543c6, type: 2}
+      propertyPath: configurationParralax.Array.data[10].distance
+      value: -40
+      objectReference: {fileID: 0}
+    - target: {fileID: 11490086, guid: d44b2c66682dd7a44a7f445428d543c6, type: 2}
+      propertyPath: configurationParralax.Array.data[10].generatorScript
+      value: 
+      objectReference: {fileID: 11471282, guid: af5c844bbf7213d43a528a2ad114d426,
+        type: 2}
+    - target: {fileID: 11490086, guid: d44b2c66682dd7a44a7f445428d543c6, type: 2}
+      propertyPath: configurationParralax.Array.data[10].lowSpaceBetweenAsset
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 11490086, guid: d44b2c66682dd7a44a7f445428d543c6, type: 2}
+      propertyPath: configurationParralax.Array.data[10].hightSpaceBetweenAsset
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 11490086, guid: d44b2c66682dd7a44a7f445428d543c6, type: 2}
+      propertyPath: configurationParralax.Array.data[10].colorTeinte.r
+      value: 0.8014706
+      objectReference: {fileID: 0}
+    - target: {fileID: 11490086, guid: d44b2c66682dd7a44a7f445428d543c6, type: 2}
+      propertyPath: configurationParralax.Array.data[10].colorTeinte.g
+      value: 0.8014706
+      objectReference: {fileID: 0}
+    - target: {fileID: 11490086, guid: d44b2c66682dd7a44a7f445428d543c6, type: 2}
+      propertyPath: configurationParralax.Array.data[10].colorTeinte.b
+      value: 0.8014706
+      objectReference: {fileID: 0}
+    - target: {fileID: 11490086, guid: d44b2c66682dd7a44a7f445428d543c6, type: 2}
+      propertyPath: configurationParralax.Array.data[10].colorTeinte.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11490086, guid: d44b2c66682dd7a44a7f445428d543c6, type: 2}
+      propertyPath: configurationParralax.Array.data[10].nameParalaxPlan
+      value: 5emePlanArbre
+      objectReference: {fileID: 0}
+    - target: {fileID: 11490086, guid: d44b2c66682dd7a44a7f445428d543c6, type: 2}
+      propertyPath: configurationParralax.Array.data[11].prefabParralaxPlan
+      value: 
+      objectReference: {fileID: 132386, guid: d2dd1d07fce184209812f2e3d104b798, type: 2}
+    - target: {fileID: 11490086, guid: d44b2c66682dd7a44a7f445428d543c6, type: 2}
+      propertyPath: configurationParralax.Array.data[11].distance
+      value: -45
+      objectReference: {fileID: 0}
+    - target: {fileID: 11490086, guid: d44b2c66682dd7a44a7f445428d543c6, type: 2}
+      propertyPath: configurationParralax.Array.data[11].generatorScript
+      value: 
+      objectReference: {fileID: 11447162, guid: ec165354b114bb54bbd1d139cb4b9580,
+        type: 2}
+    - target: {fileID: 11490086, guid: d44b2c66682dd7a44a7f445428d543c6, type: 2}
+      propertyPath: configurationParralax.Array.data[11].lowSpaceBetweenAsset
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 11490086, guid: d44b2c66682dd7a44a7f445428d543c6, type: 2}
+      propertyPath: configurationParralax.Array.data[11].hightSpaceBetweenAsset
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 11490086, guid: d44b2c66682dd7a44a7f445428d543c6, type: 2}
+      propertyPath: configurationParralax.Array.data[11].colorTeinte.r
+      value: 0.8235294
+      objectReference: {fileID: 0}
+    - target: {fileID: 11490086, guid: d44b2c66682dd7a44a7f445428d543c6, type: 2}
+      propertyPath: configurationParralax.Array.data[11].colorTeinte.g
+      value: 0.8235294
+      objectReference: {fileID: 0}
+    - target: {fileID: 11490086, guid: d44b2c66682dd7a44a7f445428d543c6, type: 2}
+      propertyPath: configurationParralax.Array.data[11].colorTeinte.b
+      value: 0.8235294
+      objectReference: {fileID: 0}
+    - target: {fileID: 11490086, guid: d44b2c66682dd7a44a7f445428d543c6, type: 2}
+      propertyPath: configurationParralax.Array.data[11].colorTeinte.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11490086, guid: d44b2c66682dd7a44a7f445428d543c6, type: 2}
+      propertyPath: configurationParralax.Array.data[11].nameParalaxPlan
+      value: 6emePlanArbre
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: d44b2c66682dd7a44a7f445428d543c6, type: 2}
+  m_IsPrefabParent: 0
 --- !u!1001 &1225717458
 Prefab:
   m_ObjectHideFlags: 0
@@ -132,6 +462,10 @@ Prefab:
       propertyPath: constantSpeed
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 189840, guid: d44b2c66682dd7a44a7f445428d543c6, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d44b2c66682dd7a44a7f445428d543c6, type: 2}
   m_IsPrefabParent: 0
@@ -147,6 +481,7 @@ GameObject:
   - 124: {fileID: 1444485448}
   - 92: {fileID: 1444485447}
   - 81: {fileID: 1444485446}
+  - 114: {fileID: 1444485451}
   m_Layer: 0
   m_Name: Camera
   m_TagString: Untagged
@@ -195,7 +530,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 2.1543922
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
@@ -218,6 +553,20 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 1
+--- !u!114 &1444485451
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1444485445}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 724673a44f58b434c92671edab7ae323, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveX: 0.2
+  moveY: 0.1

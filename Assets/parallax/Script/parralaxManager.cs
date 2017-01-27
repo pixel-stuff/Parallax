@@ -43,7 +43,10 @@ public class parralaxManager : MonoBehaviour {
     private float CameraWidthSize = 0;
 
 	public bool debugMode = false;
-	
+
+	private bool isPreviousPositionSet = false;
+	private Vector3 previousCameraPosition = Vector3.zero;
+
 	// Use this for initialization
 	void Start () {
 		speed = constantSpeed;
@@ -120,9 +123,14 @@ public class parralaxManager : MonoBehaviour {
 		float cameraSpeedX=0;
 		float cameraSpeedY = 0;
 		if (cameraToFollow != null){
-			cameraSpeedX = (cameraToFollow.transform.position.x - this.transform.position.x);
-			cameraSpeedY = (cameraToFollow.transform.position.y - this.transform.position.y);
-			this.transform.position = new Vector3(cameraToFollow.transform.position.x, cameraToFollow.transform.position.y, this.transform.position.z);
+			if (!isPreviousPositionSet) {
+				isPreviousPositionSet = true;
+				previousCameraPosition = cameraToFollow.transform.position;
+			}
+			cameraSpeedX = (cameraToFollow.transform.position.x - previousCameraPosition.x);
+			cameraSpeedY = (cameraToFollow.transform.position.y - previousCameraPosition.y);
+			previousCameraPosition = cameraToFollow.transform.position;
+			//this.transform.position = new Vector3(cameraToFollow.transform.position.x, this.transform.position.y, this.transform.position.z);
 		}
 		
 		foreach (GameObject plan in parralaxPlans) {
