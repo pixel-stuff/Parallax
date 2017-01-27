@@ -24,9 +24,11 @@ public class parallaxPlanBasic : parallaxPlan {
 	// Use this for initialization
 	void Start () {
 		actualSpeed = 0;
+		speedMultiplicatorY = distance /(3-distance);
 		if (distance < 0) {
 			speedMultiplicator = 1/ -distance;//1 - (1 / (1 -distance));
-			speedMultiplicatorY = 1+1/(distance/2);
+			//speedMultiplicatorY = 1+1/(distance/2);
+			//Calcul du facteur : distance/(distanceCameraPlan0 + distance)
 		} else {
 			speedMultiplicator = 1 +  distance/10;//1 - (1 / (1 + distance));
 		}
@@ -42,7 +44,7 @@ public class parallaxPlanBasic : parallaxPlan {
 	
 	// Update is called once per frame
 	void Update () {
-		moveAsset (actualSpeed * speedMultiplicator, YActualSpeed * -speedMultiplicatorY);
+		moveAsset (actualSpeed * speedMultiplicator, YActualSpeed * speedMultiplicatorY);
 		generateAssetIfNeeded ();
 	}
 	

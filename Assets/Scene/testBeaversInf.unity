@@ -412,6 +412,10 @@ Prefab:
       propertyPath: configurationParralax.Array.data[11].nameParalaxPlan
       value: 6emePlanArbre
       objectReference: {fileID: 0}
+    - target: {fileID: 189840, guid: d44b2c66682dd7a44a7f445428d543c6, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d44b2c66682dd7a44a7f445428d543c6, type: 2}
   m_IsPrefabParent: 0
@@ -464,7 +468,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 189840, guid: d44b2c66682dd7a44a7f445428d543c6, type: 2}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11490086, guid: d44b2c66682dd7a44a7f445428d543c6, type: 2}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d44b2c66682dd7a44a7f445428d543c6, type: 2}

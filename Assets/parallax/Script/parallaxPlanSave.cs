@@ -16,6 +16,7 @@ public class parallaxPlanSave : parallaxPlan {
 	
 	private float spaceBetweenAsset = 0.0f;
 	private float m_speedMultiplicator;
+	private float m_speedMultiplicatorY;
 	
 	private int speedSign = 1;
 
@@ -39,16 +40,18 @@ public class parallaxPlanSave : parallaxPlan {
 	}
 
 	void setTheDistanceMultiplicator() {
+		m_speedMultiplicatorY = distance /(3-distance);
 		if (distance < 0) {
 			m_speedMultiplicator = 1/ -distance;//1 - (1 / (1 -distance));
+			//m_speedMultiplicatorY = 1+1/(distance/2);
 		} else {
 			m_speedMultiplicator = 1 +  distance/10;//1 - (1 / (1 + distance));
 		}
 	}
 	
 	// Update is called once per frame
-	void FixedUpdate () {
-		moveAsset (actualSpeed * m_speedMultiplicator,YActualSpeed);
+	void Update () {
+		moveAsset (actualSpeed * m_speedMultiplicator,YActualSpeed * m_speedMultiplicatorY);
 		generateAssetIfNeeded ();
 	}
 	
@@ -94,7 +97,13 @@ public class parallaxPlanSave : parallaxPlan {
 		GameObject asset = assetStruct.generateAsset;
 		Vector3 position = asset.transform.position;
 		asset.transform.parent = this.transform;
-		asset.transform.position = new Vector3 (popLimitation.transform.position.x + calculateXOffsetForAsset(asset), popLimitation.transform.position.y + asset.GetComponent<SpriteRenderer> ().sprite.bounds.extents.y*2, this.transform.position.z);
+		float yPosition = 0f;
+		if (visibleGameObjectTab.Count == 0) {
+			yPosition = this.transform.position.y;
+		} else {
+			yPosition = visibleGameObjectTab [0].transform.position.y;
+		}
+		asset.transform.position = new Vector3 (popLimitation.transform.position.x + calculateXOffsetForAsset(asset),yPosition, this.transform.position.z);
 		visibleGameObjectTab.Add(asset);
 		StockAssetStruct stockAssetStruct = new StockAssetStruct();
 		stockAssetStruct.code = assetStruct.code;
@@ -111,7 +120,13 @@ public class parallaxPlanSave : parallaxPlan {
 		GameObject asset = assetStruct.generateAsset;
 		Vector3 position = asset.transform.position;
 		asset.transform.parent = this.transform;
-		asset.transform.position = new Vector3 (popLimitation.transform.position.x + calculateXOffsetForAsset(asset), popLimitation.transform.position.y + asset.GetComponent<SpriteRenderer> ().sprite.bounds.extents.y*2, this.transform.position.z);
+		float yPosition = 0f;
+		if (visibleGameObjectTab.Count == 0) {
+			yPosition = this.transform.position.y;
+		} else {
+			yPosition = visibleGameObjectTab [0].transform.position.y;
+		}
+		asset.transform.position = new Vector3 (popLimitation.transform.position.x + calculateXOffsetForAsset(asset), yPosition, this.transform.position.z);
 		visibleGameObjectTab.Add(asset);
 		StockAssetStruct stockAssetStruct = new StockAssetStruct();
 		stockAssetStruct.code = assetStruct.code;
@@ -126,10 +141,17 @@ public class parallaxPlanSave : parallaxPlan {
 		GenerateAssetStruct assetStruct = generator.generateGameObjectWithCode(code);
 		GameObject asset = assetStruct.generateAsset;
 		asset.transform.parent = this.transform;
-		if (speedSign > 0) {
-			asset.transform.position = new Vector3(popLimitation.transform.position.x + (asset.GetComponent<SpriteRenderer> ().sprite.bounds.max.x) - (space-dist),popLimitation.transform.position.y + asset.GetComponent<SpriteRenderer> ().sprite.bounds.extents.y*2,this.transform.position.z);
+		float yPosition = 0f;
+		if (visibleGameObjectTab.Count == 0) {
+			yPosition = this.transform.position.y;
 		} else {
-			asset.transform.position = new Vector3(popLimitation.transform.position.x + (asset.GetComponent<SpriteRenderer> ().sprite.bounds.min.x) + (space-dist),popLimitation.transform.position.y + asset.GetComponent<SpriteRenderer> ().sprite.bounds.extents.y*2,this.transform.position.z);
+			yPosition = visibleGameObjectTab [0].transform.position.y;
+		}
+
+		if (speedSign > 0) {
+			asset.transform.position = new Vector3(popLimitation.transform.position.x + (asset.GetComponent<SpriteRenderer> ().sprite.bounds.max.x) - (space-dist),yPosition,this.transform.position.z);
+		} else {
+			asset.transform.position = new Vector3(popLimitation.transform.position.x + (asset.GetComponent<SpriteRenderer> ().sprite.bounds.min.x) + (space-dist),yPosition,this.transform.position.z);
 		}
 		asset.GetComponent<SpriteRenderer> ().color = colorTeint;
 		visibleGameObjectTab.Add(asset);
