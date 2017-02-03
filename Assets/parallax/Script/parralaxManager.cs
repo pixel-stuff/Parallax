@@ -33,6 +33,10 @@ public class parralaxManager : MonoBehaviour {
 	[Tooltip("independante speed. This speed willaffect all the parralax plan ")]
 	private float constantSpeed;
 
+	[SerializeField]
+	[Tooltip("Distance between the game plan and the camera, this will affect the parallax effect")]
+	private float cameraDistance=3;
+
 	private float speed;
 	private GameObject rightBorder;
 	private GameObject leftBorder;
@@ -73,6 +77,7 @@ public class parralaxManager : MonoBehaviour {
 			tempScript.hightSpaceBetweenAsset = config.hightSpaceBetweenAsset;
             tempScript.relativeSpeed = config.relativeSpeed;
 			tempScript.colorTeint = config.colorTeinte;
+			tempScript.cameraDistancePlan0 = cameraDistance;
 
 			parralaxPlans.Add(tempParralaxPlan);
 		}
@@ -108,7 +113,7 @@ public class parralaxManager : MonoBehaviour {
 		float cameraOrthographiqueSize = cameraToFollow.orthographicSize*2;
 		float CameraW = cameraToFollow.rect.width;
         if (CameraWidthSize ==0) {
-			this.transform.position = new Vector3(cameraToFollow.transform.position.x, this.transform.position.y, this.transform.position.z);
+			//this.transform.position = new Vector3(cameraToFollow.transform.position.x, this.transform.position.y, this.transform.position.z);
         }
         if(CameraWidthSize != cameraOrthographiqueSize*CameraW || CameraWidthSize ==0)
         {
@@ -130,7 +135,8 @@ public class parralaxManager : MonoBehaviour {
 			cameraSpeedX = (cameraToFollow.transform.position.x - previousCameraPosition.x);
 			cameraSpeedY = (cameraToFollow.transform.position.y - previousCameraPosition.y);
 			previousCameraPosition = cameraToFollow.transform.position;
-			//this.transform.position = new Vector3(cameraToFollow.transform.position.x, this.transform.position.y, this.transform.position.z);
+			Debug.Log (cameraSpeedX);
+			this.transform.position = new Vector3(cameraToFollow.transform.position.x, this.transform.position.y, this.transform.position.z);
 		}
 		
 		foreach (GameObject plan in parralaxPlans) {
@@ -171,6 +177,7 @@ public class parralaxManager : MonoBehaviour {
 			parralaxScript.hightSpaceBetweenAsset = config.hightSpaceBetweenAsset;
 			parralaxScript.relativeSpeed = config.relativeSpeed;
 			parralaxScript.colorTeint = config.colorTeinte;
+			parralaxScript.cameraDistancePlan0 = cameraDistance;
 
 		}
 	}

@@ -128,6 +128,7 @@ MonoBehaviour:
     nameParalaxPlan: 1erTree
   cameraToFollow: {fileID: 1477489526}
   constantSpeed: 0
+  cameraDistance: 0
   debugMode: 0
 --- !u!4 &297441833
 Transform:
@@ -183,12 +184,20 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11407312, guid: 2579ff322e499e84dbf7c7c9de812e92, type: 2}
       propertyPath: constantSpeed
-      value: 0
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 11407312, guid: 2579ff322e499e84dbf7c7c9de812e92, type: 2}
       propertyPath: cameraToFollow
       value: 
       objectReference: {fileID: 1477489526}
+    - target: {fileID: 11407312, guid: 2579ff322e499e84dbf7c7c9de812e92, type: 2}
+      propertyPath: cameraDistance
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 11407312, guid: 2579ff322e499e84dbf7c7c9de812e92, type: 2}
+      propertyPath: debugMode
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2579ff322e499e84dbf7c7c9de812e92, type: 2}
   m_IsPrefabParent: 0

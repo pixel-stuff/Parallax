@@ -24,10 +24,9 @@ public class parallaxPlanBasic : parallaxPlan {
 	// Use this for initialization
 	void Start () {
 		actualSpeed = 0;
-		speedMultiplicatorY = distance /(3-distance);
+		speedMultiplicatorY = distance /(cameraDistancePlan0-distance);
 		if (distance < 0) {
-			speedMultiplicator = 1/ -distance;//1 - (1 / (1 -distance));
-			//speedMultiplicatorY = 1+1/(distance/2);
+			speedMultiplicator = 1/ -distance;
 			//Calcul du facteur : distance/(distanceCameraPlan0 + distance)
 		} else {
 			speedMultiplicator = 1 +  distance/10;//1 - (1 / (1 + distance));
@@ -39,7 +38,7 @@ public class parallaxPlanBasic : parallaxPlan {
 			//			Debug.Log();
 			generateAssetIfNeeded ();
 		}
-		initialY = this.transform.position.y;
+		initialY = this.transform.position.y; //TODO change this for Y in the config
 	}
 	
 	// Update is called once per frame

@@ -4,9 +4,8 @@
 [Tt]emp/
 [Oo]bj/
 [Bb]uild
-Library/
+Library
 sysinfo.txt
-OneLastStand/Library/*
  
 # ===================================== #
 # Visual Studio / MonoDevelop generated #
