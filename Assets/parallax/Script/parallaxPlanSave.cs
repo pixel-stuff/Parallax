@@ -41,12 +41,7 @@ public class parallaxPlanSave : parallaxPlan {
 
 	void setTheDistanceMultiplicator() {
 		m_speedMultiplicatorY = distance /(cameraDistancePlan0-distance);
-		if (distance < 0) {
-			m_speedMultiplicator = 1/ -distance;//1 - (1 / (1 -distance));
-			//m_speedMultiplicatorY = 1+1/(distance/2);
-		} else {
-			m_speedMultiplicator = 1 +  distance/10;//1 - (1 / (1 + distance));
-		}
+		m_speedMultiplicator = (Mathf.Abs (horizonLineDistance) - Mathf.Abs (distance)) / (Mathf.Abs (horizonLineDistance) + cameraDistancePlan0);
 	}
 	
 	// Update is called once per frame

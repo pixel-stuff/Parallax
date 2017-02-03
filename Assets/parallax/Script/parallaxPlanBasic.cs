@@ -25,12 +25,7 @@ public class parallaxPlanBasic : parallaxPlan {
 	void Start () {
 		actualSpeed = 0;
 		speedMultiplicatorY = distance /(cameraDistancePlan0-distance);
-		if (distance < 0) {
-			speedMultiplicator = 1/ -distance;
-			//Calcul du facteur : distance/(distanceCameraPlan0 + distance)
-		} else {
-			speedMultiplicator = 1 +  distance/10;//1 - (1 / (1 + distance));
-		}
+		speedMultiplicator = (Mathf.Abs (horizonLineDistance) - Mathf.Abs (distance)) / (Mathf.Abs (horizonLineDistance) + cameraDistancePlan0);
 		generator.clear ();
 		while (!isInit) {
 			Debug.Log("INIT");

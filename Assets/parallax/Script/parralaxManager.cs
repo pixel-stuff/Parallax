@@ -36,6 +36,9 @@ public class parralaxManager : MonoBehaviour {
 	[SerializeField]
 	[Tooltip("Distance between the game plan and the camera, this will affect the parallax effect")]
 	private float cameraDistance=3;
+	[SerializeField]
+	[Tooltip("Distance of the last plan, a plan at this distance will not move at all")]
+	private float horizonLine=-4000;
 
 	private float speed;
 	private GameObject rightBorder;
@@ -78,6 +81,7 @@ public class parralaxManager : MonoBehaviour {
             tempScript.relativeSpeed = config.relativeSpeed;
 			tempScript.colorTeint = config.colorTeinte;
 			tempScript.cameraDistancePlan0 = cameraDistance;
+			tempScript.horizonLineDistance = horizonLine;
 
 			parralaxPlans.Add(tempParralaxPlan);
 		}
@@ -178,6 +182,7 @@ public class parralaxManager : MonoBehaviour {
 			parralaxScript.relativeSpeed = config.relativeSpeed;
 			parralaxScript.colorTeint = config.colorTeinte;
 			parralaxScript.cameraDistancePlan0 = cameraDistance;
+			parralaxScript.horizonLineDistance = horizonLine;
 
 		}
 	}

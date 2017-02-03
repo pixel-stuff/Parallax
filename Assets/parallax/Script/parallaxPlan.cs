@@ -19,6 +19,7 @@ abstract public class parallaxPlan : MonoBehaviour {
     public float relativeSpeed;
 
 	public float cameraDistancePlan0;
+	public float horizonLineDistance;
 
 	public Color colorTeint = Color.clear;
 
