@@ -187,6 +187,30 @@ Prefab:
       propertyPath: cameraToFollow
       value: 
       objectReference: {fileID: 1477489526}
+    - target: {fileID: 11407312, guid: 2579ff322e499e84dbf7c7c9de812e92, type: 2}
+      propertyPath: configurationParralax.Array.data[4].colorTeinte.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11407312, guid: 2579ff322e499e84dbf7c7c9de812e92, type: 2}
+      propertyPath: configurationParralax.Array.data[4].colorTeinte.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11407312, guid: 2579ff322e499e84dbf7c7c9de812e92, type: 2}
+      propertyPath: configurationParralax.Array.data[4].colorTeinte.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11407312, guid: 2579ff322e499e84dbf7c7c9de812e92, type: 2}
+      propertyPath: configurationParralax.Array.data[3].colorTeinte.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11407312, guid: 2579ff322e499e84dbf7c7c9de812e92, type: 2}
+      propertyPath: configurationParralax.Array.data[3].colorTeinte.g
+      value: 0.98039216
+      objectReference: {fileID: 0}
+    - target: {fileID: 11407312, guid: 2579ff322e499e84dbf7c7c9de812e92, type: 2}
+      propertyPath: configurationParralax.Array.data[3].colorTeinte.b
+      value: 0.8862745
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2579ff322e499e84dbf7c7c9de812e92, type: 2}
   m_IsPrefabParent: 0
@@ -445,8 +469,8 @@ MonoBehaviour:
   screenBlendMode: 0
   sunTransform: {fileID: 0}
   radialBlurIterations: 2
-  sunColor: {r: 0.99264705, g: 0.9427127, b: 0.5401168, a: 1}
-  sunThreshold: {r: 0.8308824, g: 0.70091814, b: 0.6109429, a: 1}
+  sunColor: {r: 1, g: 0.09558821, b: 0.09558821, a: 1}
+  sunThreshold: {r: 0.88235295, g: 0.7788416, b: 0.70717996, a: 1}
   sunShaftBlurRadius: 1.5
   sunShaftIntensity: 1.15
   maxRadius: 0.731
