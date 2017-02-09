@@ -33,6 +33,7 @@ public class parallaxPlanSave : parallaxPlan {
 		generator.clear ();
 		hightId=-1;
 		generateNewSpaceBetweenAssetValue();
+		m_initSpeed = Mathf.Max( m_initSpeed * m_speedMultiplicator,0.01f);
 		while (!m_isInit) {
 			moveAsset (m_initSpeed,0);
 			generateAssetIfNeeded ();
@@ -41,7 +42,7 @@ public class parallaxPlanSave : parallaxPlan {
 
 	void setTheDistanceMultiplicator() {
 		m_speedMultiplicatorY = distance /(cameraDistancePlan0-distance);
-		m_speedMultiplicator = (Mathf.Abs (horizonLineDistance) - Mathf.Abs (distance)) / (Mathf.Abs (horizonLineDistance) + cameraDistancePlan0);
+		m_speedMultiplicator = (Mathf.Abs (horizonLineDistance)+ distance) / (Mathf.Abs (horizonLineDistance) + cameraDistancePlan0);
 	}
 	
 	// Update is called once per frame

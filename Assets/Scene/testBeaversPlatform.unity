@@ -211,6 +211,10 @@ Prefab:
       propertyPath: configurationParralax.Array.data[3].colorTeinte.b
       value: 0.8862745
       objectReference: {fileID: 0}
+    - target: {fileID: 11407312, guid: 2579ff322e499e84dbf7c7c9de812e92, type: 2}
+      propertyPath: configurationParralax.Array.data[5].distance
+      value: 100
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2579ff322e499e84dbf7c7c9de812e92, type: 2}
   m_IsPrefabParent: 0
