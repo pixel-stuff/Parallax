@@ -24,7 +24,7 @@ public class parallaxPlanBasic : parallaxPlan {
 	// Use this for initialization
 	void Start () {
 		actualSpeed = 0;
-		speedMultiplicatorY = distance /(cameraDistancePlan0-distance);
+		speedMultiplicatorY = distance /(cameraDistancePlan0+Mathf.Abs (distance));
 		speedMultiplicator = (Mathf.Abs (horizonLineDistance) + distance) / (Mathf.Abs (horizonLineDistance) + cameraDistancePlan0);
 		generator.clear ();
 		initSpeed = Mathf.Max( initSpeed * speedMultiplicator,0.01f);
