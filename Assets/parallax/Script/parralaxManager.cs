@@ -17,7 +17,7 @@ public class ParralaxPlanConfiguration : System.Object
 	public Color colorTeinte = Color.clear;
 	public string nameParalaxPlan;
 }
-
+[ExecuteInEditMode]
 public class parralaxManager : MonoBehaviour {
 
 	[Header("Tab of all parralax plan configutation")]
@@ -51,11 +51,14 @@ public class parralaxManager : MonoBehaviour {
 
 	public bool debugMode = false;
 
+	public bool reset = false;
+
 	private bool isPreviousPositionSet = false;
 	private Vector3 previousCameraPosition = Vector3.zero;
 
 	// Use this for initialization
 	void Start () {
+		reset = false;
 		speed = constantSpeed;
 		rightBorder = Instantiate ( new GameObject());
 		rightBorder.name = "rightBorder";
@@ -154,6 +157,10 @@ public class parralaxManager : MonoBehaviour {
 		if (debugMode) {
 			setPlanConstante ();
 		}
+
+		if (reset) {
+			resetAllPlan ();
+		}
 	}
 
 	public float getGroundSpeedf() {
@@ -184,6 +191,13 @@ public class parralaxManager : MonoBehaviour {
 			parralaxScript.cameraDistancePlan0 = cameraDistance;
 			parralaxScript.horizonLineDistance = horizonLine;
 
+		}
+	}
+	private void resetAllPlan(){
+		reset = false;
+		foreach (GameObject plan in parralaxPlans) {
+			parallaxPlan parralaxScript = plan.GetComponent<parallaxPlan>();
+			parralaxScript.reset ();
 		}
 	}
 }

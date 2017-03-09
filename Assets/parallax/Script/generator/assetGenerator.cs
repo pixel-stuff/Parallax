@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
+[ExecuteInEditMode]
 public class assetGenerator : parralaxAssetGenerator {
 
 	public GameObject prefab = null;
@@ -63,5 +64,12 @@ public class assetGenerator : parralaxAssetGenerator {
 		}
 		return false;
 	}
-
+	public override void reset(){
+		if (GameObjectTabOfTypePrefab != null) {
+			foreach (GameObject go in GameObjectTabOfTypePrefab) {
+				DestroyImmediate (go);
+			}
+			clear ();
+		}
+	}
 }

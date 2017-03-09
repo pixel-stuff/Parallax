@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
+[ExecuteInEditMode]
 public class parallaxPlanSave : parallaxPlan {
 	
 	public List<GameObject> visibleGameObjectTab;
@@ -27,6 +28,12 @@ public class parallaxPlanSave : parallaxPlan {
 
 	// Use this for initialization
 	void Start () {
+		generator.reset ();
+
+		visibleGameObjectTab.Clear ();
+		speedSign = 1;
+		lowId = 0;
+		hightId = -1;
 		m_stockAsset = new List<StockAssetStruct>();
 		actualSpeed = 0;
 		setTheDistanceMultiplicator ();
@@ -34,6 +41,7 @@ public class parallaxPlanSave : parallaxPlan {
 		hightId=-1;
 		generateNewSpaceBetweenAssetValue();
 		m_initSpeed = Mathf.Max( m_initSpeed * m_speedMultiplicator,0.01f);
+		setSpeedOfPlan (m_initSpeed,0);
 		while (!m_isInit) {
 			moveAsset (m_initSpeed,0);
 			generateAssetIfNeeded ();
@@ -272,4 +280,13 @@ public class parallaxPlanSave : parallaxPlan {
         	swapPopAndDepop();
     	}
     }
+
+	public override void reset(){
+
+		generator.reset ();
+
+		visibleGameObjectTab.Clear ();
+		m_stockAsset.Clear ();
+		
+	}
 }

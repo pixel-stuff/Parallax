@@ -12,6 +12,7 @@ public class randomSpawnAssetConfiguration : System.Object
 	public int probabilityOfApparition;
 }
 
+[ExecuteInEditMode]
 public class assetRandomGenerator : parralaxAssetGenerator {
 	
 	public randomSpawnAssetConfiguration[] AssetConfiguation;
@@ -26,20 +27,6 @@ public class assetRandomGenerator : parralaxAssetGenerator {
 	private int probabilitySomme;
 	private int previousId = -1;
 	private int previousAssetId = -1;
-	/*
-	void CreatePrefabForAssetConfiguration(){
-		if (AssetConfiguation.Length > 0) {
-			for (int i = 0; i < AssetConfiguation.Length; i++) {
-				if (AssetConfiguation [i].prefabAsset == null) {
-					GameObject prefabWithSprite = (GameObject)PrefabUtility.CreateEmptyPrefab ("Assets/Temporary/"+AssetConfiguation [i].prefabAsset.name+".prefab");
-					//Object prefab = PrefabUtility.CreateEmptyPrefab ("");
-					SpriteRenderer spriteRenderer = prefabWithSprite.AddComponent<SpriteRenderer> ();
-					spriteRenderer.sprite = AssetConfiguation [i].spriteAsset;
-					AssetConfiguation [i].prefabAsset = prefabWithSprite;
-				}
-			}
-		}
-	}*/
 
 	public override void clear(){
 		if(GameObjectTabOfTypePrefabs != null){
@@ -159,5 +146,16 @@ public class assetRandomGenerator : parralaxAssetGenerator {
 			return (random == 0) ? true : false; 
 		}
 		return false;
+	}
+
+	public override void reset(){
+		if (GameObjectTabOfTypePrefabs != null) {
+			foreach (List<GameObject> list in GameObjectTabOfTypePrefabs) {
+				foreach (GameObject go in list) {
+					DestroyImmediate (go);
+				}
+			}
+			clear ();
+		}
 	}
 }

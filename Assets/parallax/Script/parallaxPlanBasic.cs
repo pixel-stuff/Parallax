@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
+[ExecuteInEditMode]
 public class parallaxPlanBasic : parallaxPlan {
 	
 	public List<GameObject> visibleGameObjectTab;
@@ -23,11 +24,19 @@ public class parallaxPlanBasic : parallaxPlan {
 	
 	// Use this for initialization
 	void Start () {
+		generator.reset ();
+
+		visibleGameObjectTab.Clear ();
+
+
 		actualSpeed = 0;
+		speedSign = 1;
 		speedMultiplicatorY = distance /(cameraDistancePlan0+Mathf.Abs (distance));
 		speedMultiplicator = (Mathf.Abs (horizonLineDistance) + distance) / (Mathf.Abs (horizonLineDistance) + cameraDistancePlan0);
 		generator.clear ();
+		isInit = false;
 		initSpeed = Mathf.Max( initSpeed * speedMultiplicator,0.01f);
+		setSpeedOfPlan (initSpeed,0);
 		while (!isInit) {
 			Debug.Log("INIT");
 			moveAsset (initSpeed,0);
@@ -162,4 +171,11 @@ public class parallaxPlanBasic : parallaxPlan {
         generateAssetIfNeeded();
         swapPopAndDepop();
     }
+
+	public override void reset(){
+		generator.reset ();
+
+		visibleGameObjectTab.Clear ();
+
+	}
 }
