@@ -48,10 +48,10 @@ public class assetRandomGenerator : parralaxAssetGenerator {
 
 	private int getIdOfNextAsset() {
 		int selectedAsset;
-		int random = Random.Range(0,probabilitySomme);
+		int randomValue = random.Next()%(probabilitySomme);
 		for (int i = 0; i < AssetConfiguation.Length; i++) {
-			random -= AssetConfiguation[i].probabilityOfApparition;
-			if (random < 0){
+				randomValue -= AssetConfiguation[i].probabilityOfApparition;
+				if (randomValue < 0){
 				selectedAsset = i;
 				if (authoriseRandomFlip) {
 					i = i*10;
@@ -152,8 +152,8 @@ public class assetRandomGenerator : parralaxAssetGenerator {
 
 	private bool randomFlip(){
 		if (authoriseRandomFlip) {
-			int random = Random.Range (0, 2);
-			return (random == 0) ? true : false; 
+			int randomValue = random.Next () % 2;//.Range (0, 2);
+			return (randomValue == 0) ? true : false; 
 		}
 		return false;
 	}

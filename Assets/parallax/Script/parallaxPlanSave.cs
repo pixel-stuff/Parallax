@@ -24,12 +24,12 @@ public class parallaxPlanSave : parallaxPlan {
 	public List<StockAssetStruct> m_stockAsset;
 	public int hightId = -1;
 	public int lowId = 0;
-	//public static System.Random r = new System.Random (123455);
-
 	
 
 	// Use this for initialization
 	void Start () {
+		m_random = new System.Random (seed);
+		generator.random = m_random;
 		generator.clear ();
 		visibleGameObjectTab.Clear ();
 		speedSign = 1;
@@ -203,7 +203,7 @@ public class parallaxPlanSave : parallaxPlan {
 	
 	
 	void generateNewSpaceBetweenAssetValue(){
-		spaceBetweenAsset = Random.Range (lowSpaceBetweenAsset,hightSpaceBetweenAsset);
+		spaceBetweenAsset = randomRange (lowSpaceBetweenAsset,hightSpaceBetweenAsset);
 	}
 	
 	

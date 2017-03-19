@@ -64,8 +64,8 @@ public class assetGenerator : parralaxAssetGenerator {
 
 	private bool randomFlip(){
 		if (authoriseRandomFlip) {
-			int random = Random.Range (0, 2);
-			return (random == 0) ? true : false; 
+			int randomValue = random.Next () % 2;
+			return (randomValue == 0) ? true : false; 
 		}
 		return false;
 	}

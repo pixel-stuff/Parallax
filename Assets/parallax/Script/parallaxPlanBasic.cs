@@ -24,6 +24,9 @@ public class parallaxPlanBasic : parallaxPlan {
 	
 	// Use this for initialization
 	void Start () {
+		m_random = new System.Random (seed);
+		generator.random = m_random;
+
 		generator.clear ();
 
 		visibleGameObjectTab.Clear ();
@@ -97,9 +100,10 @@ public class parallaxPlanBasic : parallaxPlan {
 		}
 	}
 	
-	
+
 	void generateNewSpaceBetweenAssetValue(){
-		spaceBetweenAsset = - Random.Range (lowSpaceBetweenAsset,hightSpaceBetweenAsset) * speedSign;
+		
+		spaceBetweenAsset = - randomRange (lowSpaceBetweenAsset,hightSpaceBetweenAsset) * speedSign;
 	}
 	
 	

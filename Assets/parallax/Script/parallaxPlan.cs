@@ -22,6 +22,9 @@ abstract public class parallaxPlan : MonoBehaviour {
 	public float horizonLineDistance;
 
 	public Color colorTeint = Color.clear;
+	public int seed;
+
+	protected System.Random m_random;
 
 	public parralaxAssetGenerator generator;
 
@@ -31,5 +34,8 @@ abstract public class parallaxPlan : MonoBehaviour {
 
 	abstract public void clear();
 
-
+	public float randomRange (float min, float max){
+		float factor = m_random.Next () / int.MaxValue;
+		return factor * (max - min) + min;
+	}
 }

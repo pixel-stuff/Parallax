@@ -17,6 +17,7 @@ public class ParralaxPlanConfiguration : System.Object
     public float relativeSpeed;
 	public Color colorTeinte = Color.clear;
 	public string nameParalaxPlan;
+	public int seed=0;
 }
 [ExecuteInEditMode]
 public class parralaxManager : MonoBehaviour {
@@ -40,6 +41,9 @@ public class parralaxManager : MonoBehaviour {
 	[SerializeField]
 	[Tooltip("Distance of the last plan, a plan at this distance will not move at all")]
 	private float horizonLine=-4000;
+	[SerializeField]
+	[Tooltip("seed for all plans if not set")]
+	private int m_globalSeed = 123456789;
 
 	private float speed;
 	private GameObject rightBorder;
@@ -58,6 +62,7 @@ public class parralaxManager : MonoBehaviour {
 	private Vector3 previousCameraPosition = Vector3.zero;
 
 	private EditorApplication.CallbackFunction s_backgroundUpdateCB;
+
 
 	private void EditorCallback() {
 		
@@ -112,6 +117,7 @@ public class parralaxManager : MonoBehaviour {
 			tempScript.colorTeint = config.colorTeinte;
 			tempScript.cameraDistancePlan0 = cameraDistance;
 			tempScript.horizonLineDistance = horizonLine;
+			tempScript.seed = (config.seed != 0) ? config.seed : m_globalSeed;
 
 			parralaxPlans.Add(tempParralaxPlan);
 		}
