@@ -29,8 +29,6 @@ abstract public class parallaxPlan : MonoBehaviour {
 
     abstract public void refreshOnZoom();
 
-	abstract public void reset();
-
 	abstract public void clear();
 
 

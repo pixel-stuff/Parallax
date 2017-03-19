@@ -24,12 +24,13 @@ public class parallaxPlanSave : parallaxPlan {
 	public List<StockAssetStruct> m_stockAsset;
 	public int hightId = -1;
 	public int lowId = 0;
+	//public static System.Random r = new System.Random (123455);
+
 	
 
 	// Use this for initialization
 	void Start () {
 		generator.clear ();
-
 		visibleGameObjectTab.Clear ();
 		speedSign = 1;
 		lowId = 0;
@@ -281,13 +282,7 @@ public class parallaxPlanSave : parallaxPlan {
         	swapPopAndDepop();
     	}
     }
-
-	public override void reset(){
-
-		clear ();
-		Start ();
 		
-	}
 
 	public override void clear(){
 

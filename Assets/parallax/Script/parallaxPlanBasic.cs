@@ -171,12 +171,7 @@ public class parallaxPlanBasic : parallaxPlan {
         generateAssetIfNeeded();
         swapPopAndDepop();
     }
-
-	public override void reset(){
-		clear ();
-		Start ();
-
-	}
+		
 
 	public override void clear(){
 		generator.clear ();
