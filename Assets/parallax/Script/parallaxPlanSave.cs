@@ -28,7 +28,7 @@ public class parallaxPlanSave : parallaxPlan {
 
 	// Use this for initialization
 	void Start () {
-		generator.reset ();
+		generator.clear ();
 
 		visibleGameObjectTab.Clear ();
 		speedSign = 1;
@@ -42,6 +42,7 @@ public class parallaxPlanSave : parallaxPlan {
 		generateNewSpaceBetweenAssetValue();
 		m_initSpeed = Mathf.Max( m_initSpeed * m_speedMultiplicator,0.01f);
 		setSpeedOfPlan (m_initSpeed,0);
+		m_isInit = false;
 		while (!m_isInit) {
 			moveAsset (m_initSpeed,0);
 			generateAssetIfNeeded ();
@@ -283,10 +284,16 @@ public class parallaxPlanSave : parallaxPlan {
 
 	public override void reset(){
 
-		generator.reset ();
+		clear ();
+		Start ();
+		
+	}
+
+	public override void clear(){
+
+		generator.clear ();
 
 		visibleGameObjectTab.Clear ();
 		m_stockAsset.Clear ();
-		
 	}
 }

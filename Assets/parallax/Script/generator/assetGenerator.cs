@@ -13,7 +13,12 @@ public class assetGenerator : parralaxAssetGenerator {
 
 	// Use this for initialization
 	public override void clear(){
+		if (GameObjectTabOfTypePrefab != null) {
+			foreach (GameObject go in GameObjectTabOfTypePrefab) {
+				DestroyImmediate (go);
+			}
 		GameObjectTabOfTypePrefab.Clear ();
+	}
 	}
 
 
@@ -63,13 +68,5 @@ public class assetGenerator : parralaxAssetGenerator {
 			return (random == 0) ? true : false; 
 		}
 		return false;
-	}
-	public override void reset(){
-		if (GameObjectTabOfTypePrefab != null) {
-			foreach (GameObject go in GameObjectTabOfTypePrefab) {
-				DestroyImmediate (go);
-			}
-			clear ();
-		}
 	}
 }

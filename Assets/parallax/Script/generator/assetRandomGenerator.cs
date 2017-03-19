@@ -29,11 +29,21 @@ public class assetRandomGenerator : parralaxAssetGenerator {
 	private int previousAssetId = -1;
 
 	public override void clear(){
+
+		if (GameObjectTabOfTypePrefabs != null) {
+			foreach (List<GameObject> list in GameObjectTabOfTypePrefabs) {
+				foreach (GameObject go in list) {
+					DestroyImmediate (go);
+				}
+			}
+		}
+
 		if(GameObjectTabOfTypePrefabs != null){
 			for (int i =0; i < GameObjectTabOfTypePrefabs.Length; i++) {
 				GameObjectTabOfTypePrefabs[i].Clear ();
 			}
 		}
+
 	}
 
 	private int getIdOfNextAsset() {
@@ -147,15 +157,5 @@ public class assetRandomGenerator : parralaxAssetGenerator {
 		}
 		return false;
 	}
-
-	public override void reset(){
-		if (GameObjectTabOfTypePrefabs != null) {
-			foreach (List<GameObject> list in GameObjectTabOfTypePrefabs) {
-				foreach (GameObject go in list) {
-					DestroyImmediate (go);
-				}
-			}
-			clear ();
-		}
-	}
+		
 }

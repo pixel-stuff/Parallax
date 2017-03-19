@@ -15,5 +15,4 @@ abstract public class parralaxAssetGenerator : MonoBehaviour {
 	abstract public GenerateAssetStruct generateGameObjectWithCode(int code);
 
 	abstract public GenerateAssetStruct generateGameObjectAtPosition();
-	abstract public void reset();
 }

@@ -24,7 +24,7 @@ public class parallaxPlanBasic : parallaxPlan {
 	
 	// Use this for initialization
 	void Start () {
-		generator.reset ();
+		generator.clear ();
 
 		visibleGameObjectTab.Clear ();
 
@@ -173,7 +173,13 @@ public class parallaxPlanBasic : parallaxPlan {
     }
 
 	public override void reset(){
-		generator.reset ();
+		clear ();
+		Start ();
+
+	}
+
+	public override void clear(){
+		generator.clear ();
 
 		visibleGameObjectTab.Clear ();
 

@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEditor;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -56,15 +57,41 @@ public class parralaxManager : MonoBehaviour {
 	private bool isPreviousPositionSet = false;
 	private Vector3 previousCameraPosition = Vector3.zero;
 
+	private EditorApplication.CallbackFunction s_backgroundUpdateCB;
+
+	private void EditorCallback() {
+		
+		if (!EditorApplication.isPlaying && EditorApplication.isPlayingOrWillChangePlaymode) {
+			clear ();
+		}
+		if (EditorApplication.isPlaying && !EditorApplication.isPlayingOrWillChangePlaymode) {
+			clear ();
+		}
+	}
+
+	void OnEnable() {
+		s_backgroundUpdateCB = new EditorApplication.CallbackFunction(EditorCallback);
+		EditorApplication.update += s_backgroundUpdateCB;
+	}
+
+	void Awake(){
+		Debug.Log ("AWAKE");
+		clear ();
+		var children = new List<GameObject>();
+		foreach (Transform child in transform) children.Add(child.gameObject);
+		children.ForEach(child => DestroyImmediate(child));
+
+	}
+
 	// Use this for initialization
 	void Start () {
 		reset = false;
 		speed = constantSpeed;
-		rightBorder = Instantiate ( new GameObject());
+		rightBorder = new GameObject();
 		rightBorder.name = "rightBorder";
 		rightBorder.transform.position = new Vector3 (rightBorder.transform.position.x, cameraToFollow.transform.position.y - cameraToFollow.rect.height * cameraToFollow.orthographicSize, rightBorder.transform.position.z);
 		//rightBorder.transform.parent = this.transform;
-		leftBorder = Instantiate (new GameObject ());
+		leftBorder =new GameObject ();
 		leftBorder.name = "leftBorder";
 		leftBorder.transform.position = new Vector3 (leftBorder.transform.position.x, cameraToFollow.transform.position.y - cameraToFollow.rect.height * cameraToFollow.orthographicSize, leftBorder.transform.position.z);
 		//leftBorder.transform.parent = this.transform;
@@ -128,8 +155,10 @@ public class parralaxManager : MonoBehaviour {
             CameraWidthSize = cameraOrthographiqueSize * CameraW;
             refreshZoom = true;
         }
-		rightBorder.transform .position = new Vector3 (cameraToFollow.transform.position.x + CameraW * cameraOrthographiqueSize, rightBorder.transform.position.y,rightBorder.transform .position.z);
-		leftBorder.transform .position = new Vector3 (cameraToFollow.transform.position.x - CameraW * cameraOrthographiqueSize, leftBorder.transform.position.y,leftBorder.transform .position.z);
+		if (rightBorder != null && leftBorder != null) {
+			rightBorder.transform.position = new Vector3 (cameraToFollow.transform.position.x + CameraW * cameraOrthographiqueSize, rightBorder.transform.position.y, rightBorder.transform.position.z);
+			leftBorder.transform.position = new Vector3 (cameraToFollow.transform.position.x - CameraW * cameraOrthographiqueSize, leftBorder.transform.position.y, leftBorder.transform.position.z);
+		}
 
 
 		float cameraSpeedX=0;
@@ -145,13 +174,13 @@ public class parralaxManager : MonoBehaviour {
 			Debug.Log (cameraSpeedX);
 			this.transform.position = new Vector3(cameraToFollow.transform.position.x, this.transform.position.y, this.transform.position.z);
 		}
-		
-		foreach (GameObject plan in parralaxPlans) {
-			plan.GetComponent<parallaxPlan> ().setSpeedOfPlan (speed+ cameraSpeedX,cameraSpeedY); // TODO set speed Y
-            if (refreshZoom)
-            {
-                plan.GetComponent<parallaxPlan>().refreshOnZoom();
-            }
+		if (parralaxPlans != null) {
+			foreach (GameObject plan in parralaxPlans) {
+				plan.GetComponent<parallaxPlan> ().setSpeedOfPlan (speed + cameraSpeedX, cameraSpeedY); // TODO set speed Y
+				if (refreshZoom) {
+					plan.GetComponent<parallaxPlan> ().refreshOnZoom ();
+				}
+			}
 		}
 
 		if (debugMode) {
@@ -195,9 +224,24 @@ public class parralaxManager : MonoBehaviour {
 	}
 	private void resetAllPlan(){
 		reset = false;
-		foreach (GameObject plan in parralaxPlans) {
-			parallaxPlan parralaxScript = plan.GetComponent<parallaxPlan>();
-			parralaxScript.reset ();
+		clear ();
+		Start ();
+	}
+
+	private void clear(){
+		Debug.Log ("Start clear");
+		if (parralaxPlans != null) {
+			foreach (GameObject plan in parralaxPlans) {
+				plan.GetComponent<parallaxPlan> ().clear ();
+				Debug.Log ("clear and destoyr plan " + plan.name);
+				DestroyImmediate (plan);
+			}
+		
+			parralaxPlans.Clear ();
+			parralaxPlans = null;
+
+			DestroyImmediate (rightBorder);
+			DestroyImmediate (leftBorder);
 		}
 	}
 }
