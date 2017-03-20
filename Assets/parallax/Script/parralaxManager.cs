@@ -117,7 +117,7 @@ public class parralaxManager : MonoBehaviour {
 			tempScript.colorTeint = config.colorTeinte;
 			tempScript.cameraDistancePlan0 = cameraDistance;
 			tempScript.horizonLineDistance = horizonLine;
-			tempScript.seed = (config.seed != 0) ? config.seed : m_globalSeed;
+			tempScript.seed = (config.seed != 0) ? config.seed : m_globalSeed + (int)config.distance;
 
 			parralaxPlans.Add(tempParralaxPlan);
 		}
