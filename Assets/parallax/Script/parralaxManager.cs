@@ -4,6 +4,12 @@ using System.Collections;
 using System.Collections.Generic;
 
 [System.Serializable]
+public class CameraThreshold {
+	public Vector3 popLimitation;
+	public Vector3 depopLimitation;
+}
+
+[System.Serializable]
 public class ParralaxPlanConfiguration : System.Object
 {
 	[Header("Parralax plan prefab")]
@@ -46,8 +52,7 @@ public class parralaxManager : MonoBehaviour {
 	private int m_globalSeed = 123456789;
 
 	private float speed;
-	private GameObject rightBorder;
-	private GameObject leftBorder;
+	public CameraThreshold cameraThreshold = new CameraThreshold();
 	private List<GameObject> parralaxPlans;
 
 
@@ -92,13 +97,13 @@ public class parralaxManager : MonoBehaviour {
 	void Start () {
 		reset = false;
 		speed = constantSpeed;
-		rightBorder = new GameObject();
-		rightBorder.name = "rightBorder";
-		rightBorder.transform.position = new Vector3 (rightBorder.transform.position.x, cameraToFollow.transform.position.y - cameraToFollow.rect.height * cameraToFollow.orthographicSize, rightBorder.transform.position.z);
+		//rightBorder = new Transform ();
+		cameraThreshold.popLimitation = new Vector3 (0, cameraToFollow.transform.position.y - cameraToFollow.rect.height * cameraToFollow.orthographicSize, 0);
+		//rightBorder.position = new Vector3 (0, cameraToFollow.transform.position.y - cameraToFollow.rect.height * cameraToFollow.orthographicSize, 0);
 		//rightBorder.transform.parent = this.transform;
-		leftBorder =new GameObject ();
-		leftBorder.name = "leftBorder";
-		leftBorder.transform.position = new Vector3 (leftBorder.transform.position.x, cameraToFollow.transform.position.y - cameraToFollow.rect.height * cameraToFollow.orthographicSize, leftBorder.transform.position.z);
+		//leftBorder = new Transform();
+		cameraThreshold.depopLimitation = new Vector3 (0, cameraToFollow.transform.position.y - cameraToFollow.rect.height * cameraToFollow.orthographicSize, 0);
+		//leftBorder.position = new Vector3 (0, cameraToFollow.transform.position.y - cameraToFollow.rect.height * cameraToFollow.orthographicSize, 0);
 		//leftBorder.transform.parent = this.transform;
 		parralaxPlans = new List<GameObject> ();
 		foreach (ParralaxPlanConfiguration config in configurationParralax) {
@@ -107,8 +112,7 @@ public class parralaxManager : MonoBehaviour {
 			tempParralaxPlan.name = config.nameParalaxPlan;
 
 			parallaxPlan tempScript = tempParralaxPlan.GetComponent<parallaxPlan>();
-			tempScript.popLimitation = rightBorder;
-			tempScript.depopLimitation = leftBorder;
+			tempScript.cameraThreshold = cameraThreshold;
 			tempScript.generator = config.generatorScript;
 			tempScript.distance = config.distance;
 			tempScript.lowSpaceBetweenAsset = config.lowSpaceBetweenAsset;
@@ -161,9 +165,9 @@ public class parralaxManager : MonoBehaviour {
             CameraWidthSize = cameraOrthographiqueSize * CameraW;
             refreshZoom = true;
         }
-		if (rightBorder != null && leftBorder != null) {
-			rightBorder.transform.position = new Vector3 (cameraToFollow.transform.position.x + CameraW * cameraOrthographiqueSize, rightBorder.transform.position.y, rightBorder.transform.position.z);
-			leftBorder.transform.position = new Vector3 (cameraToFollow.transform.position.x - CameraW * cameraOrthographiqueSize, leftBorder.transform.position.y, leftBorder.transform.position.z);
+		if (cameraThreshold != null) {
+			cameraThreshold.popLimitation = new Vector3(cameraToFollow.transform.position.x + CameraW * cameraOrthographiqueSize,cameraToFollow.transform.position.y , cameraToFollow.transform.position.z);
+			cameraThreshold.depopLimitation = new Vector3 (cameraToFollow.transform.position.x - CameraW * cameraOrthographiqueSize, cameraToFollow.transform.position.y, cameraToFollow.transform.position.z);
 		}
 
 
@@ -245,9 +249,6 @@ public class parralaxManager : MonoBehaviour {
 		
 			parralaxPlans.Clear ();
 			parralaxPlans = null;
-
-			DestroyImmediate (rightBorder);
-			DestroyImmediate (leftBorder);
 		}
 	}
 }
