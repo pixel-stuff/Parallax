@@ -5,56 +5,16 @@ using System.Collections.Generic;
 [ExecuteInEditMode]
 public class parallaxPlanBasic : parallaxPlan {
 	
-	public List<GameObject> visibleGameObjectTab;
 
-	public float space;
-	
-	private float initSpeed = 0.1f;
-	private bool isInit = false;
-	
-
-	
-	private float spaceBetweenAsset = 0.0f;
-	private float speedMultiplicator;
-	private float speedMultiplicatorY;
-	private float initialY;
-	
-
-	
-	// Use this for initialization
-	void Start () {
-		m_random = new System.Random (seed);
-		generator.random = m_random;
-
-		generator.clear ();
-
-		visibleGameObjectTab.Clear ();
-
-
-		actualSpeed = 0;
-		speedSign = 1;
-		speedMultiplicatorY = distance /(cameraDistancePlan0+Mathf.Abs (distance));
-		speedMultiplicator = (Mathf.Abs (horizonLineDistance) + distance) / (Mathf.Abs (horizonLineDistance) + cameraDistancePlan0);
-		generator.clear ();
-		isInit = false;
-		initSpeed = Mathf.Max( initSpeed * speedMultiplicator,0.01f);
-		setSpeedOfPlan (initSpeed,0);
-		while (!isInit) {
-			Debug.Log("INIT");
-			moveAsset (initSpeed,0);
-			//			Debug.Log();
-			generateAssetIfNeeded ();
-		}
-		initialY = this.transform.position.y; //TODO change this for Y in the config
+	void Start() {
+		InitParralax ();
 	}
-	
 	// Update is called once per frame
 	void Update () {
-		moveAsset (actualSpeed * speedMultiplicator, YActualSpeed * speedMultiplicatorY);
-		generateAssetIfNeeded ();
+		UpdateParralax ();
 	}
 	
-	void moveAsset(float speedX,float speedY){
+	public override void moveAsset(float speedX,float speedY){
 		List<GameObject> temp = new List<GameObject>();
 		foreach(GameObject g in visibleGameObjectTab) {
 			if(temp.Contains(g)){
@@ -79,7 +39,7 @@ public class parallaxPlanBasic : parallaxPlan {
 		}
 	}
 		
-	void generateAssetIfNeeded(){
+	public override	void generateAssetIfNeeded(){
 		if(((spaceBetweenLastAndPopLimitation() < (-spaceBetweenAsset + actualSpeed * speedMultiplicator)) && (speedSign > 0)) ||
 		   ((spaceBetweenLastAndPopLimitation() > (spaceBetweenAsset + actualSpeed * speedMultiplicator)) && (speedSign < 0))){
 			GenerateAssetStruct assetStruct = generator.generateGameObjectAtPosition();
@@ -89,7 +49,7 @@ public class parallaxPlanBasic : parallaxPlan {
 			asset.GetComponent<SpriteRenderer> ().color = colorTeint;
 			float yPosition = 0f;
 			if (visibleGameObjectTab.Count == 0) {
-				yPosition = initialY;
+				yPosition = this.transform.position.y;
 			} else {
 				yPosition = visibleGameObjectTab [0].transform.position.y;
 			}

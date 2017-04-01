@@ -17,25 +17,55 @@ public class StockAssetStruct : System.Object
 }
 
 abstract public class parallaxPlan : MonoBehaviour {
-	public float distance;
+
+	/*****************/
+	// Configuration set by Camera Manager
+	/*****************/
 
 	public CameraThreshold cameraThreshold;
+
+	public parralaxAssetGenerator generator;
+
+	public float distance;
 
 	public float hightSpaceBetweenAsset = 0;
 	public float lowSpaceBetweenAsset = 0;
     public float relativeSpeed;
+	public Color colorTeint = Color.clear;
 
 	public float cameraDistancePlan0;
 	public float horizonLineDistance;
 
-	public Color colorTeint = Color.clear;
 	public int seed;
+	/*****************/
+	// END Configuration set by Camera Manager
+	/*****************/
+
+
+
+	/*****************/
+	// Internal var 
+	/*****************/
 
 	protected System.Random m_random;
 
 	protected int speedSign = 1;
 	protected float actualSpeed = 0.0f;
 	protected float YActualSpeed = 0.0f;
+
+
+	protected float initSpeed = 0.1f;
+	protected bool isInit = false;
+
+	protected List<GameObject> visibleGameObjectTab;
+
+	protected float space;
+
+
+	protected float spaceBetweenAsset = 0.0f;
+	protected float speedMultiplicator;
+	protected float speedMultiplicatorY;
+
 
 	protected SpeedState speedState { 
 		get {
@@ -78,11 +108,48 @@ abstract public class parallaxPlan : MonoBehaviour {
 	}
 		
 
-	public parralaxAssetGenerator generator;
+	/*****************/
+	// End Internal var 
+	/*****************/
 
-    abstract public void refreshOnZoom();
+	/*****************/
+	// Fonction
+	/*****************/
 
-	abstract public void clear();
+	// Use this for initialization
+	protected void InitParralax () {
+		m_random = new System.Random (seed);
+		generator.random = m_random;
+
+		generator.clear ();
+
+		visibleGameObjectTab = new List<GameObject>();
+
+		actualSpeed = 0;
+		speedSign = 1;
+		setTheDistanceMultiplicator ();
+		generator.clear ();
+		isInit = false;
+		initSpeed = Mathf.Max( initSpeed * speedMultiplicator,0.01f);
+		setSpeedOfPlan (initSpeed,0);
+		generateNewSpaceBetweenAssetValue();
+		while (!isInit) {
+			Debug.Log("Init parralax plan "+ this.gameObject.name);
+			moveAsset (initSpeed,0);
+			generateAssetIfNeeded ();
+		}
+	}
+
+
+	void setTheDistanceMultiplicator() {
+		speedMultiplicatorY = distance /(cameraDistancePlan0+Mathf.Abs (distance));
+		speedMultiplicator = (Mathf.Abs (horizonLineDistance)+ distance) / (Mathf.Abs (horizonLineDistance) + cameraDistancePlan0);
+	}
+
+	protected void UpdateParralax() {
+		moveAsset (actualSpeed * speedMultiplicator, YActualSpeed * speedMultiplicatorY);
+		generateAssetIfNeeded ();
+	}
 
 	protected float randomRange (float min, float max){
 		float factor = m_random.Next () / int.MaxValue;
@@ -91,6 +158,11 @@ abstract public class parallaxPlan : MonoBehaviour {
 
 	protected void swapPopAndDepop(){
 		speedSign = speedSign * -1;
+	}
+
+	protected void generateNewSpaceBetweenAssetValue(){
+
+		spaceBetweenAsset = randomRange (lowSpaceBetweenAsset,hightSpaceBetweenAsset);
 	}
 
 
@@ -104,4 +176,12 @@ abstract public class parallaxPlan : MonoBehaviour {
 		actualSpeed = speed;
 		YActualSpeed = ySpeed;
 	}
+		
+	abstract public void refreshOnZoom();
+
+	abstract public void clear();
+
+	abstract public void moveAsset (float speedX, float speedY);
+	abstract public void generateAssetIfNeeded ();
+
 }

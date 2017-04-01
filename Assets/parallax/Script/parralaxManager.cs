@@ -68,6 +68,8 @@ public class parralaxManager : MonoBehaviour {
 
 	private EditorApplication.CallbackFunction s_backgroundUpdateCB;
 
+	private bool m_refreshZoom = false;
+
 
 	private void EditorCallback() {
 		
@@ -147,30 +149,27 @@ public class parralaxManager : MonoBehaviour {
 				temp.transform.localPosition = new Vector3(temp.transform.localPosition.x,temp.transform.localPosition.y,temp.transform.localPosition.z+ zsupp--);
 			}
 		}
-		Update ();
+		UpdateCameraThreshold ();
 	}
-	
-	// Update is called once per frame
-	void Update () {
-        //reset the Pop and depop position 
-        bool refreshZoom = false;
+
+	void UpdateCameraThreshold() {
+		//reset the Pop and depop position 
+		m_refreshZoom = false;
 		float cameraOrthographiqueSize = cameraToFollow.orthographicSize*2;
 		float CameraW = cameraToFollow.rect.width;
-        if (CameraWidthSize ==0) {
-			//this.transform.position = new Vector3(cameraToFollow.transform.position.x, this.transform.position.y, this.transform.position.z);
-        }
-        if(CameraWidthSize != cameraOrthographiqueSize*CameraW || CameraWidthSize ==0)
-        {
-            //zoom
-            CameraWidthSize = cameraOrthographiqueSize * CameraW;
-            refreshZoom = true;
-        }
+		if(CameraWidthSize != cameraOrthographiqueSize*CameraW || CameraWidthSize ==0)
+		{
+			//zoom
+			CameraWidthSize = cameraOrthographiqueSize * CameraW;
+			m_refreshZoom = true;
+		}
 		if (cameraThreshold != null) {
 			cameraThreshold.popLimitation = new Vector3(cameraToFollow.transform.position.x + CameraW * cameraOrthographiqueSize,cameraToFollow.transform.position.y , cameraToFollow.transform.position.z);
 			cameraThreshold.depopLimitation = new Vector3 (cameraToFollow.transform.position.x - CameraW * cameraOrthographiqueSize, cameraToFollow.transform.position.y, cameraToFollow.transform.position.z);
 		}
+	}
 
-
+	void UpdateSpeedAndPosition(){
 		float cameraSpeedX=0;
 		float cameraSpeedY = 0;
 		if (cameraToFollow != null){
@@ -187,11 +186,19 @@ public class parralaxManager : MonoBehaviour {
 		if (parralaxPlans != null) {
 			foreach (GameObject plan in parralaxPlans) {
 				plan.GetComponent<parallaxPlan> ().setSpeedOfPlan (speed + cameraSpeedX, cameraSpeedY); // TODO set speed Y
-				if (refreshZoom) {
+				if (m_refreshZoom) {
 					plan.GetComponent<parallaxPlan> ().refreshOnZoom ();
 				}
 			}
 		}
+	}
+
+
+	// Update is called once per frame
+	void Update () {
+		UpdateCameraThreshold ();
+
+		UpdateSpeedAndPosition ();
 
 		if (debugMode) {
 			setPlanConstante ();

@@ -4,17 +4,7 @@ using System.Collections.Generic;
 
 [ExecuteInEditMode]
 public class parallaxPlanSave : parallaxPlan {
-	
-	public List<GameObject> visibleGameObjectTab;
-	
-	public float space;
-	
-	private float m_initSpeed = 0.1f;
-	private bool m_isInit = false;
-	
-	private float spaceBetweenAsset = 0.0f;
-	private float m_speedMultiplicator;
-	private float m_speedMultiplicatorY;
+
 
 
 	public List<StockAssetStruct> m_stockAsset;
@@ -24,40 +14,19 @@ public class parallaxPlanSave : parallaxPlan {
 
 	// Use this for initialization
 	void Start () {
-		m_random = new System.Random (seed);
-		generator.random = m_random;
-		generator.clear ();
-		visibleGameObjectTab.Clear ();
-		speedSign = 1;
 		lowId = 0;
 		hightId = -1;
 		m_stockAsset = new List<StockAssetStruct>();
-		actualSpeed = 0;
-		setTheDistanceMultiplicator ();
-		generator.clear ();
-		hightId=-1;
-		generateNewSpaceBetweenAssetValue();
-		m_initSpeed = Mathf.Max( m_initSpeed * m_speedMultiplicator,0.01f);
-		setSpeedOfPlan (m_initSpeed,0);
-		m_isInit = false;
-		while (!m_isInit) {
-			moveAsset (m_initSpeed,0);
-			generateAssetIfNeeded ();
-		}
-	}
+		InitParralax ();
 
-	void setTheDistanceMultiplicator() {
-		m_speedMultiplicatorY = distance /(cameraDistancePlan0+Mathf.Abs (distance));
-		m_speedMultiplicator = (Mathf.Abs (horizonLineDistance)+ distance) / (Mathf.Abs (horizonLineDistance) + cameraDistancePlan0);
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		moveAsset (actualSpeed * m_speedMultiplicator,YActualSpeed * m_speedMultiplicatorY);
-		generateAssetIfNeeded ();
+		UpdateParralax ();
 	}
 	
-	void moveAsset(float speedX,float speedY) {
+	public override void moveAsset(float speedX,float speedY) {
 		//clone for remove later 
 		List<GameObject> temp = new List<GameObject>();
 		foreach(GameObject g in visibleGameObjectTab) {
@@ -77,7 +46,7 @@ public class parallaxPlanSave : parallaxPlan {
 				}
 				parrallaxAsset.SetActive(false);
 				visibleGameObjectTab.Remove(parrallaxAsset);
-				m_isInit =true;
+				isInit =true;
 			} else {
 				positionAsset.x -= speedX;
 				positionAsset.y -= speedY;
@@ -164,7 +133,7 @@ public class parallaxPlanSave : parallaxPlan {
 		}
 	}
 	
-	void generateAssetIfNeeded(){
+	public override void generateAssetIfNeeded(){
 		if(speedSign > 0){
 			//Debug.Log("Hight ID = " + hightId);
 			if(hightId == m_stockAsset.Count || hightId == m_stockAsset.Count-1) {
@@ -255,7 +224,7 @@ public class parallaxPlanSave : parallaxPlan {
 
     public override void refreshOnZoom()
     {
-    	if (m_isInit) {
+    	if (isInit) {
         	swapPopAndDepop();
         	moveAsset(0,0);
         	generateAssetIfNeeded();
