@@ -136,7 +136,7 @@ public class parallaxPlanSave : parallaxPlan {
 	public override void generateAssetIfNeeded(){
 		if(speedSign > 0){
 			//Debug.Log("Hight ID = " + hightId);
-			if(hightId == m_stockAsset.Count || hightId == m_stockAsset.Count-1) {
+			if(hightId == m_stockAsset.Count-1) {
 				//Debug.Log("get Hight with space : "+ spaceBetweenLastAndPopLimitation() + " and space value "+ spaceBetweenAsset);
 				if(spaceBetweenLastAndPopLimitation() > spaceBetweenAsset) {
 				//	Debug.Log("generate Hight");
