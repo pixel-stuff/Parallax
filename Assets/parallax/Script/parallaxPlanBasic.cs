@@ -111,15 +111,6 @@ public class parallaxPlanBasic : parallaxPlan {
 		return min;
 	}
 
-    public override void refreshOnZoom()
-    {
-        swapPopAndDepop();
-        moveAsset(0,0);
-        generateAssetIfNeeded();
-        swapPopAndDepop();
-    }
-		
-
 	public override void clear(){
 		generator.clear ();
 

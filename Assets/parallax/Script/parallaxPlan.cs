@@ -177,7 +177,14 @@ abstract public class parallaxPlan : MonoBehaviour {
 		YActualSpeed = ySpeed;
 	}
 		
-	abstract public void refreshOnZoom();
+	public void refreshOnZoom() {
+		if (isInit) {
+			swapPopAndDepop();
+			moveAsset(0,0);
+			generateAssetIfNeeded();
+			swapPopAndDepop();
+		}
+	}
 
 	abstract public void clear();
 

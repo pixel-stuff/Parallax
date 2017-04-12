@@ -57,6 +57,7 @@ public class parallaxPlanSave : parallaxPlan {
 
 	float calculateXOffsetForAsset(GameObject asset) {
 		if (speedSign > 0) {
+			//TODO refactor for avoid spriteRenderer
 			return (asset.GetComponent<SpriteRenderer> ().sprite.bounds.max.x) - (space - spaceBetweenAsset);
 		} else {
 			return (asset.GetComponent<SpriteRenderer> ().sprite.bounds.min.x) + (space - spaceBetweenAsset);
@@ -118,7 +119,7 @@ public class parallaxPlanSave : parallaxPlan {
 		} else {
 			yPosition = visibleGameObjectTab [0].transform.position.y;
 		}
-
+		//TODO refactor for avoid Sprite renderer (calculateXOffsetForAsset)
 		if (speedSign > 0) {
 			asset.transform.position = new Vector3(popLimitation.x + (asset.GetComponent<SpriteRenderer> ().sprite.bounds.max.x) - (space-dist),yPosition,this.transform.position.z);
 		} else {
@@ -165,8 +166,8 @@ public class parallaxPlanSave : parallaxPlan {
 			}
 		}
 	}
-	
-	
+
+
 	void generateNewSpaceBetweenAssetValue(){
 		spaceBetweenAsset = randomRange (lowSpaceBetweenAsset,hightSpaceBetweenAsset);
 	}
@@ -176,61 +177,59 @@ public class parallaxPlanSave : parallaxPlan {
 	
 	bool isStillVisible (GameObject parallaxObject) {
 		if (speedSign > 0) {
-			return (parallaxObject.transform.position.x + (parallaxObject.GetComponent<SpriteRenderer> ().sprite.bounds.max.x ) > depopLimitation.x);
+			return (RightestXPosition(parallaxObject) > depopLimitation.x);
 		} else {
-			return (parallaxObject.transform.position.x + (parallaxObject.GetComponent<SpriteRenderer> ().sprite.bounds.min.x ) < depopLimitation.x);
+			return (LeftestXPosition(parallaxObject) < depopLimitation.x);
 		}
 	}
 	
 	
 	float spaceBetweenLastAndPopLimitation() {
 		if (visibleGameObjectTab.Count != 0) {
-			if (speedSign > 0){
-				space = getMaxValue();
-			}else {
-				space = getMinValue();
+			float min = float.MaxValue;
+			foreach(GameObject g in visibleGameObjectTab) {
+				if (speedSign > 0) {
+					min = Mathf.Min(min, popLimitation.x - (RightestXPosition(g)));
+				}else {
+					min = Mathf.Min(min, LeftestXPosition(g) - popLimitation.x);
+				}
 			}
+			space = min;
 			return space;
 			
 		} else {
 			return float.MaxValue;
 		}
 	}
-	
-	
-	float getMaxValue(){
-		//min
-		float min = float.MaxValue;
-		foreach(GameObject g in visibleGameObjectTab){
-			float result  = popLimitation.x - (g.transform.position.x +(g.GetComponent<SpriteRenderer> ().sprite.bounds.max.x));
-			if (result < min){
-				min = result;
+
+	float RightestXPosition(GameObject g){
+		float rightValue = float.MinValue;
+
+		if (g.GetComponentsInChildren<SpriteRenderer> () != null) {
+			foreach (SpriteRenderer spriteRenderer in g.GetComponentsInChildren<SpriteRenderer> ()) {
+				rightValue = Mathf.Max (rightValue, spriteRenderer.sprite.bounds.max.x);
 			}
 		}
-		return min;
-	}
-	
-	float getMinValue(){
-		float min = float.MaxValue;
-		foreach(GameObject g in visibleGameObjectTab){
-			float result  =  (g.transform.position.x +(g.GetComponent<SpriteRenderer> ().sprite.bounds.min.x))- popLimitation.x;
-			if (result < min){
-				min = result;
-			}
-		}
-		return min;
+
+		//TODO same things for particules;
+
+		return g.transform.position.x + rightValue;
 	}
 
 
-    public override void refreshOnZoom()
-    {
-    	if (isInit) {
-        	swapPopAndDepop();
-        	moveAsset(0,0);
-        	generateAssetIfNeeded();
-        	swapPopAndDepop();
-    	}
-    }
+	float LeftestXPosition(GameObject g){
+		float leftValue = float.MaxValue;
+
+		if (g.GetComponentsInChildren<SpriteRenderer> () != null) {
+			foreach (SpriteRenderer spriteRenderer in g.GetComponentsInChildren<SpriteRenderer> ()) {
+				leftValue = Mathf.Min (leftValue, spriteRenderer.sprite.bounds.min.x);
+			}
+		}
+
+		//TODO same things for particules;
+
+		return g.transform.position.x + leftValue;
+	}
 		
 
 	public override void clear(){
