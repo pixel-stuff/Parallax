@@ -2,6 +2,9 @@
 using UnityEditor;
 using System.Collections;
 using System.Collections.Generic;
+using System;
+using System.Linq;
+using Baalrukh.Unity.Core.drawers;
 
 [System.Serializable]
 public class CameraThreshold {
@@ -10,9 +13,37 @@ public class CameraThreshold {
 }
 
 [System.Serializable]
+public class BasicGeneratorParameters {
+	public AssetEntry typeOfAsset;
+	public GameObject prefab = null;
+	public Sprite sprite = null;
+	public bool authoriseRandomFlip = false;
+}
+
+[System.Serializable]
+public class RandomGeneratorParameters {
+	public randomSpawnAssetConfiguration[] AssetConfiguation;
+	public bool authoriseRandomFlip = false;
+	public bool removeDirectDuplicata = true;
+	public bool removeFlipDuplicata = true;
+}
+
+
+[System.Serializable]
 public enum ParallaxPlansType {
 	BASIC,
 	WITHSAVE
+};
+[System.Serializable]
+public enum GeneratorType {
+	BASIC,
+	RANDOM
+};
+
+[System.Serializable]
+public enum AssetEntry {
+	PREFAB,
+	SPRITE
 };
 
 [System.Serializable]
@@ -32,7 +63,13 @@ public class ParralaxPlanConfiguration : System.Object
 
 	public int seed=0;
 
-	public assetRandomGenerator generator;
+	public GeneratorType generatorType;
+
+	public BasicGeneratorParameters basicGeneratorParameters;
+
+	public RandomGeneratorParameters randomGeneratorParameters;
+
+
 }
 [ExecuteInEditMode]
 public class parralaxManager : MonoBehaviour {
@@ -139,6 +176,25 @@ public class parralaxManager : MonoBehaviour {
 			tempScript.horizonLineDistance = horizonLine;
 			tempScript.seed = (config.seed != 0) ? config.seed : m_globalSeed + (int)config.distance;
 
+			if (config.generatorType == GeneratorType.BASIC) {
+				assetGenerator generatorScript = tempParralaxPlan.AddComponent<assetGenerator> ();
+				if (config.basicGeneratorParameters.typeOfAsset == AssetEntry.PREFAB) {
+					generatorScript.prefab = config.basicGeneratorParameters.prefab;
+				} else {
+					generatorScript.spriteForPrefab = config.basicGeneratorParameters.sprite;
+				}
+				generatorScript.authoriseRandomFlip = config.basicGeneratorParameters.authoriseRandomFlip;
+				tempScript.generator = generatorScript;
+			} else {
+				assetRandomGenerator generatorScript = tempParralaxPlan.AddComponent<assetRandomGenerator> ();
+				generatorScript.AssetConfiguation = config.randomGeneratorParameters.AssetConfiguation;
+				generatorScript.authoriseRandomFlip = config.randomGeneratorParameters.authoriseRandomFlip;
+				generatorScript.removeDirectDuplicata = config.randomGeneratorParameters.removeDirectDuplicata;
+				generatorScript.removeFlipDuplicata = config.randomGeneratorParameters.removeFlipDuplicata;
+		
+				tempScript.generator = generatorScript;
+			}
+				
 			parralaxPlans.Add(tempParralaxPlan);
 		}
 		parralaxPlans.Sort(delegate(GameObject x, GameObject y)
