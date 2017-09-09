@@ -13,6 +13,7 @@ public class randomSpawnAssetConfiguration : System.Object
 }
 
 [ExecuteInEditMode]
+[System.Serializable]
 public class assetRandomGenerator : parralaxAssetGenerator {
 	
 	public randomSpawnAssetConfiguration[] AssetConfiguation;
@@ -28,7 +29,7 @@ public class assetRandomGenerator : parralaxAssetGenerator {
 	private int previousId = -1;
 	private int previousAssetId = -1;
 
-	public override void clear(){
+	public override void Clear(){
 
 		if (GameObjectTabOfTypePrefabs != null) {
 			foreach (List<GameObject> list in GameObjectTabOfTypePrefabs) {

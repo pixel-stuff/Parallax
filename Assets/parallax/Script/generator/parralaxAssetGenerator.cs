@@ -10,7 +10,7 @@ public class GenerateAssetStruct : System.Object
 
 abstract public class parralaxAssetGenerator : MonoBehaviour {
 
-	abstract public void clear ();
+	abstract public void Clear ();
 
 	abstract public GenerateAssetStruct generateGameObjectWithCode(int code);
 

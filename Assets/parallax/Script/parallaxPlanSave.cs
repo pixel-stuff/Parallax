@@ -232,11 +232,8 @@ public class parallaxPlanSave : parallaxPlan {
 	}
 		
 
-	public override void clear(){
-
-		generator.clear ();
-
-		visibleGameObjectTab.Clear ();
+	public void Clear(){
+		base.Clear ();
 		m_stockAsset.Clear ();
 	}
 }

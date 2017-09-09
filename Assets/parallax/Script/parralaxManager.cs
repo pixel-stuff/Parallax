@@ -10,10 +10,17 @@ public class CameraThreshold {
 }
 
 [System.Serializable]
+public enum ParallaxPlansType {
+	BASIC,
+	WITHSAVE
+};
+
+[System.Serializable]
 public class ParralaxPlanConfiguration : System.Object
 {
-	[Header("Parralax plan prefab")]
-	public GameObject prefabParralaxPlan;
+	public string nameParalaxPlan;
+	[Header("Parralax plan selection")]
+	public ParallaxPlansType parallaxType = ParallaxPlansType.WITHSAVE;
 	[Header("\"Deep\" of the parralax plan, this will define the factor of speed")]
 	[Tooltip("0 for ground, > 0 for foreground and <0 for background")]
 	public float distance;
@@ -22,8 +29,10 @@ public class ParralaxPlanConfiguration : System.Object
 	public float hightSpaceBetweenAsset;
     public float relativeSpeed;
 	public Color colorTeinte = Color.clear;
-	public string nameParalaxPlan;
+
 	public int seed=0;
+
+	public assetRandomGenerator generator;
 }
 [ExecuteInEditMode]
 public class parralaxManager : MonoBehaviour {
@@ -109,11 +118,16 @@ public class parralaxManager : MonoBehaviour {
 		//leftBorder.transform.parent = this.transform;
 		parralaxPlans = new List<GameObject> ();
 		foreach (ParralaxPlanConfiguration config in configurationParralax) {
-			GameObject tempParralaxPlan = Instantiate(config.prefabParralaxPlan);
+			GameObject tempParralaxPlan = new GameObject();
 			tempParralaxPlan.transform.parent = this.transform;
 			tempParralaxPlan.name = config.nameParalaxPlan;
 
-			parallaxPlan tempScript = tempParralaxPlan.GetComponent<parallaxPlan>();
+			parallaxPlan tempScript;
+			if (config.parallaxType == ParallaxPlansType.BASIC) {
+				tempScript = tempParralaxPlan.AddComponent<parallaxPlanBasic> (); 
+			} else {
+				tempScript = tempParralaxPlan.AddComponent<parallaxPlanSave> ();
+			}
 			tempScript.cameraThreshold = cameraThreshold;
 			tempScript.generator = config.generatorScript;
 			tempScript.distance = config.distance;
@@ -180,7 +194,6 @@ public class parralaxManager : MonoBehaviour {
 			cameraSpeedX = (cameraToFollow.transform.position.x - previousCameraPosition.x);
 			cameraSpeedY = (cameraToFollow.transform.position.y - previousCameraPosition.y);
 			previousCameraPosition = cameraToFollow.transform.position;
-			Debug.Log (cameraSpeedX);
 			this.transform.position = new Vector3(cameraToFollow.transform.position.x, this.transform.position.y, this.transform.position.z);
 		}
 		if (parralaxPlans != null) {
@@ -249,7 +262,7 @@ public class parralaxManager : MonoBehaviour {
 		Debug.Log ("Start clear");
 		if (parralaxPlans != null) {
 			foreach (GameObject plan in parralaxPlans) {
-				plan.GetComponent<parallaxPlan> ().clear ();
+				plan.GetComponent<parallaxPlan> ().Clear ();
 				Debug.Log ("clear and destoyr plan " + plan.name);
 				DestroyImmediate (plan);
 			}

@@ -121,14 +121,14 @@ abstract public class parallaxPlan : MonoBehaviour {
 		m_random = new System.Random (seed);
 		generator.random = m_random;
 
-		generator.clear ();
+		generator.Clear ();
 
 		visibleGameObjectTab = new List<GameObject>();
 
 		actualSpeed = 0;
 		speedSign = 1;
 		setTheDistanceMultiplicator ();
-		generator.clear ();
+		generator.Clear ();
 		isInit = false;
 		initSpeed = Mathf.Max( initSpeed * speedMultiplicator,0.01f);
 		setSpeedOfPlan (initSpeed,0);
@@ -186,7 +186,14 @@ abstract public class parallaxPlan : MonoBehaviour {
 		}
 	}
 
-	abstract public void clear();
+	//abstract public void clear();
+	public void Clear(){
+
+		generator.Clear ();
+
+		visibleGameObjectTab.Clear ();
+	}
+
 
 	abstract public void moveAsset (float speedX, float speedY);
 	abstract public void generateAssetIfNeeded ();

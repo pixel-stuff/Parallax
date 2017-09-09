@@ -110,11 +110,4 @@ public class parallaxPlanBasic : parallaxPlan {
 		}
 		return min;
 	}
-
-	public override void clear(){
-		generator.clear ();
-
-		visibleGameObjectTab.Clear ();
-
-	}
 }

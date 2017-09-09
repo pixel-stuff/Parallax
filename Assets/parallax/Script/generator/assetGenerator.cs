@@ -12,7 +12,7 @@ public class assetGenerator : parralaxAssetGenerator {
 	public List<GameObject> GameObjectTabOfTypePrefab = new List<GameObject>();
 
 	// Use this for initialization
-	public override void clear(){
+	public override void Clear(){
 		if (GameObjectTabOfTypePrefab != null) {
 			foreach (GameObject go in GameObjectTabOfTypePrefab) {
 				DestroyImmediate (go);
