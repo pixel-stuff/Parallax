@@ -54,7 +54,7 @@ public class ParralaxPlanConfiguration : System.Object
 	[Header("\"Deep\" of the parralax plan, this will define the factor of speed")]
 	[Tooltip("0 for ground, > 0 for foreground and <0 for background")]
 	public float distance;
-	public parralaxAssetGenerator generatorScript;
+	public float yOffset = 0f;
 	public float lowSpaceBetweenAsset;
 	public float hightSpaceBetweenAsset;
     public float relativeSpeed;
@@ -101,7 +101,7 @@ public class parralaxManager : MonoBehaviour {
 
 
 
-    private float CameraWidthSize = 0;
+	public float CameraWidthSize = 0;
 
 	public bool debugMode = false;
 
@@ -130,7 +130,6 @@ public class parralaxManager : MonoBehaviour {
 	}
 
 	void Awake(){
-		Debug.Log ("AWAKE");
 		clear ();
 		var children = new List<GameObject>();
 		foreach (Transform child in transform) children.Add(child.gameObject);
@@ -157,7 +156,6 @@ public class parralaxManager : MonoBehaviour {
 				tempScript = tempParralaxPlan.AddComponent<parallaxPlanSave> ();
 			}
 			tempScript.cameraThreshold = cameraThreshold;
-			tempScript.generator = config.generatorScript;
 			tempScript.distance = config.distance;
 			tempScript.lowSpaceBetweenAsset = config.lowSpaceBetweenAsset;
 			tempScript.hightSpaceBetweenAsset = config.hightSpaceBetweenAsset;
@@ -165,6 +163,7 @@ public class parralaxManager : MonoBehaviour {
 			tempScript.colorTeint = config.colorTeinte;
 			tempScript.cameraDistancePlan0 = cameraDistance;
 			tempScript.horizonLineDistance = horizonLine;
+			tempScript.yOffset = config.yOffset;
 			tempScript.seed = (config.seed != 0) ? config.seed : m_globalSeed + (int)config.distance;
 
 			if (config.generatorType == GeneratorType.BASIC) {
@@ -217,7 +216,7 @@ public class parralaxManager : MonoBehaviour {
 		//reset the Pop and depop position 
 		m_refreshZoom = false;
 		float cameraOrthographiqueSize = cameraToFollow.orthographicSize*2;
-		float CameraW = cameraToFollow.rect.width;
+		float CameraW = cameraToFollow.rect.width +2 ;
 		if(CameraWidthSize != cameraOrthographiqueSize*CameraW || CameraWidthSize ==0)
 		{
 			//zoom
@@ -245,7 +244,7 @@ public class parralaxManager : MonoBehaviour {
 		}
 		if (parralaxPlans != null) {
 			foreach (GameObject plan in parralaxPlans) {
-				plan.GetComponent<parallaxPlan> ().setSpeedOfPlan (speed + cameraSpeedX, cameraSpeedY); // TODO set speed Y
+				plan.GetComponent<parallaxPlan> ().setSpeedOfPlan (speed + cameraSpeedX, cameraSpeedY);
 				if (m_refreshZoom) {
 					plan.GetComponent<parallaxPlan> ().refreshOnZoom ();
 				}
@@ -255,7 +254,11 @@ public class parralaxManager : MonoBehaviour {
 
 
 	// Update is called once per frame
+	#if UNITY_EDITOR
 	void Update () {
+	#else
+	void FixedUpdate () {
+	#endif
 		UpdateCameraThreshold ();
 
 		UpdateSpeedAndPosition ();
@@ -288,7 +291,7 @@ public class parralaxManager : MonoBehaviour {
 			GameObject tempParralaxPlan = parralaxPlans.Find (plan => plan.name == config.nameParalaxPlan);
 
 			parallaxPlan parralaxScript = tempParralaxPlan.GetComponent<parallaxPlan>();
-			parralaxScript.generator = config.generatorScript;
+			parralaxScript.yOffset = config.yOffset;
 			parralaxScript.distance = config.distance;
 			parralaxScript.lowSpaceBetweenAsset = config.lowSpaceBetweenAsset;
 			parralaxScript.hightSpaceBetweenAsset = config.hightSpaceBetweenAsset;
@@ -306,11 +309,9 @@ public class parralaxManager : MonoBehaviour {
 	}
 
 	private void clear(){
-		Debug.Log ("Start clear");
 		if (parralaxPlans != null) {
 			foreach (GameObject plan in parralaxPlans) {
 				plan.GetComponent<parallaxPlan> ().Clear ();
-				Debug.Log ("clear and destoyr plan " + plan.name);
 				DestroyImmediate (plan);
 			}
 		

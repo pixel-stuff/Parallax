@@ -10,18 +10,19 @@ public class parallaxPlanBasic : parallaxPlan {
 		InitParralax ();
 	}
 	// Update is called once per frame
+	// Update is called once per frame
+	#if UNITY_EDITOR
 	void Update () {
+	#else
+	void FixedUpdate () {
+	#endif
 		UpdateParralax ();
 	}
 	
 	public override void moveAsset(float speedX,float speedY){
 		List<GameObject> temp = new List<GameObject>();
 		foreach(GameObject g in visibleGameObjectTab) {
-			if(temp.Contains(g)){
-				Debug.Log("WTF§§§§§§!!!!!!");
-			}else {
-				temp.Add(g);
-			}
+			temp.Add(g);
 		}
 
 		for (int i=0; i<temp.Count; i++) {
@@ -34,7 +35,11 @@ public class parallaxPlanBasic : parallaxPlan {
 			} else {
 				positionAsset.x -= speedX;
 				positionAsset.y -= speedY;
+				#if UNITY_EDITOR
 				parrallaxAsset.transform.position = positionAsset;
+				#else
+				parrallaxAsset.transform.position = Vector3.SmoothDamp(transform.position, positionAsset, ref velocity, dampTime);
+				#endif
 			}
 		}
 	}
@@ -49,7 +54,7 @@ public class parallaxPlanBasic : parallaxPlan {
 			asset.GetComponent<SpriteRenderer> ().color = colorTeint;
 			float yPosition = 0f;
 			if (visibleGameObjectTab.Count == 0) {
-				yPosition = this.transform.position.y;
+				yPosition = this.transform.position.y + yOffset;
 			} else {
 				yPosition = visibleGameObjectTab [0].transform.position.y;
 			}

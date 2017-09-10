@@ -22,10 +22,14 @@ public class parallaxPlanSave : parallaxPlan {
 	}
 	
 	// Update is called once per frame
+	#if UNITY_EDITOR
 	void Update () {
+	#else
+	void FixedUpdate () {
+	#endif
 		UpdateParralax ();
 	}
-	
+
 	public override void moveAsset(float speedX,float speedY) {
 		//clone for remove later 
 		List<GameObject> temp = new List<GameObject>();
@@ -50,7 +54,11 @@ public class parallaxPlanSave : parallaxPlan {
 			} else {
 				positionAsset.x -= speedX;
 				positionAsset.y -= speedY;
+				#if UNITY_EDITOR
 				parrallaxAsset.transform.position = positionAsset;
+				#else
+				parrallaxAsset.transform.position = Vector3.SmoothDamp(transform.position, positionAsset, ref velocity, dampTime);
+				#endif
 			}
 		}
 	}
@@ -71,7 +79,7 @@ public class parallaxPlanSave : parallaxPlan {
 		asset.transform.parent = this.transform;
 		float yPosition = 0f;
 		if (visibleGameObjectTab.Count == 0) {
-			yPosition = this.transform.position.y;
+			yPosition = this.transform.position.y + yOffset;
 		} else {
 			yPosition = visibleGameObjectTab [0].transform.position.y;
 		}
@@ -94,7 +102,7 @@ public class parallaxPlanSave : parallaxPlan {
 		asset.transform.parent = this.transform;
 		float yPosition = 0f;
 		if (visibleGameObjectTab.Count == 0) {
-			yPosition = this.transform.position.y;
+			yPosition = this.transform.position.y + yOffset;
 		} else {
 			yPosition = visibleGameObjectTab [0].transform.position.y;
 		}
@@ -109,7 +117,6 @@ public class parallaxPlanSave : parallaxPlan {
 		generateNewSpaceBetweenAssetValue();
 	}
 	void generateOldAsset(int code,float dist){
-		Debug.Log("get old Hight");
 		GenerateAssetStruct assetStruct = generator.generateGameObjectWithCode(code);
 		GameObject asset = assetStruct.generateAsset;
 		asset.transform.parent = this.transform;

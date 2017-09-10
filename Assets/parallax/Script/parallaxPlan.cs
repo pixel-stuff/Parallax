@@ -37,6 +37,7 @@ abstract public class parallaxPlan : MonoBehaviour {
 	public float horizonLineDistance;
 
 	public int seed;
+	public float yOffset = 0f;
 	/*****************/
 	// END Configuration set by Camera Manager
 	/*****************/
@@ -66,6 +67,9 @@ abstract public class parallaxPlan : MonoBehaviour {
 	protected float speedMultiplicator;
 	protected float speedMultiplicatorY;
 
+
+	public float dampTime = 0.15f;
+	protected Vector3 velocity = Vector3.zero;
 
 	protected SpeedState speedState { 
 		get {
@@ -134,7 +138,6 @@ abstract public class parallaxPlan : MonoBehaviour {
 		setSpeedOfPlan (initSpeed,0);
 		generateNewSpaceBetweenAssetValue();
 		while (!isInit) {
-			Debug.Log("Init parralax plan "+ this.gameObject.name);
 			moveAsset (initSpeed,0);
 			generateAssetIfNeeded ();
 		}
