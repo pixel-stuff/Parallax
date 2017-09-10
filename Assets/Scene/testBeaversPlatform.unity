@@ -248,7 +248,7 @@ MonoBehaviour:
   cameraThreshold:
     popLimitation: {x: 16.34819, y: 0.06, z: -10}
     depopLimitation: {x: 7.231809, y: 0.06, z: -10}
-  generator: {fileID: 188284777}
+  generator: {fileID: 11469598, guid: c1a26580680da024db2019953d2e24fa, type: 2}
   distance: -20
   hightSpaceBetweenAsset: 2
   lowSpaceBetweenAsset: 1.5
@@ -331,7 +331,7 @@ MonoBehaviour:
   cameraThreshold:
     popLimitation: {x: 16.34819, y: 0.06, z: -10}
     depopLimitation: {x: 7.231809, y: 0.06, z: -10}
-  generator: {fileID: 287619891}
+  generator: {fileID: 11484730, guid: edccf59182a39b840a58632418e932c8, type: 2}
   distance: -1000
   hightSpaceBetweenAsset: 0
   lowSpaceBetweenAsset: 0
@@ -368,6 +368,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   configurationParralax: []
+  gameobject: []
   cameraToFollow: {fileID: 0}
   constantSpeed: 0
   cameraDistance: 3
@@ -799,7 +800,7 @@ MonoBehaviour:
   cameraThreshold:
     popLimitation: {x: 16.34819, y: 0.06, z: -10}
     depopLimitation: {x: 7.231809, y: 0.06, z: -10}
-  generator: {fileID: 617021455}
+  generator: {fileID: 11466246, guid: 89c95db2d48a0c3468c4f28acac39fdb, type: 2}
   distance: -20
   hightSpaceBetweenAsset: 0
   lowSpaceBetweenAsset: 0
@@ -1147,7 +1148,7 @@ MonoBehaviour:
   cameraThreshold:
     popLimitation: {x: 16.34819, y: 0.06, z: -10}
     depopLimitation: {x: 7.231809, y: 0.06, z: -10}
-  generator: {fileID: 837058357}
+  generator: {fileID: 11454274, guid: 94a4610d3cc7e94498bd93c01a0e56fc, type: 2}
   distance: -3000
   hightSpaceBetweenAsset: 0
   lowSpaceBetweenAsset: 0
@@ -1357,7 +1358,7 @@ MonoBehaviour:
   cameraThreshold:
     popLimitation: {x: 16.34819, y: 0.06, z: -10}
     depopLimitation: {x: 7.231809, y: 0.06, z: -10}
-  generator: {fileID: 1184146459}
+  generator: {fileID: 11434114, guid: 45e6e951137d6694784f951757886c5a, type: 2}
   distance: 100
   hightSpaceBetweenAsset: 0
   lowSpaceBetweenAsset: 0
@@ -1567,6 +1568,7 @@ MonoBehaviour:
       authoriseRandomFlip: 0
       removeDirectDuplicata: 1
       removeFlipDuplicata: 1
+  gameobject: []
   cameraToFollow: {fileID: 1477489526}
   constantSpeed: 0
   cameraDistance: 3
@@ -2249,7 +2251,7 @@ MonoBehaviour:
   cameraThreshold:
     popLimitation: {x: 16.34819, y: 0.06, z: -10}
     depopLimitation: {x: 7.231809, y: 0.06, z: -10}
-  generator: {fileID: 1663488524}
+  generator: {fileID: 11418782, guid: bdaec8e682001714d8f7fdd9d6dd1dfd, type: 2}
   distance: 0
   hightSpaceBetweenAsset: 0
   lowSpaceBetweenAsset: 0
@@ -2330,7 +2332,7 @@ MonoBehaviour:
   cameraThreshold:
     popLimitation: {x: 16.34819, y: 0.06, z: -10}
     depopLimitation: {x: 7.231809, y: 0.06, z: -10}
-  generator: {fileID: 1725896629}
+  generator: {fileID: 11412024, guid: b67a643d0df168445ba3ecf6655098f9, type: 2}
   distance: -50
   hightSpaceBetweenAsset: 2
   lowSpaceBetweenAsset: 1.5
@@ -2622,7 +2624,7 @@ MonoBehaviour:
   cameraThreshold:
     popLimitation: {x: 16.34819, y: 0.06, z: -10}
     depopLimitation: {x: 7.231809, y: 0.06, z: -10}
-  generator: {fileID: 2042046145}
+  generator: {fileID: 11483544, guid: 414c878346a0bde48a9301381eab978b, type: 2}
   distance: -2500
   hightSpaceBetweenAsset: 0
   lowSpaceBetweenAsset: 0

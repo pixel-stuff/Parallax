@@ -4,7 +4,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System;
 using System.Linq;
-using Baalrukh.Unity.Core.drawers;
 
 [System.Serializable]
 public class CameraThreshold {
@@ -76,8 +75,7 @@ public class parralaxManager : MonoBehaviour {
 
 	[Header("Tab of all parralax plan configutation")]
 	[SerializeField]
-	//[Tooltip("Health value between 0 and 100.")]
-	private ParralaxPlanConfiguration[] configurationParralax;
+	private List<ParralaxPlanConfiguration> configurationParralax;
 
 	[Header("Configuration of parralax Manager")]
 	[SerializeField]
@@ -118,7 +116,6 @@ public class parralaxManager : MonoBehaviour {
 
 
 	private void EditorCallback() {
-		
 		if (!EditorApplication.isPlaying && EditorApplication.isPlayingOrWillChangePlaymode) {
 			clear ();
 		}
@@ -145,14 +142,8 @@ public class parralaxManager : MonoBehaviour {
 	void Start () {
 		reset = false;
 		speed = constantSpeed;
-		//rightBorder = new Transform ();
 		cameraThreshold.popLimitation = new Vector3 (0, cameraToFollow.transform.position.y - cameraToFollow.rect.height * cameraToFollow.orthographicSize, 0);
-		//rightBorder.position = new Vector3 (0, cameraToFollow.transform.position.y - cameraToFollow.rect.height * cameraToFollow.orthographicSize, 0);
-		//rightBorder.transform.parent = this.transform;
-		//leftBorder = new Transform();
 		cameraThreshold.depopLimitation = new Vector3 (0, cameraToFollow.transform.position.y - cameraToFollow.rect.height * cameraToFollow.orthographicSize, 0);
-		//leftBorder.position = new Vector3 (0, cameraToFollow.transform.position.y - cameraToFollow.rect.height * cameraToFollow.orthographicSize, 0);
-		//leftBorder.transform.parent = this.transform;
 		parralaxPlans = new List<GameObject> ();
 		foreach (ParralaxPlanConfiguration config in configurationParralax) {
 			GameObject tempParralaxPlan = new GameObject();
