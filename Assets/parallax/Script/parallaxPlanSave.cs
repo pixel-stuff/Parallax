@@ -217,9 +217,9 @@ public class parallaxPlanSave : parallaxPlan {
 	
 	bool isStillVisible (GameObject parallaxObject) {
 		if (speedSign > 0) {
-			return (parallaxObject.transform.position.x + (parallaxObject.GetComponent<SpriteRenderer> ().sprite.bounds.max.x ) > depopLimitation.transform.position.x);
+			return (parallaxObject.transform.position.x + (parallaxObject.GetComponent<SpriteRenderer> ().sprite.bounds.size.x/2 ) > depopLimitation.transform.position.x);
 		} else {
-			return (parallaxObject.transform.position.x + (parallaxObject.GetComponent<SpriteRenderer> ().sprite.bounds.min.x ) < depopLimitation.transform.position.x);
+			return (parallaxObject.transform.position.x + (parallaxObject.GetComponent<SpriteRenderer> ().sprite.bounds.size.x/2 ) < depopLimitation.transform.position.x);
 		}
 	}
 	

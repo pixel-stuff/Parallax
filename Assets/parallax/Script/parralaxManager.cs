@@ -114,9 +114,11 @@ public class parralaxManager : MonoBehaviour {
 	void Update () {
         //reset the Pop and depop position 
         bool refreshZoom = false;
-		float cameraOrthographiqueSize = cameraToFollow.orthographicSize*2;
+        float height = cameraToFollow.orthographicSize;
+        float cameraOrthographiqueSize = height * cameraToFollow.aspect;
+        //float cameraOrthographiqueSize = cameraToFollow.;
 		float CameraW = cameraToFollow.rect.width;
-        if (CameraWidthSize ==0) {
+       /* if (CameraWidthSize ==0) {
 			//this.transform.position = new Vector3(cameraToFollow.transform.position.x, this.transform.position.y, this.transform.position.z);
         }
         if(CameraWidthSize != cameraOrthographiqueSize*CameraW || CameraWidthSize ==0)
@@ -124,9 +126,9 @@ public class parralaxManager : MonoBehaviour {
             //zoom
             CameraWidthSize = cameraOrthographiqueSize * CameraW;
             refreshZoom = true;
-        }
-		rightBorder.transform .position = new Vector3 (cameraToFollow.transform.position.x + CameraW * cameraOrthographiqueSize, rightBorder.transform.position.y,rightBorder.transform .position.z);
-		leftBorder.transform .position = new Vector3 (cameraToFollow.transform.position.x - CameraW * cameraOrthographiqueSize, leftBorder.transform.position.y,leftBorder.transform .position.z);
+        }*/
+		rightBorder.transform .position = new Vector3 (cameraToFollow.transform.position.x + cameraOrthographiqueSize * CameraW, rightBorder.transform.position.y,rightBorder.transform .position.z);
+		leftBorder.transform .position = new Vector3 (cameraToFollow.transform.position.x - cameraOrthographiqueSize * CameraW, leftBorder.transform.position.y,leftBorder.transform .position.z);
 
 
 		float cameraSpeedX=0;
@@ -139,7 +141,6 @@ public class parralaxManager : MonoBehaviour {
 			cameraSpeedX = (cameraToFollow.transform.position.x - previousCameraPosition.x);
 			cameraSpeedY = (cameraToFollow.transform.position.y - previousCameraPosition.y);
 			previousCameraPosition = cameraToFollow.transform.position;
-			Debug.Log (cameraSpeedX);
 			this.transform.position = new Vector3(cameraToFollow.transform.position.x, this.transform.position.y, this.transform.position.z);
 		}
 		
