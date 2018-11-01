@@ -29,7 +29,7 @@ public class parallaxPlanBasic : parallaxPlan {
 		generator.clear ();
 		initSpeed = Mathf.Max( initSpeed * speedMultiplicator,0.01f);
 		while (!isInit) {
-			Debug.Log("INIT");
+			//Debug.Log("INIT");
 			moveAsset (initSpeed,0);
 			//			Debug.Log();
 			generateAssetIfNeeded ();
@@ -157,9 +157,13 @@ public class parallaxPlanBasic : parallaxPlan {
 
     public override void refreshOnZoom()
     {
-        swapPopAndDepop();
-        moveAsset(0,0);
-        generateAssetIfNeeded();
-        swapPopAndDepop();
+        if (isInit)
+        {
+            Debug.Log("Refresh on zoom");
+            swapPopAndDepop();
+            moveAsset(0, 0);
+            generateAssetIfNeeded();
+            swapPopAndDepop();
+        }
     }
 }

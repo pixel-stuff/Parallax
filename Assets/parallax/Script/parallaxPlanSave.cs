@@ -201,7 +201,7 @@ public class parallaxPlanSave : parallaxPlan {
         float speed = newSpeed + relativeSpeed;
 		if ((speed > 0 && speedSign < 0) || (speed < 0 && speedSign > 0)) {
 			swapPopAndDepop ();
-			print ("Swap");
+			Debug.Log ("Swap");
 		}
 		actualSpeed = speed;
 		YActualSpeed = ySpeed;
@@ -266,6 +266,7 @@ public class parallaxPlanSave : parallaxPlan {
     public override void refreshOnZoom()
     {
     	if (m_isInit) {
+            Debug.Log("Refresh on zoom");
         	swapPopAndDepop();
         	moveAsset(0,0);
         	generateAssetIfNeeded();

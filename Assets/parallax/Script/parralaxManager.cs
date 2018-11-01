@@ -60,11 +60,11 @@ public class parralaxManager : MonoBehaviour {
 		rightBorder = Instantiate ( new GameObject());
 		rightBorder.name = "rightBorder";
 		rightBorder.transform.position = new Vector3 (rightBorder.transform.position.x, cameraToFollow.transform.position.y - cameraToFollow.rect.height * cameraToFollow.orthographicSize, rightBorder.transform.position.z);
-		//rightBorder.transform.parent = this.transform;
+		rightBorder.transform.parent = this.transform;
 		leftBorder = Instantiate (new GameObject ());
 		leftBorder.name = "leftBorder";
 		leftBorder.transform.position = new Vector3 (leftBorder.transform.position.x, cameraToFollow.transform.position.y - cameraToFollow.rect.height * cameraToFollow.orthographicSize, leftBorder.transform.position.z);
-		//leftBorder.transform.parent = this.transform;
+		leftBorder.transform.parent = this.transform;
 		parralaxPlans = new List<GameObject> ();
 		foreach (ParralaxPlanConfiguration config in configurationParralax) {
 			GameObject tempParralaxPlan = Instantiate(config.prefabParralaxPlan);
@@ -118,15 +118,13 @@ public class parralaxManager : MonoBehaviour {
         float cameraOrthographiqueSize = height * cameraToFollow.aspect;
         //float cameraOrthographiqueSize = cameraToFollow.;
 		float CameraW = cameraToFollow.rect.width;
-       /* if (CameraWidthSize ==0) {
-			//this.transform.position = new Vector3(cameraToFollow.transform.position.x, this.transform.position.y, this.transform.position.z);
-        }
+
         if(CameraWidthSize != cameraOrthographiqueSize*CameraW || CameraWidthSize ==0)
         {
             //zoom
             CameraWidthSize = cameraOrthographiqueSize * CameraW;
             refreshZoom = true;
-        }*/
+        }
 		rightBorder.transform .position = new Vector3 (cameraToFollow.transform.position.x + cameraOrthographiqueSize * CameraW, rightBorder.transform.position.y,rightBorder.transform .position.z);
 		leftBorder.transform .position = new Vector3 (cameraToFollow.transform.position.x - cameraOrthographiqueSize * CameraW, leftBorder.transform.position.y,leftBorder.transform .position.z);
 
