@@ -57,11 +57,11 @@ public class parralaxManager : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		speed = constantSpeed;
-		rightBorder = Instantiate ( new GameObject());
+		rightBorder = new GameObject();
 		rightBorder.name = "rightBorder";
 		rightBorder.transform.position = new Vector3 (rightBorder.transform.position.x, cameraToFollow.transform.position.y - cameraToFollow.rect.height * cameraToFollow.orthographicSize, rightBorder.transform.position.z);
 		rightBorder.transform.parent = this.transform;
-		leftBorder = Instantiate (new GameObject ());
+		leftBorder = new GameObject ();
 		leftBorder.name = "leftBorder";
 		leftBorder.transform.position = new Vector3 (leftBorder.transform.position.x, cameraToFollow.transform.position.y - cameraToFollow.rect.height * cameraToFollow.orthographicSize, leftBorder.transform.position.z);
 		leftBorder.transform.parent = this.transform;
