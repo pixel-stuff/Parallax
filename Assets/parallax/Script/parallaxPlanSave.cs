@@ -2,23 +2,10 @@
 using System.Collections;
 using System.Collections.Generic;
 
+[ExecuteInEditMode]
 public class parallaxPlanSave : parallaxPlan {
-	
-	public List<GameObject> visibleGameObjectTab;
-	
-	public float space;
-	
-	private float m_initSpeed = 0.1f;
-	private bool m_isInit = false;
-	
-	private float actualSpeed = 0.0f;
-	private float YActualSpeed = 0.0f;
-	
-	private float spaceBetweenAsset = 0.0f;
-	private float m_speedMultiplicator;
-	private float m_speedMultiplicatorY;
-	
-	private int speedSign = 1;
+
+
 
 	public List<StockAssetStruct> m_stockAsset;
 	public int hightId = -1;
@@ -27,31 +14,23 @@ public class parallaxPlanSave : parallaxPlan {
 
 	// Use this for initialization
 	void Start () {
+		lowId = 0;
+		hightId = -1;
 		m_stockAsset = new List<StockAssetStruct>();
-		actualSpeed = 0;
-		setTheDistanceMultiplicator ();
-		generator.clear ();
-		hightId=-1;
-		generateNewSpaceBetweenAssetValue();
-		m_initSpeed = Mathf.Max( m_initSpeed * m_speedMultiplicator,0.01f);
-		while (!m_isInit) {
-			moveAsset (m_initSpeed,0);
-			generateAssetIfNeeded ();
-		}
-	}
+		InitParralax ();
 
-	void setTheDistanceMultiplicator() {
-		m_speedMultiplicatorY = distance /(cameraDistancePlan0+Mathf.Abs (distance));
-		m_speedMultiplicator = (Mathf.Abs (horizonLineDistance)+ distance) / (Mathf.Abs (horizonLineDistance) + cameraDistancePlan0);
 	}
 	
 	// Update is called once per frame
+	#if UNITY_EDITOR
 	void Update () {
-		moveAsset (actualSpeed * m_speedMultiplicator,YActualSpeed * m_speedMultiplicatorY);
-		generateAssetIfNeeded ();
+	#else
+	void FixedUpdate () {
+	#endif
+		UpdateParralax ();
 	}
-	
-	void moveAsset(float speedX,float speedY) {
+
+	public override void moveAsset(float speedX,float speedY) {
 		//clone for remove later 
 		List<GameObject> temp = new List<GameObject>();
 		foreach(GameObject g in visibleGameObjectTab) {
@@ -71,20 +50,31 @@ public class parallaxPlanSave : parallaxPlan {
 				}
 				parrallaxAsset.SetActive(false);
 				visibleGameObjectTab.Remove(parrallaxAsset);
-				m_isInit =true;
+				isInit =true;
 			} else {
 				positionAsset.x -= speedX;
 				positionAsset.y -= speedY;
+				#if UNITY_EDITOR
 				parrallaxAsset.transform.position = positionAsset;
+				#else
+				parrallaxAsset.transform.position = Vector3.SmoothDamp(transform.position, positionAsset, ref velocity, dampTime);
+				#endif
 			}
 		}
 	}
 
-	float calculateXOffsetForAsset(GameObject asset) {
+	float CalculateXSpawnPosition(GameObject asset, float distanceBetweenAsset) {
+        if(visibleGameObjectTab.Count == 0)
+        {
+            return popLimitation.x;
+        }
+
 		if (speedSign > 0) {
-			return (asset.GetComponent<SpriteRenderer> ().sprite.bounds.max.x) - (space - spaceBetweenAsset);
+            float lastAssetRightestPosition = popLimitation.x - space;
+			return lastAssetRightestPosition + RightXPosition(asset) + distanceBetweenAsset;
 		} else {
-			return (asset.GetComponent<SpriteRenderer> ().sprite.bounds.min.x) + (space - spaceBetweenAsset);
+            float lastAssetLeftestPosition = popLimitation.x + space;
+            return lastAssetLeftestPosition + LeftXPosition(asset) + distanceBetweenAsset;
 		}
 	}
 
@@ -95,16 +85,20 @@ public class parallaxPlanSave : parallaxPlan {
 		asset.transform.parent = this.transform;
 		float yPosition = 0f;
 		if (visibleGameObjectTab.Count == 0) {
-			yPosition = this.transform.position.y;
+			yPosition = this.transform.position.y + yOffset;
 		} else {
 			yPosition = visibleGameObjectTab [0].transform.position.y;
 		}
-		asset.transform.position = new Vector3 (popLimitation.transform.position.x + calculateXOffsetForAsset(asset),yPosition, this.transform.position.z);
+        asset.transform.position = new Vector3 (CalculateXSpawnPosition(asset, spaceBetweenAsset),yPosition, this.transform.position.z);
 		visibleGameObjectTab.Add(asset);
 		StockAssetStruct stockAssetStruct = new StockAssetStruct();
 		stockAssetStruct.code = assetStruct.code;
 		stockAssetStruct.dist = spaceBetweenAsset;
-		asset.GetComponent<SpriteRenderer> ().color = colorTeint;
+        SpriteRenderer renderer = asset.GetComponent<SpriteRenderer>();
+        if (renderer != null)
+        {
+            asset.GetComponent<SpriteRenderer>().color = colorTeint;
+        }
 		m_stockAsset.Add(stockAssetStruct);
 		hightId ++;
 		generateNewSpaceBetweenAssetValue();
@@ -118,22 +112,27 @@ public class parallaxPlanSave : parallaxPlan {
 		asset.transform.parent = this.transform;
 		float yPosition = 0f;
 		if (visibleGameObjectTab.Count == 0) {
-			yPosition = this.transform.position.y;
+			yPosition = this.transform.position.y + yOffset;
 		} else {
 			yPosition = visibleGameObjectTab [0].transform.position.y;
 		}
-		asset.transform.position = new Vector3 (popLimitation.transform.position.x + calculateXOffsetForAsset(asset), yPosition, this.transform.position.z);
+        asset.transform.position = new Vector3(CalculateXSpawnPosition(asset, spaceBetweenAsset), yPosition, this.transform.position.z);
 		visibleGameObjectTab.Add(asset);
 		StockAssetStruct stockAssetStruct = new StockAssetStruct();
 		stockAssetStruct.code = assetStruct.code;
 		stockAssetStruct.dist = spaceBetweenAsset;
-		asset.GetComponent<SpriteRenderer> ().color = colorTeint;
-		m_stockAsset.Insert(0,stockAssetStruct);
+        SpriteRenderer renderer = asset.GetComponent<SpriteRenderer>();
+        if (renderer != null)
+        {
+            renderer.color = colorTeint;
+        }
+        m_stockAsset.Insert(0,stockAssetStruct);
 		hightId ++;
 		generateNewSpaceBetweenAssetValue();
 	}
-	void generateOldAsset(int code,float dist){
-		Debug.Log("get old Hight");
+
+	void generateOldAsset(int code,float dist)
+    {
 		GenerateAssetStruct assetStruct = generator.generateGameObjectWithCode(code);
 		GameObject asset = assetStruct.generateAsset;
 		asset.transform.parent = this.transform;
@@ -143,13 +142,18 @@ public class parallaxPlanSave : parallaxPlan {
 		} else {
 			yPosition = visibleGameObjectTab [0].transform.position.y;
 		}
-
-		if (speedSign > 0) {
-			asset.transform.position = new Vector3(popLimitation.transform.position.x + (asset.GetComponent<SpriteRenderer> ().sprite.bounds.max.x) - (space-dist),yPosition,this.transform.position.z);
+/*
+        if (speedSign > 0) {
+			asset.transform.position = new Vector3(RightestXPosition(asset), yPosition, this.transform.position.z);
 		} else {
-			asset.transform.position = new Vector3(popLimitation.transform.position.x + (asset.GetComponent<SpriteRenderer> ().sprite.bounds.min.x) + (space-dist),yPosition,this.transform.position.z);
-		}
-		asset.GetComponent<SpriteRenderer> ().color = colorTeint;
+			asset.transform.position = new Vector3(LeftestXPosition(asset), yPosition, this.transform.position.z);
+		*/
+        asset.transform.position = new Vector3(CalculateXSpawnPosition(asset, dist), yPosition, this.transform.position.z);
+        SpriteRenderer spriteRenderer = asset.GetComponent<SpriteRenderer>();
+        if (spriteRenderer)
+        {
+            asset.GetComponent<SpriteRenderer>().color = colorTeint;
+        }
 		visibleGameObjectTab.Add(asset);
 		if (speedSign > 0) {
 			hightId ++;
@@ -158,119 +162,125 @@ public class parallaxPlanSave : parallaxPlan {
 		}
 	}
 	
-	void generateAssetIfNeeded(){
+	public override void generateAssetIfNeeded(){
 		if(speedSign > 0){
 			//Debug.Log("Hight ID = " + hightId);
-			if(hightId == m_stockAsset.Count || hightId == m_stockAsset.Count-1) {
+			if(hightId == m_stockAsset.Count-1) {
 				//Debug.Log("get Hight with space : "+ spaceBetweenLastAndPopLimitation() + " and space value "+ spaceBetweenAsset);
 				if(spaceBetweenLastAndPopLimitation() > spaceBetweenAsset) {
 				//	Debug.Log("generate Hight");
 					generateNewHightAsset();
-				}
+                    generateAssetIfNeeded();
+
+                }
 			} else { // si on a une valeur 
 				//Debug.Log("get old Hight with space : "+ spaceBetweenLastAndPopLimitation() + " and stock value "+ m_stockAsset[hightId +1].dist);
 				if(spaceBetweenLastAndPopLimitation() > m_stockAsset[hightId +1].dist) {
 				//	Debug.Log("get old Hight");
 					generateOldAsset(m_stockAsset[hightId +1].code,m_stockAsset[hightId +1].dist);
-				}
+                    generateAssetIfNeeded();
+
+                }
 			}
 		} else { 
 			if (lowId == 0) {
 				//Debug.Log("get low with space : "+ spaceBetweenLastAndPopLimitation() + " and space value "+ spaceBetweenAsset);
 				if(spaceBetweenLastAndPopLimitation() > spaceBetweenAsset) {
 					generateNewLowAsset();
-				//	Debug.Log("generate low");
-				}
+                    generateAssetIfNeeded();
+                //	Debug.Log("generate low");
+                }
 			} else {
 				///Debug.Log("get old low with space : "+ spaceBetweenLastAndPopLimitation() + " and stock value "+ m_stockAsset[lowId].dist);
 				if(spaceBetweenLastAndPopLimitation() > m_stockAsset[lowId].dist) {
 					generateOldAsset(m_stockAsset[lowId-1].code,m_stockAsset[lowId].dist);
-				//	Debug.Log("get old low");
-				}
+                    generateAssetIfNeeded();
+                //	Debug.Log("get old low");
+                }
 			}
 		}
 	}
-	
-	
-	void generateNewSpaceBetweenAssetValue(){
-		spaceBetweenAsset = Random.Range (lowSpaceBetweenAsset,hightSpaceBetweenAsset);
-	}
-	
-	
-	public override void setSpeedOfPlan(float newSpeed, float ySpeed){
-        float speed = newSpeed + relativeSpeed;
-		if ((speed > 0 && speedSign < 0) || (speed < 0 && speedSign > 0)) {
-			swapPopAndDepop ();
-			Debug.Log ("Swap");
-		}
-		actualSpeed = speed;
-		YActualSpeed = ySpeed;
-	}
-	
-	void swapPopAndDepop(){
-		GameObject temp = popLimitation;
-		popLimitation = depopLimitation;
-		depopLimitation = temp;
-		speedSign = speedSign * -1;
-	}
-	
 	
 	bool isStillVisible (GameObject parallaxObject) {
 		if (speedSign > 0) {
-			return (parallaxObject.transform.position.x + (parallaxObject.GetComponent<SpriteRenderer> ().sprite.bounds.size.x/2 ) > depopLimitation.transform.position.x);
+			return (RightestXPosition(parallaxObject) > depopLimitation.x);
 		} else {
-			return (parallaxObject.transform.position.x + (parallaxObject.GetComponent<SpriteRenderer> ().sprite.bounds.size.x/2 ) < depopLimitation.transform.position.x);
+			return (LeftestXPosition(parallaxObject) < depopLimitation.x);
 		}
 	}
-	
 	
 	float spaceBetweenLastAndPopLimitation() {
 		if (visibleGameObjectTab.Count != 0) {
-			if (speedSign > 0){
-				space = getMaxValue();
-			}else {
-				space = getMinValue();
+			float min = float.MaxValue;
+			foreach(GameObject g in visibleGameObjectTab) {
+				if (speedSign > 0) {
+					min = Mathf.Min(min, popLimitation.x - (RightestXPosition(g)));
+				}else {
+					min = Mathf.Min(min, LeftestXPosition(g) - popLimitation.x);
+				}
 			}
+			space = min;
 			return space;
-			
 		} else {
+            //Todo cumulé space pour permettre un delta plus grand que la camera
 			return float.MaxValue;
 		}
 	}
-	
-	
-	float getMaxValue(){
-		//min
-		float min = float.MaxValue;
-		foreach(GameObject g in visibleGameObjectTab){
-			float result  = popLimitation.transform.position.x - (g.transform.position.x +(g.GetComponent<SpriteRenderer> ().sprite.bounds.max.x));
-			if (result < min){
-				min = result;
-			}
-		}
-		return min;
-	}
-	
-	float getMinValue(){
-		float min = float.MaxValue;
-		foreach(GameObject g in visibleGameObjectTab){
-			float result  =  (g.transform.position.x +(g.GetComponent<SpriteRenderer> ().sprite.bounds.min.x))- popLimitation.transform.position.x;
-			if (result < min){
-				min = result;
-			}
-		}
-		return min;
-	}
 
-
-    public override void refreshOnZoom()
+	float RightestXPosition(GameObject g)
     {
-    	if (m_isInit) {
-            Debug.Log("Refresh on zoom");
-        	swapPopAndDepop();
-        	moveAsset(0,0);
-        	generateAssetIfNeeded();
-        	swapPopAndDepop();
-    	}
+		return g.transform.position.x + RightXPosition(g);
+	}
+
+    float RightXPosition(GameObject g)
+    {
+        float rightValue = float.MinValue;
+
+        if (g.GetComponent<ParralaxSize>() != null)
+        {
+            rightValue = g.GetComponent<ParralaxSize>().rightestPosition;
+        }
+        else if (g.GetComponentsInChildren<SpriteRenderer>() != null)
+        {
+            foreach (SpriteRenderer spriteRenderer in g.GetComponentsInChildren<SpriteRenderer>())
+            {
+                rightValue = Mathf.Max(rightValue, spriteRenderer.sprite.bounds.max.x);
+            }
+        }
+
+        //TODO same things for particules;
+        return rightValue;
     }
+
+
+    float LeftestXPosition(GameObject g)
+    { 
+		return g.transform.position.x + LeftXPosition(g);
+	}
+
+    float LeftXPosition(GameObject g)
+    {
+        float leftValue = float.MaxValue;
+
+        if (g.GetComponent<ParralaxSize>() != null)
+        {
+            leftValue = g.GetComponent<ParralaxSize>().leftestPosition;
+        }
+        else if (g.GetComponentsInChildren<SpriteRenderer>() != null)
+        {
+            foreach (SpriteRenderer spriteRenderer in g.GetComponentsInChildren<SpriteRenderer>())
+            {
+                leftValue = Mathf.Min(leftValue, spriteRenderer.sprite.bounds.min.x);
+            }
+        }
+
+        //TODO same things for particules;
+        return leftValue;
+    }
+
+
+    public void Clear(){
+		base.Clear ();
+		m_stockAsset.Clear ();
+	}
 }

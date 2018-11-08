@@ -2,7 +2,9 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+#if UNITY_EDITOR
 using UnityEditor;
+#endif
 
 [System.Serializable]
 public class randomSpawnAssetConfiguration : System.Object
@@ -12,6 +14,8 @@ public class randomSpawnAssetConfiguration : System.Object
 	public int probabilityOfApparition;
 }
 
+[ExecuteInEditMode]
+[System.Serializable]
 public class assetRandomGenerator : parralaxAssetGenerator {
 	
 	public randomSpawnAssetConfiguration[] AssetConfiguation;
@@ -26,35 +30,31 @@ public class assetRandomGenerator : parralaxAssetGenerator {
 	private int probabilitySomme;
 	private int previousId = -1;
 	private int previousAssetId = -1;
-	/*
-	void CreatePrefabForAssetConfiguration(){
-		if (AssetConfiguation.Length > 0) {
-			for (int i = 0; i < AssetConfiguation.Length; i++) {
-				if (AssetConfiguation [i].prefabAsset == null) {
-					GameObject prefabWithSprite = (GameObject)PrefabUtility.CreateEmptyPrefab ("Assets/Temporary/"+AssetConfiguation [i].prefabAsset.name+".prefab");
-					//Object prefab = PrefabUtility.CreateEmptyPrefab ("");
-					SpriteRenderer spriteRenderer = prefabWithSprite.AddComponent<SpriteRenderer> ();
-					spriteRenderer.sprite = AssetConfiguation [i].spriteAsset;
-					AssetConfiguation [i].prefabAsset = prefabWithSprite;
+
+	public override void Clear(){
+
+		if (GameObjectTabOfTypePrefabs != null) {
+			foreach (List<GameObject> list in GameObjectTabOfTypePrefabs) {
+				foreach (GameObject go in list) {
+					DestroyImmediate (go);
 				}
 			}
 		}
-	}*/
 
-	public override void clear(){
 		if(GameObjectTabOfTypePrefabs != null){
 			for (int i =0; i < GameObjectTabOfTypePrefabs.Length; i++) {
 				GameObjectTabOfTypePrefabs[i].Clear ();
 			}
 		}
+
 	}
 
 	private int getIdOfNextAsset() {
 		int selectedAsset;
-		int random = Random.Range(0,probabilitySomme);
+		int randomValue = random.Next()%(probabilitySomme);
 		for (int i = 0; i < AssetConfiguation.Length; i++) {
-			random -= AssetConfiguation[i].probabilityOfApparition;
-			if (random < 0){
+				randomValue -= AssetConfiguation[i].probabilityOfApparition;
+				if (randomValue < 0){
 				selectedAsset = i;
 				if (authoriseRandomFlip) {
 					i = i*10;
@@ -127,7 +127,6 @@ public class assetRandomGenerator : parralaxAssetGenerator {
 
 
 	public override GenerateAssetStruct generateGameObjectWithCode(int code) {
-		Debug.Log ("generate for code : " + code);
 		initTabOfTypeIfNeeded ();
 		return generateAssetStructForId(code);
 	}
@@ -155,9 +154,10 @@ public class assetRandomGenerator : parralaxAssetGenerator {
 
 	private bool randomFlip(){
 		if (authoriseRandomFlip) {
-			int random = Random.Range (0, 2);
-			return (random == 0) ? true : false; 
+			int randomValue = random.Next () % 2;//.Range (0, 2);
+			return (randomValue == 0) ? true : false; 
 		}
 		return false;
 	}
+		
 }

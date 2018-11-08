@@ -1,29 +1,83 @@
 ﻿using UnityEngine;
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 using System.Collections;
 using System.Collections.Generic;
+using System;
+using System.Linq;
+
+[System.Serializable]
+public class CameraThreshold {
+	public Vector3 popLimitation;
+	public Vector3 depopLimitation;
+}
+
+[System.Serializable]
+public class BasicGeneratorParameters {
+	public AssetEntry typeOfAsset;
+	public GameObject prefab = null;
+	public Sprite sprite = null;
+	public bool authoriseRandomFlip = false;
+}
+
+[System.Serializable]
+public class RandomGeneratorParameters {
+	public randomSpawnAssetConfiguration[] AssetConfiguation;
+	public bool authoriseRandomFlip = false;
+	public bool removeDirectDuplicata = true;
+	public bool removeFlipDuplicata = true;
+}
+
+
+[System.Serializable]
+public enum ParallaxPlansType {
+	BASIC,
+	WITHSAVE
+};
+[System.Serializable]
+public enum GeneratorType {
+	BASIC,
+	RANDOM
+};
+
+[System.Serializable]
+public enum AssetEntry {
+	PREFAB,
+	SPRITE
+};
 
 [System.Serializable]
 public class ParralaxPlanConfiguration : System.Object
 {
-	[Header("Parralax plan prefab")]
-	public GameObject prefabParralaxPlan;
+	public string nameParalaxPlan;
+	[Header("Parralax plan selection")]
+	public ParallaxPlansType parallaxType = ParallaxPlansType.WITHSAVE;
 	[Header("\"Deep\" of the parralax plan, this will define the factor of speed")]
 	[Tooltip("0 for ground, > 0 for foreground and <0 for background")]
 	public float distance;
-	public parralaxAssetGenerator generatorScript;
+	public float yOffset = 0f;
 	public float lowSpaceBetweenAsset;
 	public float hightSpaceBetweenAsset;
     public float relativeSpeed;
-	public Color colorTeinte = Color.clear;
-	public string nameParalaxPlan;
-}
+	public Color colorTeinte = Color.white;
 
+	public int seed=0;
+
+	public GeneratorType generatorType;
+
+	public BasicGeneratorParameters basicGeneratorParameters;
+
+	public RandomGeneratorParameters randomGeneratorParameters;
+
+
+}
+[ExecuteInEditMode]
 public class parralaxManager : MonoBehaviour {
 
 	[Header("Tab of all parralax plan configutation")]
 	[SerializeField]
-	//[Tooltip("Health value between 0 and 100.")]
-	private ParralaxPlanConfiguration[] configurationParralax;
+	private List<ParralaxPlanConfiguration> configurationParralax;
 
 	[Header("Configuration of parralax Manager")]
 	[SerializeField]
@@ -39,42 +93,70 @@ public class parralaxManager : MonoBehaviour {
 	[SerializeField]
 	[Tooltip("Distance of the last plan, a plan at this distance will not move at all")]
 	private float horizonLine=-4000;
+	[SerializeField]
+	[Tooltip("seed for all plans if not set")]
+	private int m_globalSeed = 123456789;
 
 	private float speed;
-	private GameObject rightBorder;
-	private GameObject leftBorder;
+	public CameraThreshold cameraThreshold = new CameraThreshold();
 	private List<GameObject> parralaxPlans;
 
 
 
-    private float CameraWidthSize = 0;
+	public float CameraWidthSize = 0;
 
 	public bool debugMode = false;
+
+	public bool reset = false;
 
 	private bool isPreviousPositionSet = false;
 	private Vector3 previousCameraPosition = Vector3.zero;
 
+	private bool m_refreshZoom = false;
+
+	#if UNITY_EDITOR
+	private EditorApplication.CallbackFunction s_backgroundUpdateCB;
+	private void EditorCallback() {
+		if (!EditorApplication.isPlaying && EditorApplication.isPlayingOrWillChangePlaymode) {
+			clear ();
+		}
+		if (EditorApplication.isPlaying && !EditorApplication.isPlayingOrWillChangePlaymode) {
+			clear ();
+		}
+	}
+
+	void OnEnable() {
+		s_backgroundUpdateCB = new EditorApplication.CallbackFunction(EditorCallback);
+		EditorApplication.update += s_backgroundUpdateCB;
+	}
+	#endif	
+	void Awake(){
+		clear ();
+		var children = new List<GameObject>();
+		foreach (Transform child in transform) children.Add(child.gameObject);
+		children.ForEach(child => DestroyImmediate(child));
+
+	}
+
 	// Use this for initialization
 	void Start () {
+		reset = false;
 		speed = constantSpeed;
-		rightBorder = new GameObject();
-		rightBorder.name = "rightBorder";
-		rightBorder.transform.position = new Vector3 (rightBorder.transform.position.x, cameraToFollow.transform.position.y - cameraToFollow.rect.height * cameraToFollow.orthographicSize, rightBorder.transform.position.z);
-		rightBorder.transform.parent = this.transform;
-		leftBorder = new GameObject ();
-		leftBorder.name = "leftBorder";
-		leftBorder.transform.position = new Vector3 (leftBorder.transform.position.x, cameraToFollow.transform.position.y - cameraToFollow.rect.height * cameraToFollow.orthographicSize, leftBorder.transform.position.z);
-		leftBorder.transform.parent = this.transform;
+		cameraThreshold.popLimitation = new Vector3 (0, cameraToFollow.transform.position.y - cameraToFollow.rect.height * cameraToFollow.orthographicSize, 0);
+		cameraThreshold.depopLimitation = new Vector3 (0, cameraToFollow.transform.position.y - cameraToFollow.rect.height * cameraToFollow.orthographicSize, 0);
 		parralaxPlans = new List<GameObject> ();
 		foreach (ParralaxPlanConfiguration config in configurationParralax) {
-			GameObject tempParralaxPlan = Instantiate(config.prefabParralaxPlan);
+			GameObject tempParralaxPlan = new GameObject();
 			tempParralaxPlan.transform.parent = this.transform;
 			tempParralaxPlan.name = config.nameParalaxPlan;
 
-			parallaxPlan tempScript = tempParralaxPlan.GetComponent<parallaxPlan>();
-			tempScript.popLimitation = rightBorder;
-			tempScript.depopLimitation = leftBorder;
-			tempScript.generator = config.generatorScript;
+			parallaxPlan tempScript;
+			if (config.parallaxType == ParallaxPlansType.BASIC) {
+				tempScript = tempParralaxPlan.AddComponent<parallaxPlanBasic> (); 
+			} else {
+				tempScript = tempParralaxPlan.AddComponent<parallaxPlanSave> ();
+			}
+			tempScript.cameraThreshold = cameraThreshold;
 			tempScript.distance = config.distance;
 			tempScript.lowSpaceBetweenAsset = config.lowSpaceBetweenAsset;
 			tempScript.hightSpaceBetweenAsset = config.hightSpaceBetweenAsset;
@@ -82,7 +164,28 @@ public class parralaxManager : MonoBehaviour {
 			tempScript.colorTeint = config.colorTeinte;
 			tempScript.cameraDistancePlan0 = cameraDistance;
 			tempScript.horizonLineDistance = horizonLine;
+			tempScript.yOffset = config.yOffset;
+			tempScript.seed = (config.seed != 0) ? config.seed : m_globalSeed + (int)config.distance;
 
+			if (config.generatorType == GeneratorType.BASIC) {
+				assetGenerator generatorScript = tempParralaxPlan.AddComponent<assetGenerator> ();
+				if (config.basicGeneratorParameters.typeOfAsset == AssetEntry.PREFAB) {
+					generatorScript.prefab = config.basicGeneratorParameters.prefab;
+				} else {
+					generatorScript.spriteForPrefab = config.basicGeneratorParameters.sprite;
+				}
+				generatorScript.authoriseRandomFlip = config.basicGeneratorParameters.authoriseRandomFlip;
+				tempScript.generator = generatorScript;
+			} else {
+				assetRandomGenerator generatorScript = tempParralaxPlan.AddComponent<assetRandomGenerator> ();
+				generatorScript.AssetConfiguation = config.randomGeneratorParameters.AssetConfiguation;
+				generatorScript.authoriseRandomFlip = config.randomGeneratorParameters.authoriseRandomFlip;
+				generatorScript.removeDirectDuplicata = config.randomGeneratorParameters.removeDirectDuplicata;
+				generatorScript.removeFlipDuplicata = config.randomGeneratorParameters.removeFlipDuplicata;
+		
+				tempScript.generator = generatorScript;
+			}
+				
 			parralaxPlans.Add(tempParralaxPlan);
 		}
 		parralaxPlans.Sort(delegate(GameObject x, GameObject y)
@@ -107,28 +210,29 @@ public class parralaxManager : MonoBehaviour {
 				temp.transform.localPosition = new Vector3(temp.transform.localPosition.x,temp.transform.localPosition.y,temp.transform.localPosition.z+ zsupp--);
 			}
 		}
-		Update ();
+		UpdateCameraThreshold ();
 	}
-	
-	// Update is called once per frame
-	void Update () {
-        //reset the Pop and depop position 
-        bool refreshZoom = false;
+
+	void UpdateCameraThreshold() {
+		//reset the Pop and depop position 
+		m_refreshZoom = false;
         float height = cameraToFollow.orthographicSize;
         float cameraOrthographiqueSize = height * cameraToFollow.aspect;
-        //float cameraOrthographiqueSize = cameraToFollow.;
+        //float cameraOrthographiqueSize = cameraToFollow.orthographicSize*2;
 		float CameraW = cameraToFollow.rect.width;
+		if(CameraWidthSize != cameraOrthographiqueSize*CameraW || CameraWidthSize ==0)
+		{
+			//zoom
+			CameraWidthSize = cameraOrthographiqueSize * CameraW;
+			m_refreshZoom = true;
+		}
+		if (cameraThreshold != null) {
+			cameraThreshold.popLimitation = new Vector3(cameraToFollow.transform.position.x + CameraW * cameraOrthographiqueSize,cameraToFollow.transform.position.y , cameraToFollow.transform.position.z);
+			cameraThreshold.depopLimitation = new Vector3 (cameraToFollow.transform.position.x - CameraW * cameraOrthographiqueSize, cameraToFollow.transform.position.y, cameraToFollow.transform.position.z);
+		}
+	}
 
-        if(CameraWidthSize != cameraOrthographiqueSize*CameraW || CameraWidthSize ==0)
-        {
-            //zoom
-            CameraWidthSize = cameraOrthographiqueSize * CameraW;
-            refreshZoom = true;
-        }
-		rightBorder.transform .position = new Vector3 (cameraToFollow.transform.position.x + cameraOrthographiqueSize * CameraW, rightBorder.transform.position.y,rightBorder.transform .position.z);
-		leftBorder.transform .position = new Vector3 (cameraToFollow.transform.position.x - cameraOrthographiqueSize * CameraW, leftBorder.transform.position.y,leftBorder.transform .position.z);
-
-
+	void UpdateSpeedAndPosition(){
 		float cameraSpeedX=0;
 		float cameraSpeedY = 0;
 		if (cameraToFollow != null){
@@ -141,17 +245,33 @@ public class parralaxManager : MonoBehaviour {
 			previousCameraPosition = cameraToFollow.transform.position;
 			this.transform.position = new Vector3(cameraToFollow.transform.position.x, this.transform.position.y, this.transform.position.z);
 		}
-		
-		foreach (GameObject plan in parralaxPlans) {
-			plan.GetComponent<parallaxPlan> ().setSpeedOfPlan (speed+ cameraSpeedX,cameraSpeedY); // TODO set speed Y
-            if (refreshZoom)
-            {
-                plan.GetComponent<parallaxPlan>().refreshOnZoom();
-            }
+		if (parralaxPlans != null) {
+			foreach (GameObject plan in parralaxPlans) {
+				plan.GetComponent<parallaxPlan> ().setSpeedOfPlan (speed + cameraSpeedX, cameraSpeedY);
+				if (m_refreshZoom) {
+					plan.GetComponent<parallaxPlan> ().refreshOnZoom ();
+				}
+			}
 		}
+	}
+
+
+	// Update is called once per frame
+	#if UNITY_EDITOR
+	void Update () {
+	#else
+	void FixedUpdate () {
+	#endif
+		UpdateCameraThreshold ();
+
+		UpdateSpeedAndPosition ();
 
 		if (debugMode) {
 			setPlanConstante ();
+		}
+
+		if (reset) {
+			resetAllPlan ();
 		}
 	}
 
@@ -174,7 +294,7 @@ public class parralaxManager : MonoBehaviour {
 			GameObject tempParralaxPlan = parralaxPlans.Find (plan => plan.name == config.nameParalaxPlan);
 
 			parallaxPlan parralaxScript = tempParralaxPlan.GetComponent<parallaxPlan>();
-			parralaxScript.generator = config.generatorScript;
+			parralaxScript.yOffset = config.yOffset;
 			parralaxScript.distance = config.distance;
 			parralaxScript.lowSpaceBetweenAsset = config.lowSpaceBetweenAsset;
 			parralaxScript.hightSpaceBetweenAsset = config.hightSpaceBetweenAsset;
@@ -183,6 +303,36 @@ public class parralaxManager : MonoBehaviour {
 			parralaxScript.cameraDistancePlan0 = cameraDistance;
 			parralaxScript.horizonLineDistance = horizonLine;
 
+		}
+	}
+	private void resetAllPlan(){
+		reset = false;
+		clear ();
+		Start ();
+	}
+
+	private void clear(){
+		if (parralaxPlans != null) {
+			foreach (GameObject plan in parralaxPlans) {
+                if (plan)
+                {
+                    parallaxPlan current = plan.GetComponent<parallaxPlan>();
+                    if (current != null)
+                    {
+                        current.Clear();
+                    }
+                }
+			}
+            foreach (GameObject plan in parralaxPlans)
+            {
+                if (plan)
+                {
+                    DestroyImmediate(plan);
+                }
+            }
+
+            parralaxPlans.Clear ();
+			parralaxPlans = null;
 		}
 	}
 }

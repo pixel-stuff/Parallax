@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
+[ExecuteInEditMode]
 public class assetGenerator : parralaxAssetGenerator {
 
 	public GameObject prefab = null;
@@ -11,8 +12,13 @@ public class assetGenerator : parralaxAssetGenerator {
 	public List<GameObject> GameObjectTabOfTypePrefab = new List<GameObject>();
 
 	// Use this for initialization
-	public override void clear(){
+	public override void Clear(){
+		if (GameObjectTabOfTypePrefab != null) {
+			foreach (GameObject go in GameObjectTabOfTypePrefab) {
+				DestroyImmediate (go);
+			}
 		GameObjectTabOfTypePrefab.Clear ();
+	}
 	}
 
 
@@ -37,7 +43,11 @@ public class assetGenerator : parralaxAssetGenerator {
 			} else {
 				asset = Instantiate (prefab);
 			}
-			asset.GetComponent<SpriteRenderer> ().flipX = randomFlip ();
+            SpriteRenderer renderer = asset.GetComponent<SpriteRenderer>();
+            if (renderer != null)
+            {
+                renderer.flipX = randomFlip();
+            }
 			GameObjectTabOfTypePrefab.Add (asset);
 		}
 		GenerateAssetStruct assetStruct = new GenerateAssetStruct();
@@ -58,10 +68,9 @@ public class assetGenerator : parralaxAssetGenerator {
 
 	private bool randomFlip(){
 		if (authoriseRandomFlip) {
-			int random = Random.Range (0, 2);
-			return (random == 0) ? true : false; 
+			int randomValue = random.Next () % 2;
+			return (randomValue == 0) ? true : false; 
 		}
 		return false;
 	}
-
 }
