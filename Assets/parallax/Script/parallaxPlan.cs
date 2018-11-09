@@ -37,6 +37,7 @@ abstract public class parallaxPlan : MonoBehaviour {
 	public float horizonLineDistance;
 
 	public int seed;
+    public float groundYPosition = 0f;
 	public float yOffset = 0f;
 	/*****************/
 	// END Configuration set by Camera Manager
@@ -60,7 +61,7 @@ abstract public class parallaxPlan : MonoBehaviour {
 
 	protected List<GameObject> visibleGameObjectTab;
 
-	protected float space;
+	protected float spaceBetweenLastAndPopLimitation;
 
 
 	protected float spaceBetweenAsset = 0.0f;

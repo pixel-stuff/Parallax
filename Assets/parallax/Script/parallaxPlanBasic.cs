@@ -45,8 +45,8 @@ public class parallaxPlanBasic : parallaxPlan {
 	}
 		
 	public override	void generateAssetIfNeeded(){
-		if(((spaceBetweenLastAndPopLimitation() < (-spaceBetweenAsset + actualSpeed * speedMultiplicator)) && (speedSign > 0)) ||
-		   ((spaceBetweenLastAndPopLimitation() > (spaceBetweenAsset + actualSpeed * speedMultiplicator)) && (speedSign < 0))){
+		if(((spaceBetweenLastAndPopLimitation < (-spaceBetweenAsset + actualSpeed * speedMultiplicator)) && (speedSign > 0)) ||
+		   ((spaceBetweenLastAndPopLimitation > (spaceBetweenAsset + actualSpeed * speedMultiplicator)) && (speedSign < 0))){
 			GenerateAssetStruct assetStruct = generator.generateGameObjectAtPosition();
 			GameObject asset = assetStruct.generateAsset;
 			Vector3 position = asset.transform.position;
@@ -62,7 +62,7 @@ public class parallaxPlanBasic : parallaxPlan {
 			} else {
 				yPosition = visibleGameObjectTab [0].transform.position.y;
 			}
-			asset.transform.position = new Vector3((popLimitation.x + (speedSign * asset.GetComponent<SpriteRenderer> ().sprite.bounds.max.x)) + (space-spaceBetweenAsset),yPosition,this.transform.position.z);
+			asset.transform.position = new Vector3((popLimitation.x + (speedSign * asset.GetComponent<SpriteRenderer> ().sprite.bounds.max.x)) + (spaceBetweenLastAndPopLimitation - spaceBetweenAsset),yPosition,this.transform.position.z);
 			visibleGameObjectTab.Add(asset);
 			generateNewSpaceBetweenAssetValue();
 		}
@@ -84,14 +84,14 @@ public class parallaxPlanBasic : parallaxPlan {
 	}
 	
 	
-	float spaceBetweenLastAndPopLimitation() {
+	float RefreshSpaceBetweenLastAndPopLimitation() {
 		if (visibleGameObjectTab.Count != 0) {
 			if (speedSign > 0){
-				space = getMaxValue();
+                spaceBetweenLastAndPopLimitation = getMaxValue();
 			}else {
-				space = getMinValue();
+                spaceBetweenLastAndPopLimitation = getMinValue();
 			}
-			return space;
+			return spaceBetweenLastAndPopLimitation;
 		} else {
 			return - float.MaxValue;
 		}

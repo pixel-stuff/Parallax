@@ -34,7 +34,7 @@ public class assetGenerator : parralaxAssetGenerator {
 		return asset;
 	}
 
-	public override  GenerateAssetStruct generateGameObjectAtPosition() {
+	public override  GenerateAssetStruct generateGameObjectAtPosition() { //todo rename
 		GameObject asset = availableGameobject (GameObjectTabOfTypePrefab);
 		if (asset == null) {
 			if (prefab == null) {

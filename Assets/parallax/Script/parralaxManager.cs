@@ -98,13 +98,14 @@ public class parralaxManager : MonoBehaviour {
 	private int m_globalSeed = 123456789;
 
 	private float speed;
-	public CameraThreshold cameraThreshold = new CameraThreshold();
+	private CameraThreshold cameraThreshold = new CameraThreshold();
 	private List<GameObject> parralaxPlans;
 
 
 
-	public float CameraWidthSize = 0;
+	private float CameraWidthSize = 0;
 
+    public float groundYPosition = 0;
 	public bool debugMode = false;
 
 	public bool reset = false;
@@ -142,8 +143,8 @@ public class parralaxManager : MonoBehaviour {
 	void Start () {
 		reset = false;
 		speed = constantSpeed;
-		cameraThreshold.popLimitation = new Vector3 (0, cameraToFollow.transform.position.y - cameraToFollow.rect.height * cameraToFollow.orthographicSize, 0);
-		cameraThreshold.depopLimitation = new Vector3 (0, cameraToFollow.transform.position.y - cameraToFollow.rect.height * cameraToFollow.orthographicSize, 0);
+		//cameraThreshold.popLimitation = new Vector3 (0, cameraToFollow.transform.position.y - cameraToFollow.rect.height * cameraToFollow.orthographicSize, 0);
+		//cameraThreshold.depopLimitation = new Vector3 (0, cameraToFollow.transform.position.y - cameraToFollow.rect.height * cameraToFollow.orthographicSize, 0);
 		parralaxPlans = new List<GameObject> ();
 		foreach (ParralaxPlanConfiguration config in configurationParralax) {
 			GameObject tempParralaxPlan = new GameObject();
@@ -164,7 +165,8 @@ public class parralaxManager : MonoBehaviour {
 			tempScript.colorTeint = config.colorTeinte;
 			tempScript.cameraDistancePlan0 = cameraDistance;
 			tempScript.horizonLineDistance = horizonLine;
-			tempScript.yOffset = config.yOffset;
+            tempScript.groundYPosition = groundYPosition;
+            tempScript.yOffset = config.yOffset;
 			tempScript.seed = (config.seed != 0) ? config.seed : m_globalSeed + (int)config.distance;
 
 			if (config.generatorType == GeneratorType.BASIC) {
