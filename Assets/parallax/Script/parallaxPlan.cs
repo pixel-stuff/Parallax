@@ -140,7 +140,9 @@ abstract public class parallaxPlan : MonoBehaviour {
 		generateNewSpaceBetweenAssetValue();
         int nbIteration = 0;
         int iteractionMax = 10000;
-		while (!isInit && nbIteration < iteractionMax) {
+
+
+        while (!isInit && nbIteration < iteractionMax) {
             nbIteration++;
 			moveAsset (initSpeed,0);
 			generateAssetIfNeeded ();
@@ -150,10 +152,14 @@ abstract public class parallaxPlan : MonoBehaviour {
             isInit = true;
             Debug.LogError("parralax plan " + this.name + "can't init");
         }
-	}
 
 
-	void setTheDistanceMultiplicator() {
+        //random move between 0 & randomRange (lowSpaceBetweenAsset, hightSpaceBetweenAsset);
+        //this.transform.position += new Vector3(-(float)(m_random.Next() % 10)/10.0f, 0, 0);
+    }
+
+
+    void setTheDistanceMultiplicator() {
 		speedMultiplicatorY = distance /(cameraDistancePlan0+Mathf.Abs (distance));
 		speedMultiplicator = (Mathf.Abs (horizonLineDistance)+ distance) / (Mathf.Abs (horizonLineDistance) + cameraDistancePlan0);
 	}
@@ -175,7 +181,7 @@ abstract public class parallaxPlan : MonoBehaviour {
 
 	protected void generateNewSpaceBetweenAssetValue(){
 
-		spaceBetweenAsset = randomRange (lowSpaceBetweenAsset,hightSpaceBetweenAsset);
+		spaceBetweenAsset = randomRange (lowSpaceBetweenAsset, hightSpaceBetweenAsset);
 	}
 
 

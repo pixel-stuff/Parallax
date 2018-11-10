@@ -48,7 +48,7 @@ public class parallaxPlanSave : parallaxPlan {
 				}
 				parrallaxAsset.SetActive(false);
 				visibleGameObjectTab.Remove(parrallaxAsset);
-				isInit =true;
+                isInit = true;
 			} else {
 				positionAsset.x -= speedX;
 				positionAsset.y -= speedY;
@@ -59,9 +59,10 @@ public class parallaxPlanSave : parallaxPlan {
 				#endif
 			}
 		}
-	}
+        spaceBetweenLastAndPopLimitation += Mathf.Abs(speedX) ;
+    }
 
-	float CalculateXSpawnPosition(GameObject asset, float distanceBetweenAsset) {
+    float CalculateXSpawnPosition(GameObject asset, float distanceBetweenAsset) {
         if(visibleGameObjectTab.Count == 0)
         {
             return popLimitation.x;
@@ -72,7 +73,7 @@ public class parallaxPlanSave : parallaxPlan {
 			return lastAssetRightestPosition + RightXPosition(asset) + distanceBetweenAsset;
 		} else {
             float lastAssetLeftestPosition = popLimitation.x + spaceBetweenLastAndPopLimitation;
-            return lastAssetLeftestPosition + LeftXPosition(asset) + distanceBetweenAsset;
+            return lastAssetLeftestPosition + LeftXPosition(asset) - distanceBetweenAsset;
 		}
 	}
 
@@ -119,7 +120,7 @@ public class parallaxPlanSave : parallaxPlan {
         {
 			//Debug.Log("Hight ID = " + hightId);
 			if(hightId == m_stockAsset.Count-1) {
-				//Debug.Log("get Hight with space : "+ spaceBetweenLastAndPopLimitation() + " and space value "+ spaceBetweenAsset);
+				//Debug.Log("get Hight with space : "+ spaceBetweenLastAndPopLimitation + " and space value "+ spaceBetweenAsset);
 				if(spaceBetweenLastAndPopLimitation > spaceBetweenAsset) {
 				//	Debug.Log("generate Hight");
 					StockAssetStruct generatedAssetStruct = GenerateNewAsset(spaceBetweenAsset);
@@ -130,7 +131,7 @@ public class parallaxPlanSave : parallaxPlan {
 
                 }
 			} else { // si on a une valeur 
-				//Debug.Log("get old Hight with space : "+ spaceBetweenLastAndPopLimitation() + " and stock value "+ m_stockAsset[hightId +1].dist);
+				//Debug.Log("get old Hight with space : "+ spaceBetweenLastAndPopLimitation + " and stock value "+ m_stockAsset[hightId +1].dist);
 				if(spaceBetweenLastAndPopLimitation > m_stockAsset[hightId +1].dist) {
                     //	Debug.Log("get old Hight");
                     GenerateNewAsset(m_stockAsset[hightId +1].dist, m_stockAsset[hightId + 1].code);
@@ -141,22 +142,24 @@ public class parallaxPlanSave : parallaxPlan {
 			}
 		} else { 
 			if (lowId == 0) {
-				//Debug.Log("get low with space : "+ spaceBetweenLastAndPopLimitation() + " and space value "+ spaceBetweenAsset);
+				//Debug.Log("get low with space : "+ spaceBetweenLastAndPopLimitation + " and space value "+ spaceBetweenAsset);
 				if(spaceBetweenLastAndPopLimitation > spaceBetweenAsset) {
                     StockAssetStruct generatedAssetStruct = GenerateNewAsset(spaceBetweenAsset);
                     m_stockAsset.Insert(0, generatedAssetStruct);
                     hightId++;
                     generateNewSpaceBetweenAssetValue();
                     generateAssetIfNeeded();
-                //	Debug.Log("generate low");
+                	//Debug.Log("generate low");
                 }
 			} else {
-				///Debug.Log("get old low with space : "+ spaceBetweenLastAndPopLimitation() + " and stock value "+ m_stockAsset[lowId].dist);
-				if(spaceBetweenLastAndPopLimitation > m_stockAsset[lowId].dist) {
-					GenerateNewAsset(m_stockAsset[lowId].dist, m_stockAsset[lowId - 1].code);
+                //Debug.Log("get old low with space : "+ spaceBetweenLastAndPopLimitation + " and stock value "+ m_stockAsset[lowId].dist);
+                // choose betwenn m_stockAsset[lowId].dist VS spaceBetweenAsset
+                float toto = (m_stockAsset.Count > lowId) ? m_stockAsset[lowId].dist : spaceBetweenAsset; //NOTWORKING
+                if (spaceBetweenLastAndPopLimitation > toto) {
+					GenerateNewAsset(toto, m_stockAsset[lowId - 1].code);
                     lowId--;
                     generateAssetIfNeeded();
-                //	Debug.Log("get old low");
+                	//Debug.Log("generate old low");
                 }
 			}
 		}
@@ -181,9 +184,6 @@ public class parallaxPlanSave : parallaxPlan {
 				}
 			}
             spaceBetweenLastAndPopLimitation = min;
-		} else {
-            //Todo cumulé space pour permettre un delta plus grand que la camera
-            spaceBetweenLastAndPopLimitation = float.MaxValue;
 		}
 	}
 
